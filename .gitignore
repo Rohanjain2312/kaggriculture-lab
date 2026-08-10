@@ -10,3 +10,6 @@ replays/
 
 # Workflow scratch variants (regenerable).
 .tmp_lens/
+
+# Pasted screenshots.
+*.png
