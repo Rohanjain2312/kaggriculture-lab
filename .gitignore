@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+.sweep/
+.DS_Store
+
+# Replays are large (the sample ladder replay alone is 18 MB).
+replays/
+!replays/.gitkeep
+
+# Workflow scratch variants (regenerable).
+.tmp_lens/

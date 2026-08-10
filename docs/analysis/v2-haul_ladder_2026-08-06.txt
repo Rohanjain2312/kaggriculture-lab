@@ -1,0 +1,1484 @@
+==============================================================================
+REPLAY dbb5902c-917d-11f1-96b1-0242ac130204   (replays/ladder/v2-haul/90405608.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [98106.0, 105660.0]
+winner: AravindLochan   margin: $7,554
+
+--- OUTCOME ----------------------------------------------------------------
+                                          Rohan Jain *             AravindLochan
+  final money                                   98,106                   105,660
+  quadrants owned                                    4                         3
+  peak hands                                        13                        10
+  peak animals                                      16                         9
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,700                     1,933
+  moves                                          4,081                     4,185
+  moves per useful action                         1.51                      2.17
+  idle (PASS)                                      796                       942
+  wasted no-ops                                      0                         0
+  move reversals                                    80                        66
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        10                        32
+  peak shed+carried                            100/100                   112/100
+  peak units carried                                72                        82
+  days shed hit capacity                             0                         2
+  market orders dropped                              0                         0
+  fertilizer missed                      118/305 (39%)              22/225 (10%)
+    = $ left on ground                          ~8,850                    ~1,650
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       11,769                     3,552
+  avg hands day 0-9                                4.8                       7.7
+  avg hands day 10-29                             12.8                      10.0
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  CARROT:4  WHEAT:3  MELON:2
+     day 10 WHEAT:9  MELON:7  CARROT:1
+     day 11 WHEAT:11  STRAWBERRY:9  MELON:5
+     day 12 WHEAT:16  MELON:3  STRAWBERRY:1
+     day 13 STRAWBERRY:11  MELON:1
+     day 14 STRAWBERRY:8  WHEAT:3
+     day 15 STRAWBERRY:2  MELON:1
+     day 20 WHEAT:3
+     day 21 WHEAT:4
+     day 22 WHEAT:6
+     day 23 WHEAT:4
+     day 24 WHEAT:6
+     day 25 WHEAT:5
+     day 26 WHEAT:7
+     day 27 WHEAT:3
+
+  AravindLochan
+     day 0  MELON:10  WHEAT:1
+     day 1  WHEAT:3
+     day 7  STRAWBERRY:6
+     day 8  STRAWBERRY:6  WHEAT:2
+     day 9  STRAWBERRY:3  WHEAT:2
+     day 10 STRAWBERRY:15  MELON:6
+     day 11 STRAWBERRY:10  MELON:5  WHEAT:4
+     day 12 WHEAT:1
+     day 13 WHEAT:8
+     day 14 WHEAT:1
+     day 15 WHEAT:6
+     day 16 WHEAT:1
+     day 17 WHEAT:5
+     day 18 WHEAT:1
+     day 20 WHEAT:7
+     day 21 WHEAT:4
+     day 22 WHEAT:2
+     day 23 WHEAT:3
+     day 24 WHEAT:1
+     day 25 WHEAT:8
+     day 26 WHEAT:4
+     day 27 WHEAT:13
+     day 28 WHEAT:10
+     day 29 WHEAT:7
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                          1,046                       594
+  harvest                                          320                       309
+  plant                                            146                       170
+  dig                                               13                        76
+  feed                                             306                       212
+  care                                             304                       203
+  collect_fertilizer                               202                       211
+  fertilize                                        122                        66
+  place                                             81                         9
+  pickup                                           131                        63
+  drop                                              13                        11
+  AravindLochan !! shed saturated at start of days [16, 21] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Rohan Jain *  gross sales $141,894   NET $128,029
+     WOOL            178 units  $    41,858  avg $   235   29.5%
+     STRAWBERRY      190 units  $    37,599  avg $   198   26.5%
+     MELON           162 units  $    27,653  avg $   171   19.5%
+     MILK            177 units  $    20,095  avg $   114   14.2%
+     WHEAT           159 units  $     7,720  avg $    49    5.4%   bought   301 for $   13,589  ->  NET   -142 units  $    -5,869
+     FERTILIZER       83 units  $     6,569  avg $    79    4.6%   bought     4 for $      276  ->  NET     79 units  $     6,293
+     CARROT           10 units  $       400  avg $    40    0.3%
+     stranded at end (scores $0): 3 units {'FERTILIZER': 1, 'STRAWBERRY': 2}
+
+  AravindLochan  gross sales $142,867   NET $120,483
+     STRAWBERRY      288 units  $    61,031  avg $   212   42.7%
+     WOOL            115 units  $    25,727  avg $   224   18.0%
+     MELON            96 units  $    17,870  avg $   186   12.5%
+     WHEAT           270 units  $    14,921  avg $    55   10.4%   bought   453 for $   22,384  ->  NET   -183 units  $    -7,463
+     FERTILIZER      167 units  $    12,747  avg $    76    8.9%
+     MILK            107 units  $    10,571  avg $    99    7.4%
+     stranded at end (scores $0): 12 units {'WHEAT': 12}
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day              Rohan Jain *             AravindLochan
+     0                     1,286                        12
+     1                       276                         0
+     2                       381                        28
+     3                       328                        19
+     4                       251                        23
+     5                       267                        13
+     6                       305                        54
+     7                       257                       869
+     8                       283                       156
+     9                     1,571                       159
+    10                     1,671                       843
+    11                     9,085                    10,424
+    12                     4,998                    10,703
+    13                     5,578                    12,574
+    14                     5,830                    13,059
+    15                     5,419                    12,706
+    16                     5,259                    18,276
+    17                     5,490                    18,697
+    18                     6,920                    21,836
+    19                     8,616                    27,358
+    20                    14,517                    32,421
+    21                    24,079                    44,384
+    22                    32,247                    54,036
+    23                    34,013                    62,990
+    24                    43,904                    70,141
+    25                    53,755                    79,692
+    26                    61,583                    86,572
+    27                    68,769                    91,298
+    28                    80,200                    99,795
+    29                    88,243                   101,764
+
+==============================================================================
+REPLAY 6c425314-917e-11f1-94de-0242ac130202   (replays/ladder/v2-haul/90406353.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [111230.0, 73493.0]
+winner: Rohan Jain *   margin: $37,737
+
+--- OUTCOME ----------------------------------------------------------------
+                                          Rohan Jain *            Abdoulaye DIAW
+  final money                                  111,230                    73,493
+  quadrants owned                                    3                         3
+  peak hands                                        13                        12
+  peak animals                                      14                        14
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,583                     2,083
+  moves                                          4,128                     4,746
+  moves per useful action                         1.60                      2.28
+  idle (PASS)                                      872                       670
+  wasted no-ops                                      0                       266
+  move reversals                                    54                       277
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        22                         7
+  peak shed+carried                            121/100                    99/100
+  peak units carried                                95                        67
+  days shed hit capacity                             0                         0
+  market orders dropped                              0                         0
+  fertilizer missed                      128/289 (44%)               16/262 (6%)
+    = $ left on ground                          ~9,600                    ~1,200
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       11,769                     7,684
+  avg hands day 0-9                                4.8                       8.0
+  avg hands day 10-29                             12.8                      11.4
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  CARROT:3  MELON:2  WHEAT:2
+     day 10 MELON:15  WHEAT:1
+     day 11 STRAWBERRY:22  WHEAT:5  MELON:4
+     day 12 STRAWBERRY:6  WHEAT:2
+     day 13 WHEAT:2
+     day 14 WHEAT:1
+     day 15 WHEAT:1
+     day 16 WHEAT:1
+     day 17 WHEAT:1
+     day 18 WHEAT:1
+     day 19 WHEAT:2  MELON:1
+     day 20 WHEAT:5
+     day 21 WHEAT:3
+     day 22 WHEAT:14
+     day 23 WHEAT:3
+     day 24 WHEAT:11
+     day 25 WHEAT:3
+     day 26 WHEAT:9
+     day 27 WHEAT:4
+
+  Abdoulaye DIAW
+     day 0  MELON:5  WHEAT:4
+     day 1  WHEAT:6  MELON:5
+     day 2  WHEAT:2
+     day 4  MELON:1
+     day 10 STRAWBERRY:6  WHEAT:3
+     day 11 WHEAT:7  STRAWBERRY:5  MELON:5
+     day 12 STRAWBERRY:5  MELON:5  WHEAT:3
+     day 13 STRAWBERRY:5  WHEAT:1
+     day 14 STRAWBERRY:5
+     day 15 WHEAT:4
+     day 16 WHEAT:3
+     day 17 WHEAT:4
+     day 19 WHEAT:2
+     day 20 WHEAT:3
+     day 21 WHEAT:4
+     day 22 WHEAT:1
+     day 23 WHEAT:5
+     day 24 WHEAT:4
+     day 25 WHEAT:1
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                          1,004                       507
+  harvest                                          308                       210
+  plant                                            135                       381
+  dig                                               30                        46
+  feed                                             291                       262
+  care                                             288                       249
+  collect_fertilizer                               177                       237
+  fertilize                                        121                       116
+  place                                             73                        14
+  pickup                                           132                       255
+  drop                                              10                        57
+
+  Abdoulaye DIAW wasted actions:
+        266  plant dropped (seed shortage)
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Rohan Jain *  gross sales $150,282   NET $136,494
+     STRAWBERRY      193 units  $    48,833  avg $   253   32.5%
+     WOOL            167 units  $    37,380  avg $   224   24.9%
+     MELON           180 units  $    29,006  avg $   161   19.3%
+     MILK            177 units  $    21,435  avg $   121   14.3%
+     FERTILIZER       88 units  $     7,499  avg $    85    5.0%   bought    32 for $    2,518  ->  NET     56 units  $     4,981
+     WHEAT           114 units  $     5,889  avg $    52    3.9%   bought   260 for $   11,270  ->  NET   -146 units  $    -5,381
+     CARROT            6 units  $       240  avg $    40    0.2%
+
+  Abdoulaye DIAW  gross sales $104,875   NET $92,870
+     STRAWBERRY      151 units  $    38,135  avg $   253   36.4%
+     MILK            194 units  $    22,195  avg $   114   21.2%
+     WOOL             68 units  $    15,197  avg $   223   14.5%
+     MELON           120 units  $    14,774  avg $   123   14.1%
+     FERTILIZER      107 units  $     8,657  avg $    81    8.3%
+     WHEAT           136 units  $     5,917  avg $    44    5.6%   bought   268 for $   12,005  ->  NET   -132 units  $    -6,088
+     stranded at end (scores $0): 37 units {'FERTILIZER': 14, 'WHEAT': 23}
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day              Rohan Jain *            Abdoulaye DIAW
+     0                     1,288                     1,902
+     1                       277                       878
+     2                       381                       200
+     3                       333                       146
+     4                       257                        92
+     5                       280                       233
+     6                       363                       228
+     7                       251                       406
+     8                       256                       450
+     9                     1,592                     1,226
+    10                     1,279                       803
+    11                     7,521                     6,205
+    12                     5,254                    10,755
+    13                     5,255                     7,668
+    14                     4,463                     6,172
+    15                     3,913                     8,229
+    16                     5,593                     7,754
+    17                     8,975                     8,248
+    18                    11,420                     8,263
+    19                    14,588                    10,026
+    20                    19,581                    10,483
+    21                    32,380                    14,958
+    22                    43,702                    19,206
+    23                    51,286                    28,014
+    24                    60,703                    34,490
+    25                    65,199                    43,305
+    26                    76,197                    50,734
+    27                    83,077                    60,284
+    28                    95,045                    65,886
+    29                   104,296                    73,383
+
+==============================================================================
+REPLAY 588856c6-9182-11f1-afe3-0242ac130203   (replays/ladder/v2-haul/90411421.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [132508.0, 88164.0]
+winner: Jesy Lu   margin: $44,344
+
+--- OUTCOME ----------------------------------------------------------------
+                                               Jesy Lu              Rohan Jain *
+  final money                                  132,508                    88,164
+  quadrants owned                                    3                         3
+  peak hands                                        14                        13
+  peak animals                                      14                        16
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,756                     2,479
+  moves                                          3,090                     4,230
+  moves per useful action                         1.12                      1.71
+  idle (PASS)                                    1,045                       806
+  wasted no-ops                                      9                         0
+  move reversals                                    61                        48
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        11                        19
+  peak shed+carried                            104/100                   116/100
+  peak units carried                                93                        94
+  days shed hit capacity                             0                         0
+  market orders dropped                              0                         0
+  fertilizer missed                       98/330 (30%)             174/326 (53%)
+    = $ left on ground                          ~7,350                   ~13,050
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       10,885                    11,303
+  avg hands day 0-9                                4.9                       4.8
+  avg hands day 10-29                             11.4                      12.7
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Jesy Lu
+     day 0  MELON:12  WHEAT:7
+     day 4  WHEAT:7
+     day 7  STRAWBERRY:8
+     day 8  WHEAT:7  STRAWBERRY:4
+     day 9  STRAWBERRY:7
+     day 11 STRAWBERRY:20  MELON:11
+     day 12 WHEAT:7  STRAWBERRY:3
+     day 16 WHEAT:7
+     day 20 WHEAT:7
+     day 22 WHEAT:7
+     day 23 WHEAT:5
+     day 24 WHEAT:12
+     day 25 WHEAT:6
+     day 26 WHEAT:12
+     day 27 WHEAT:8
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:2
+     day 10 MELON:11
+     day 11 STRAWBERRY:19  WHEAT:4  MELON:3
+     day 12 STRAWBERRY:11  WHEAT:2
+     day 13 STRAWBERRY:3
+     day 20 WHEAT:1
+     day 21 WHEAT:2
+     day 22 WHEAT:6
+     day 23 WHEAT:4
+     day 24 WHEAT:3
+     day 25 WHEAT:3
+     day 26 WHEAT:5
+     day 27 WHEAT:1
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                            922                       893
+  harvest                                          372                       289
+  plant                                            158                        91
+  dig                                               45                        30
+  feed                                             314                       325
+  care                                             322                       322
+  collect_fertilizer                               254                       178
+  fertilize                                         80                       111
+  place                                             14                        89
+  pickup                                           167                       125
+  drop                                             103                        10
+
+  Jesy Lu wasted actions:
+          7  water on non-plant
+          1  plant on occupied tile
+          1  harvest with no yield
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Jesy Lu  gross sales $158,611   NET $120,837
+     STRAWBERRY      205 units  $    46,518  avg $   227   29.3%
+     WHEAT           722 units  $    32,926  avg $    46   20.8%   bought   899 for $   37,774  ->  NET   -177 units  $    -4,848
+     WOOL            152 units  $    28,816  avg $   190   18.2%
+     MILK            213 units  $    21,320  avg $   100   13.4%
+     MELON           126 units  $    16,998  avg $   135   10.7%
+     FERTILIZER      155 units  $    12,033  avg $    78    7.6%
+
+  Rohan Jain *  gross sales $129,880   NET $113,850
+     STRAWBERRY      212 units  $    47,586  avg $   224   36.6%
+     MELON           144 units  $    26,480  avg $   184   20.4%
+     WOOL            133 units  $    24,297  avg $   183   18.7%
+     MILK            248 units  $    21,534  avg $    87   16.6%
+     FERTILIZER       88 units  $     6,657  avg $    76    5.1%   bought    21 for $    1,411  ->  NET     67 units  $     5,246
+     WHEAT            63 units  $     3,326  avg $    53    2.6%   bought   321 for $   14,619  ->  NET   -258 units  $   -11,293
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day                   Jesy Lu              Rohan Jain *
+     0                       105                     1,287
+     1                        18                       250
+     2                       108                       350
+     3                        26                       328
+     4                         6                       251
+     5                       993                       271
+     6                     1,130                       330
+     7                       146                       283
+     8                         8                       275
+     9                     1,276                     1,375
+    10                     1,333                     1,198
+    11                     9,169                     7,854
+    12                    11,924                     5,902
+    13                    16,365                     6,030
+    14                    18,620                     4,698
+    15                    19,510                     5,664
+    16                    24,517                     4,694
+    17                    27,570                     6,679
+    18                    34,218                     8,148
+    19                    38,402                     9,074
+    20                    45,819                    17,297
+    21                    48,691                    26,734
+    22                    63,434                    33,312
+    23                    70,122                    39,831
+    24                    85,349                    48,788
+    25                    91,792                    53,120
+    26                   103,297                    61,163
+    27                   107,094                    67,180
+    28                   119,750                    76,387
+    29                   129,249                    84,463
+
+==============================================================================
+REPLAY 61fb6cc0-9187-11f1-b06b-0242ac130204   (replays/ladder/v2-haul/90418372.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [85080.0, 126924.0]
+winner: Rohan Jain *   margin: $41,844
+
+--- OUTCOME ----------------------------------------------------------------
+                                          Viraj Bakshi              Rohan Jain *
+  final money                                   85,080                   126,924
+  quadrants owned                                    3                         4
+  peak hands                                        11                        13
+  peak animals                                      14                        15
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,786                     2,641
+  moves                                          3,650                     4,044
+  moves per useful action                         1.31                      1.53
+  idle (PASS)                                      732                       892
+  wasted no-ops                                    132                         0
+  move reversals                                    25                        67
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        17                        19
+  peak shed+carried                            143/100                   128/100
+  peak units carried                               120                       108
+  days shed hit capacity                            10                         0
+  market orders dropped                              0                         0
+  fertilizer missed                        15/328 (5%)             127/297 (43%)
+    = $ left on ground                          ~1,125                    ~9,525
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                        4,966                    11,769
+  avg hands day 0-9                                8.4                       4.8
+  avg hands day 10-29                             10.3                      12.8
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Viraj Bakshi
+     day 0  WHEAT:34
+     day 1  WHEAT:2
+     day 4  WHEAT:26
+     day 5  WHEAT:4
+     day 6  WHEAT:6
+     day 8  WHEAT:13
+     day 9  STRAWBERRY:12  MELON:6  WHEAT:4
+     day 10 WHEAT:7
+     day 11 MELON:7  STRAWBERRY:4
+     day 12 MELON:5  STRAWBERRY:4
+     day 13 STRAWBERRY:4
+     day 14 STRAWBERRY:9
+     day 15 MELON:2
+     day 16 STRAWBERRY:4  MELON:1
+     day 19 MELON:1
+     day 20 WHEAT:3
+     day 21 WHEAT:5
+     day 23 WHEAT:2
+     day 24 WHEAT:5
+     day 25 WHEAT:3
+     day 26 CARROT:14
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:12
+     day 10 WHEAT:14  MELON:8
+     day 11 STRAWBERRY:19  MELON:5
+     day 12 STRAWBERRY:12  WHEAT:1
+     day 13 STRAWBERRY:1
+     day 19 MELON:4
+     day 20 WHEAT:1
+     day 21 WHEAT:5
+     day 22 WHEAT:2
+     day 23 WHEAT:5
+     day 24 WHEAT:2
+     day 25 WHEAT:4
+     day 26 WHEAT:5
+     day 27 WHEAT:3
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                            911                     1,036
+  harvest                                          288                       301
+  plant                                            193                       114
+  dig                                               72                        33
+  feed                                             305                       298
+  care                                             323                       297
+  collect_fertilizer                               306                       186
+  fertilize                                         70                       127
+  place                                             14                        81
+  pickup                                           415                       140
+  drop                                               4                        13
+
+  Viraj Bakshi wasted actions:
+        132  on locked tile
+  Viraj Bakshi !! shed saturated at start of days [5, 9, 21, 22, 24, 25, 26, 27, 28, 29] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Viraj Bakshi  gross sales $115,816   NET $104,753
+     STRAWBERRY      140 units  $    36,581  avg $   261   31.6%
+     MILK            159 units  $    26,299  avg $   165   22.7%
+     WOOL            106 units  $    25,450  avg $   240   22.0%
+     FERTILIZER      216 units  $    15,759  avg $    73   13.6%
+     MELON            83 units  $     7,459  avg $    90    6.4%
+     WHEAT           138 units  $     4,268  avg $    31    3.7%   bought   258 for $   11,063  ->  NET   -120 units  $    -6,795
+     stranded at end (scores $0): 25 units {'MILK': 9, 'STRAWBERRY': 4, 'WOOL': 12}
+
+  Rohan Jain *  gross sales $170,271   NET $156,997
+     STRAWBERRY      194 units  $    50,764  avg $   262   29.8%
+     MELON           221 units  $    40,819  avg $   185   24.0%
+     MILK            219 units  $    36,737  avg $   168   21.6%
+     WOOL            133 units  $    32,165  avg $   242   18.9%
+     FERTILIZER       74 units  $     5,307  avg $    72    3.1%   bought    15 for $      915  ->  NET     59 units  $     4,392
+     WHEAT            95 units  $     4,479  avg $    47    2.6%   bought   304 for $   12,359  ->  NET   -209 units  $    -7,880
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day              Viraj Bakshi              Rohan Jain *
+     0                       256                     1,289
+     1                        44                       251
+     2                        47                       352
+     3                       161                       331
+     4                       268                       255
+     5                       114                       252
+     6                       254                       489
+     7                       220                       343
+     8                       229                       394
+     9                       136                     2,142
+    10                        82                     1,816
+    11                     1,066                     6,295
+    12                     3,531                     5,888
+    13                     5,219                     6,545
+    14                     7,843                     6,059
+    15                    10,411                     5,549
+    16                    16,952                     5,428
+    17                    17,971                     6,028
+    18                    22,304                     7,055
+    19                    25,800                    15,812
+    20                    33,188                    29,364
+    21                    39,023                    41,266
+    22                    44,978                    49,413
+    23                    47,229                    59,265
+    24                    52,069                    69,269
+    25                    55,017                    76,633
+    26                    61,161                    88,719
+    27                    66,948                    97,654
+    28                    74,488                   106,846
+    29                    85,080                   120,292
+
+==============================================================================
+REPLAY d817af24-919e-11f1-9780-0242ac130202   (replays/ladder/v2-haul/90450224.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [110857.0, 89874.0]
+winner: Rohan Jain *   margin: $20,983
+
+--- OUTCOME ----------------------------------------------------------------
+                                          Rohan Jain *              luca fregona
+  final money                                  110,857                    89,874
+  quadrants owned                                    4                         3
+  peak hands                                        13                        14
+  peak animals                                      15                        18
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,679                     2,790
+  moves                                          3,982                     5,390
+  moves per useful action                         1.49                      1.93
+  idle (PASS)                                      928                       563
+  wasted no-ops                                      0                        15
+  move reversals                                    75                        77
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        11                        17
+  peak shed+carried                            103/100                   131/100
+  peak units carried                                83                        94
+  days shed hit capacity                             0                         8
+  market orders dropped                              0                         0
+  fertilizer missed                      106/291 (36%)               15/383 (4%)
+    = $ left on ground                          ~7,950                    ~1,125
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       11,769                    18,160
+  avg hands day 0-9                                4.8                       8.3
+  avg hands day 10-29                             12.8                      13.6
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:9  WHEAT:3
+     day 10 WHEAT:10  MELON:6
+     day 11 STRAWBERRY:11  WHEAT:4  MELON:1
+     day 12 STRAWBERRY:11  WHEAT:8
+     day 13 STRAWBERRY:8  WHEAT:2
+     day 14 MELON:3  STRAWBERRY:2
+     day 19 MELON:3  WHEAT:2
+     day 20 WHEAT:5
+     day 21 WHEAT:2
+     day 22 WHEAT:4
+     day 23 WHEAT:3
+     day 24 WHEAT:6
+     day 25 WHEAT:6
+     day 26 WHEAT:4
+     day 27 WHEAT:4
+
+  luca fregona
+     day 0  MELON:12  WHEAT:10
+     day 4  MELON:3
+     day 5  WHEAT:4
+     day 9  WHEAT:9  STRAWBERRY:2
+     day 10 STRAWBERRY:11  WHEAT:1
+     day 11 WHEAT:3
+     day 12 STRAWBERRY:1
+     day 13 STRAWBERRY:7  WHEAT:5
+     day 14 STRAWBERRY:6
+     day 15 STRAWBERRY:6  WHEAT:2
+     day 16 WHEAT:1  STRAWBERRY:1
+     day 17 WHEAT:5  STRAWBERRY:1
+     day 18 WHEAT:3  STRAWBERRY:1
+     day 19 WHEAT:2
+     day 21 WHEAT:2
+     day 26 STRAWBERRY:1
+     day 28 WHEAT:2
+     day 29 WHEAT:4
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                          1,040                       724
+  harvest                                          315                       334
+  plant                                            128                       127
+  dig                                               25                        41
+  feed                                             293                       359
+  care                                             291                       351
+  collect_fertilizer                               204                       377
+  fertilize                                        131                        82
+  place                                             94                        18
+  pickup                                           131                       237
+  drop                                              12                       137
+
+  luca fregona wasted actions:
+         15  on locked tile
+  luca fregona !! shed saturated at start of days [11, 15, 18, 21, 24, 25, 26, 27] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Rohan Jain *  gross sales $152,343   NET $140,319
+     STRAWBERRY      218 units  $    52,215  avg $   240   34.3%
+     WOOL            149 units  $    36,489  avg $   245   24.0%
+     MELON           180 units  $    28,170  avg $   156   18.5%
+     MILK            201 units  $    24,585  avg $   122   16.1%
+     WHEAT           115 units  $     5,526  avg $    48    3.6%   bought   275 for $   11,610  ->  NET   -160 units  $    -6,084
+     FERTILIZER       83 units  $     5,358  avg $    65    3.5%   bought     9 for $      414  ->  NET     74 units  $     4,944
+
+  luca fregona  gross sales $142,377   NET $124,956
+     STRAWBERRY      198 units  $    46,715  avg $   236   32.8%
+     MILK            238 units  $    24,794  avg $   104   17.4%
+     WOOL             84 units  $    20,547  avg $   245   14.4%
+     FERTILIZER      319 units  $    19,812  avg $    62   13.9%
+     MELON            75 units  $    17,345  avg $   231   12.2%
+     WHEAT           201 units  $     9,221  avg $    46    6.5%   bought   386 for $   17,421  ->  NET   -185 units  $    -8,200
+     EGG              71 units  $     3,943  avg $    56    2.8%
+     stranded at end (scores $0): 20 units {'FERTILIZER': 1, 'MILK': 6, 'STRAWBERRY': 6, 'WOOL': 7}
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day              Rohan Jain *              luca fregona
+     0                     1,283                       318
+     1                       271                       437
+     2                       370                       228
+     3                       318                       536
+     4                       274                       449
+     5                       265                       536
+     6                       352                       425
+     7                       275                       708
+     8                       282                       978
+     9                     2,039                       784
+    10                     1,657                       307
+    11                     9,143                    12,575
+    12                     5,535                     8,681
+    13                     5,576                    10,081
+    14                     5,733                    11,060
+    15                     5,499                    16,232
+    16                     4,964                    17,215
+    17                     7,899                    18,363
+    18                    10,400                    23,853
+    19                    18,781                    26,766
+    20                    25,192                    28,666
+    21                    28,744                    34,690
+    22                    37,069                    36,748
+    23                    43,638                    42,135
+    24                    55,272                    48,456
+    25                    62,761                    56,452
+    26                    72,717                    62,745
+    27                    79,125                    72,126
+    28                    90,317                    80,123
+    29                   100,083                    83,821
+
+==============================================================================
+REPLAY 680ee232-919f-11f1-8908-0242ac130202   (replays/ladder/v2-haul/90450812.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [165859.0, 106107.0]
+winner: Desyat IO   margin: $59,752
+
+--- OUTCOME ----------------------------------------------------------------
+                                             Desyat IO              Rohan Jain *
+  final money                                  165,859                   106,107
+  quadrants owned                                    3                         4
+  peak hands                                        14                        13
+  peak animals                                      14                        14
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,761                     2,661
+  moves                                          3,088                     4,000
+  moves per useful action                         1.12                      1.50
+  idle (PASS)                                    1,050                       919
+  wasted no-ops                                      1                         0
+  move reversals                                    60                        65
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        11                        15
+  peak shed+carried                            104/100                   120/100
+  peak units carried                                93                        93
+  days shed hit capacity                             1                         0
+  market orders dropped                              0                         0
+  fertilizer missed                      104/330 (32%)             129/294 (44%)
+    = $ left on ground                          ~7,800                    ~9,675
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       10,885                    11,769
+  avg hands day 0-9                                4.9                       4.8
+  avg hands day 10-29                             11.4                      12.8
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Desyat IO
+     day 0  MELON:12  WHEAT:7
+     day 4  WHEAT:7
+     day 7  STRAWBERRY:8
+     day 8  WHEAT:7  STRAWBERRY:4
+     day 9  STRAWBERRY:7
+     day 11 STRAWBERRY:20  MELON:12
+     day 12 WHEAT:7  STRAWBERRY:3
+     day 16 WHEAT:7
+     day 20 WHEAT:7
+     day 22 WHEAT:7
+     day 23 WHEAT:5
+     day 24 WHEAT:12
+     day 25 WHEAT:6
+     day 26 WHEAT:12
+     day 27 WHEAT:8
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:12
+     day 10 MELON:12  WHEAT:6
+     day 11 STRAWBERRY:14  WHEAT:5
+     day 12 STRAWBERRY:8  WHEAT:6
+     day 14 STRAWBERRY:4
+     day 19 WHEAT:6  MELON:2
+     day 20 WHEAT:3
+     day 21 WHEAT:9
+     day 22 WHEAT:5
+     day 23 WHEAT:11
+     day 24 WHEAT:8
+     day 25 WHEAT:11
+     day 26 WHEAT:8
+     day 27 WHEAT:7
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                            922                     1,032
+  harvest                                          374                       320
+  plant                                            158                       148
+  dig                                               43                        30
+  feed                                             314                       299
+  care                                             322                       294
+  collect_fertilizer                               249                       184
+  fertilize                                         80                       123
+  place                                             14                        78
+  pickup                                           167                       127
+  drop                                             105                        11
+
+  Desyat IO wasted actions:
+          1  dig on empty tile
+  Desyat IO !! shed saturated at start of days [23] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Desyat IO  gross sales $187,842   NET $148,063
+     MILK            216 units  $    47,865  avg $   222   25.5%
+     STRAWBERRY      199 units  $    41,896  avg $   211   22.3%
+     WOOL            152 units  $    36,292  avg $   239   19.3%
+     WHEAT           758 units  $    32,626  avg $    43   17.4%   bought   980 for $   39,779  ->  NET   -222 units  $    -7,153
+     MELON           143 units  $    17,321  avg $   121    9.2%
+     FERTILIZER      150 units  $    11,842  avg $    79    6.3%
+
+  Rohan Jain *  gross sales $148,962   NET $135,991
+     MILK            297 units  $    64,469  avg $   217   43.3%
+     STRAWBERRY      164 units  $    33,759  avg $   206   22.7%
+     MELON           204 units  $    25,868  avg $   127   17.4%
+     WOOL             48 units  $    11,632  avg $   242    7.8%
+     WHEAT           154 units  $     7,597  avg $    49    5.1%   bought   284 for $   12,152  ->  NET   -130 units  $    -4,555
+     FERTILIZER       73 units  $     5,637  avg $    77    3.8%   bought    12 for $      819  ->  NET     61 units  $     4,818
+     stranded at end (scores $0): 1 units {'COW': 1}
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day                 Desyat IO              Rohan Jain *
+     0                       105                     1,287
+     1                        18                       250
+     2                       108                       350
+     3                        26                       329
+     4                        10                       253
+     5                       973                       275
+     6                     1,123                       347
+     7                       155                       267
+     8                        17                       267
+     9                     1,733                     2,130
+    10                     1,859                     1,833
+    11                    10,613                     5,023
+    12                    15,197                     5,225
+    13                    20,223                     5,591
+    14                    23,471                     5,571
+    15                    24,071                     7,120
+    16                    29,653                     7,056
+    17                    31,673                     7,905
+    18                    39,879                     8,040
+    19                    47,906                    19,548
+    20                    61,006                    29,210
+    21                    64,770                    36,515
+    22                    78,937                    45,175
+    23                    89,196                    51,369
+    24                   105,228                    59,674
+    25                   113,454                    67,526
+    26                   128,697                    75,880
+    27                   133,623                    83,119
+    28                   149,370                    91,550
+    29                   160,245                   101,131
+
+==============================================================================
+REPLAY 3498b088-91a2-11f1-850d-0242ac130203   (replays/ladder/v2-haul/90454808.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [105953.0, 98730.0]
+winner: Mohit Babel   margin: $7,223
+
+--- OUTCOME ----------------------------------------------------------------
+                                           Mohit Babel              Rohan Jain *
+  final money                                  105,953                    98,730
+  quadrants owned                                    3                         3
+  peak hands                                        12                        13
+  peak animals                                      10                        14
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,579                     2,592
+  moves                                          4,301                     4,195
+  moves per useful action                         1.67                      1.62
+  idle (PASS)                                      493                       801
+  wasted no-ops                                      0                         0
+  move reversals                                   162                        36
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        18                        21
+  peak shed+carried                             79/100                   142/100
+  peak units carried                                72                       113
+  days shed hit capacity                             0                         0
+  market orders dropped                              0                         0
+  fertilizer missed                       35/230 (15%)             136/283 (48%)
+    = $ left on ground                          ~2,625                   ~10,200
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                        7,104                    11,769
+  avg hands day 0-9                                6.2                       4.8
+  avg hands day 10-29                             11.5                      12.8
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Mohit Babel
+     day 0  MELON:7  WHEAT:4
+     day 1  WHEAT:3
+     day 4  WHEAT:4  MELON:2
+     day 5  WHEAT:3  MELON:2
+     day 8  MELON:7  STRAWBERRY:4
+     day 9  STRAWBERRY:8  MELON:5  WHEAT:1
+     day 10 STRAWBERRY:5  MELON:1
+     day 11 STRAWBERRY:12  WHEAT:2  MELON:1
+     day 12 STRAWBERRY:6  WHEAT:4
+     day 13 MELON:3
+     day 14 STRAWBERRY:2
+     day 15 WHEAT:3
+     day 16 WHEAT:3
+     day 17 WHEAT:1
+     day 18 STRAWBERRY:4  WHEAT:2
+     day 19 WHEAT:1
+     day 20 WHEAT:3
+     day 21 WHEAT:1
+     day 22 WHEAT:1
+     day 23 WHEAT:3
+     day 24 WHEAT:2
+     day 25 WHEAT:3
+     day 26 WHEAT:6
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:2  WHEAT:2
+     day 10 MELON:16
+     day 11 STRAWBERRY:21  WHEAT:11
+     day 12 STRAWBERRY:6
+     day 13 STRAWBERRY:5  WHEAT:2  MELON:1
+     day 14 MELON:1
+     day 19 WHEAT:1
+     day 20 WHEAT:3
+     day 21 WHEAT:5
+     day 22 WHEAT:11
+     day 23 WHEAT:3
+     day 24 WHEAT:11
+     day 25 WHEAT:3
+     day 26 WHEAT:7
+     day 27 WHEAT:9
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                          1,028                     1,031
+  harvest                                          299                       313
+  plant                                            128                       131
+  dig                                               36                        25
+  feed                                             237                       291
+  care                                             230                       281
+  collect_fertilizer                               199                       170
+  fertilize                                         53                       128
+  place                                             10                        67
+  pickup                                           278                       131
+  drop                                              68                        10
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Mohit Babel  gross sales $155,858   NET $130,891
+     STRAWBERRY      189 units  $    47,069  avg $   249   30.2%
+     MILK            213 units  $    32,462  avg $   152   20.8%
+     MELON           165 units  $    27,432  avg $   166   17.6%
+     WHEAT           562 units  $    23,993  avg $    43   15.4%   bought   594 for $   24,967  ->  NET    -32 units  $      -974
+     WOOL             62 units  $    13,251  avg $   214    8.5%
+     FERTILIZER      146 units  $    11,651  avg $    80    7.5%
+     stranded at end (scores $0): 1 units {'COW': 1}
+
+  Rohan Jain *  gross sales $138,957   NET $123,600
+     STRAWBERRY      209 units  $    51,742  avg $   248   37.2%
+     MILK            200 units  $    30,013  avg $   150   21.6%
+     WOOL            140 units  $    29,039  avg $   207   20.9%
+     MELON           168 units  $    14,939  avg $    89   10.8%
+     WHEAT           134 units  $     7,000  avg $    52    5.0%   bought   288 for $   12,950  ->  NET   -154 units  $    -5,950
+     FERTILIZER       79 units  $     6,224  avg $    79    4.5%   bought    35 for $    2,407  ->  NET     44 units  $     3,817
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day               Mohit Babel              Rohan Jain *
+     0                        82                     1,288
+     1                        70                       276
+     2                        80                       377
+     3                       292                       324
+     4                       429                       279
+     5                       685                       261
+     6                       699                       304
+     7                       627                       257
+     8                     1,116                       284
+     9                     1,895                     1,490
+    10                       755                     1,255
+    11                     8,559                     7,107
+    12                    11,755                     6,317
+    13                    12,478                     5,293
+    14                    13,512                     5,200
+    15                    17,178                     3,724
+    16                    22,464                     3,564
+    17                    23,896                     8,163
+    18                    24,407                    10,110
+    19                    33,808                    11,402
+    20                    41,690                    15,341
+    21                    46,033                    19,050
+    22                    53,469                    29,680
+    23                    60,089                    34,535
+    24                    66,698                    44,070
+    25                    75,138                    49,190
+    26                    82,233                    61,820
+    27                    88,750                    68,331
+    28                    93,845                    80,595
+    29                   104,002                    91,557
+
+==============================================================================
+REPLAY 33b1de52-91ab-11f1-8375-0242ac130203   (replays/ladder/v2-haul/90467041.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [107983.0, 85759.0]
+winner: Rohan Jain *   margin: $22,224
+
+--- OUTCOME ----------------------------------------------------------------
+                                          Rohan Jain *                 Sparsh389
+  final money                                  107,983                    85,759
+  quadrants owned                                    3                         4
+  peak hands                                        13                        14
+  peak animals                                      14                        18
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,550                     2,619
+  moves                                          4,111                     4,647
+  moves per useful action                         1.61                      1.77
+  idle (PASS)                                      866                       347
+  wasted no-ops                                      0                         0
+  move reversals                                    62                        47
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        22                        33
+  peak shed+carried                            131/100                   116/100
+  peak units carried                               101                        84
+  days shed hit capacity                             0                         2
+  market orders dropped                              0                         0
+  fertilizer missed                      135/295 (46%)             102/372 (27%)
+    = $ left on ground                         ~10,125                    ~7,650
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       11,303                    16,982
+  avg hands day 0-9                                4.8                       6.0
+  avg hands day 10-29                             12.7                      13.2
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:2
+     day 10 MELON:14
+     day 11 STRAWBERRY:22  MELON:2
+     day 12 STRAWBERRY:9  WHEAT:4
+     day 13 STRAWBERRY:2
+     day 20 WHEAT:3
+     day 21 WHEAT:1
+     day 22 WHEAT:11
+     day 23 WHEAT:4
+     day 24 WHEAT:8
+     day 25 WHEAT:3
+     day 26 WHEAT:8
+     day 27 WHEAT:4
+
+  Sparsh389
+     day 0  MELON:14  CARROT:8
+     day 3  CARROT:7
+     day 6  WHEAT:5
+     day 9  STRAWBERRY:9
+     day 10 WHEAT:2
+     day 11 STRAWBERRY:20  WHEAT:5  MELON:2
+     day 12 STRAWBERRY:4  WHEAT:3  MELON:1
+     day 13 WHEAT:3
+     day 14 WHEAT:3  MELON:2
+     day 15 WHEAT:4  MELON:1  STRAWBERRY:1
+     day 16 WHEAT:1
+     day 17 WHEAT:2
+     day 20 WHEAT:4
+     day 21 WHEAT:1
+     day 22 WHEAT:3
+     day 24 WHEAT:2
+     day 25 WHEAT:3
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                            966                     1,027
+  harvest                                          301                       327
+  plant                                            108                       110
+  dig                                               34                         1
+  feed                                             297                       351
+  care                                             295                       242
+  collect_fertilizer                               183                       295
+  fertilize                                        126                        33
+  place                                             84                        18
+  pickup                                           130                       141
+  drop                                              11                        56
+  Sparsh389 !! shed saturated at start of days [11, 26] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Rohan Jain *  gross sales $148,318   NET $133,242
+     STRAWBERRY      224 units  $    54,007  avg $   241   36.4%
+     WOOL            148 units  $    35,468  avg $   240   23.9%
+     MILK            201 units  $    23,604  avg $   117   15.9%
+     MELON           156 units  $    23,501  avg $   151   15.8%
+     FERTILIZER       84 units  $     5,936  avg $    71    4.0%   bought    26 for $    1,406  ->  NET     58 units  $     4,530
+     WHEAT           109 units  $     5,802  avg $    53    3.9%   bought   306 for $   13,670  ->  NET   -197 units  $    -7,868
+     stranded at end (scores $0): 1 units {'SHEEP': 1}
+
+  Sparsh389  gross sales $127,504   NET $117,743
+     STRAWBERRY      172 units  $    41,281  avg $   240   32.4%
+     MILK            221 units  $    26,249  avg $   119   20.6%
+     WOOL             87 units  $    20,846  avg $   240   16.3%
+     MELON           120 units  $    20,032  avg $   167   15.7%
+     FERTILIZER      243 units  $    16,622  avg $    68   13.0%
+     CARROT           45 units  $     1,493  avg $    33    1.2%
+     WHEAT            21 units  $       981  avg $    47    0.8%   bought   225 for $    9,761  ->  NET   -204 units  $    -8,780
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day              Rohan Jain *                 Sparsh389
+     0                     1,288                       238
+     1                       277                        80
+     2                       381                       274
+     3                       331                       463
+     4                       255                       326
+     5                       274                       464
+     6                       328                       688
+     7                       281                     1,194
+     8                       276                       814
+     9                     1,155                       745
+    10                       813                       830
+    11                     8,598                     6,668
+    12                     5,778                     4,489
+    13                     5,516                     5,385
+    14                     4,213                     5,046
+    15                     3,602                     5,827
+    16                     2,265                     7,018
+    17                     5,785                     7,709
+    18                     7,401                    13,130
+    19                     8,288                    17,596
+    20                    16,056                    20,429
+    21                    24,367                    22,891
+    22                    36,773                    32,285
+    23                    43,170                    33,746
+    24                    52,802                    44,324
+    25                    59,459                    48,904
+    26                    71,253                    56,260
+    27                    80,522                    61,461
+    28                    93,352                    75,746
+    29                   103,384                    82,722
+
+==============================================================================
+REPLAY fd282d26-91bb-11f1-81ef-0242ac130203   (replays/ladder/v2-haul/90486814.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [90124.0, 98972.0]
+winner: Rohan Jain *   margin: $8,848
+
+--- OUTCOME ----------------------------------------------------------------
+                                         FeedMeSeymour              Rohan Jain *
+  final money                                   90,124                    98,972
+  quadrants owned                                    3                         4
+  peak hands                                        14                        13
+  peak animals                                      14                        16
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,987                     2,561
+  moves                                          4,143                     4,075
+  moves per useful action                         1.39                      1.59
+  idle (PASS)                                      403                       887
+  wasted no-ops                                     59                         0
+  move reversals                                    28                        74
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        20                        21
+  peak shed+carried                            140/100                   121/100
+  peak units carried                               120                        89
+  days shed hit capacity                             6                         0
+  market orders dropped                              0                         0
+  fertilizer missed                        12/307 (4%)             147/312 (47%)
+    = $ left on ground                            ~900                   ~11,025
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       12,371                    11,303
+  avg hands day 0-9                                5.6                       4.8
+  avg hands day 10-29                             12.3                      12.7
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  FeedMeSeymour
+     day 0  WHEAT:10  MELON:10
+     day 4  WHEAT:10
+     day 7  WHEAT:5
+     day 8  WHEAT:8  MELON:2
+     day 9  STRAWBERRY:7
+     day 10 STRAWBERRY:10  MELON:4
+     day 11 STRAWBERRY:12
+     day 12 STRAWBERRY:16  MELON:6
+     day 13 MELON:1
+     day 14 MELON:3
+     day 19 WHEAT:1
+     day 20 WHEAT:1
+     day 21 WHEAT:3
+     day 22 WHEAT:7
+     day 23 WHEAT:1
+     day 24 WHEAT:4
+     day 25 WHEAT:3
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:3  CARROT:1
+     day 10 MELON:12
+     day 11 STRAWBERRY:21  MELON:4  WHEAT:4
+     day 12 STRAWBERRY:10  WHEAT:4
+     day 13 MELON:1  WHEAT:1
+     day 14 WHEAT:1  CARROT:1
+     day 15 WHEAT:1
+     day 20 WHEAT:2
+     day 21 WHEAT:2
+     day 22 WHEAT:4
+     day 23 WHEAT:4
+     day 24 WHEAT:6
+     day 25 WHEAT:3
+     day 26 WHEAT:8
+     day 27 WHEAT:2
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                          1,143                       946
+  harvest                                          315                       294
+  plant                                            131                       106
+  dig                                               36                        33
+  feed                                             302                       313
+  care                                             307                       312
+  collect_fertilizer                               284                       193
+  fertilize                                        110                       117
+  place                                             15                        85
+  pickup                                           263                       134
+  drop                                             126                        12
+
+  FeedMeSeymour wasted actions:
+         59  drop with empty hands
+  FeedMeSeymour !! shed saturated at start of days [11, 22, 23, 25, 26, 27] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  FeedMeSeymour  gross sales $245,822   NET $127,111
+     FERTILIZER     1392 units  $    89,985  avg $    65   36.6%   bought  1217 for $   78,830  ->  NET    175 units  $    11,155
+     STRAWBERRY      236 units  $    50,929  avg $   216   20.7%
+     WHEAT          1096 units  $    45,183  avg $    41   18.4%   bought   970 for $   39,881  ->  NET    126 units  $     5,302
+     WOOL            124 units  $    29,889  avg $   241   12.2%
+     MELON           133 units  $    16,112  avg $   121    6.6%
+     MILK            219 units  $    13,724  avg $    63    5.6%
+     stranded at end (scores $0): 12 units {'MILK': 6, 'WHEAT': 6}
+
+  Rohan Jain *  gross sales $141,694   NET $128,511
+     WOOL            189 units  $    45,761  avg $   242   32.3%
+     STRAWBERRY      206 units  $    44,654  avg $   217   31.5%
+     MELON           168 units  $    27,523  avg $   164   19.4%
+     MILK            177 units  $    13,554  avg $    77    9.6%
+     FERTILIZER       84 units  $     6,194  avg $    74    4.4%   bought     8 for $      504  ->  NET     76 units  $     5,690
+     WHEAT            76 units  $     3,844  avg $    51    2.7%   bought   299 for $   12,679  ->  NET   -223 units  $    -8,835
+     CARROT            4 units  $       164  avg $    41    0.1%
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day             FeedMeSeymour              Rohan Jain *
+     0                       340                     1,287
+     1                       297                       270
+     2                       490                       371
+     3                       678                       320
+     4                       401                       276
+     5                       676                       271
+     6                       855                       362
+     7                       542                       253
+     8                       782                       261
+     9                       601                     1,400
+    10                       596                     1,180
+    11                     8,630                     8,163
+    12                     8,688                     5,495
+    13                    12,421                     4,890
+    14                    12,347                     3,751
+    15                    14,155                     3,936
+    16                    16,413                     3,585
+    17                    17,877                     3,572
+    18                    18,831                     3,220
+    19                    21,948                     5,725
+    20                    26,847                    15,191
+    21                    30,317                    24,053
+    22                    38,487                    33,501
+    23                    42,802                    39,655
+    24                    48,305                    49,958
+    25                    53,749                    56,933
+    26                    62,369                    68,140
+    27                    69,454                    74,139
+    28                    77,934                    84,407
+    29                    89,851                    94,684
+
+==============================================================================
+REPLAY 813e3a10-91cb-11f1-89de-0242ac130202   (replays/ladder/v2-haul/90506558.json)
+==============================================================================
+config: matches SDK defaults
+statuses: ['DONE', 'DONE']   rewards: [111958.0, 67113.0]
+winner: Dimitri ZABRE   margin: $44,845
+
+--- OUTCOME ----------------------------------------------------------------
+                                         Dimitri ZABRE              Rohan Jain *
+  final money                                  111,958                    67,113
+  quadrants owned                                    3                         3
+  peak hands                                        14                        13
+  peak animals                                      14                        16
+
+--- ACTION EFFICIENCY ------------------------------------------------------
+  useful actions                                 2,764                     2,520
+  moves                                          3,090                     4,211
+  moves per useful action                         1.12                      1.67
+  idle (PASS)                                    1,046                       778
+  wasted no-ops                                      0                         0
+  move reversals                                    60                        61
+
+--- SILENT FAILURES --------------------------------------------------------
+  animal deaths                                      0                         0
+  peak weeds                                        11                        20
+  peak shed+carried                            106/100                   114/100
+  peak units carried                                93                        77
+  days shed hit capacity                             1                         0
+  market orders dropped                              0                         0
+  fertilizer missed                       98/330 (30%)             177/323 (55%)
+    = $ left on ground                          ~7,350                   ~13,275
+
+--- LABOUR & LAND ----------------------------------------------------------
+  hire spend (fib, daily)                       10,885                    11,303
+  avg hands day 0-9                                4.9                       4.8
+  avg hands day 10-29                             11.4                      12.7
+
+--- PLANTING SCHEDULE ------------------------------------------------------
+
+  Dimitri ZABRE
+     day 0  MELON:12  WHEAT:7
+     day 4  WHEAT:7
+     day 7  STRAWBERRY:8
+     day 8  WHEAT:7  STRAWBERRY:4
+     day 9  STRAWBERRY:7
+     day 11 STRAWBERRY:20  MELON:12
+     day 12 WHEAT:7  STRAWBERRY:3
+     day 16 WHEAT:7
+     day 20 WHEAT:7
+     day 22 WHEAT:7
+     day 23 WHEAT:5
+     day 24 WHEAT:12
+     day 25 WHEAT:6
+     day 26 WHEAT:12
+     day 27 WHEAT:8
+
+  Rohan Jain *
+     day 0  MELON:8  WHEAT:3
+     day 9  MELON:2
+     day 10 MELON:11
+     day 11 STRAWBERRY:20  MELON:3  WHEAT:3
+     day 12 STRAWBERRY:9  WHEAT:5
+     day 13 STRAWBERRY:4
+     day 14 STRAWBERRY:2  WHEAT:1
+     day 20 WHEAT:1
+     day 21 WHEAT:1
+     day 22 WHEAT:6
+     day 23 WHEAT:2
+     day 24 WHEAT:5
+     day 25 WHEAT:2
+     day 26 WHEAT:4
+     day 27 WHEAT:1
+
+--- ACTION MIX -------------------------------------------------------------
+  water                                            922                       934
+  harvest                                          374                       298
+  plant                                            158                        93
+  dig                                               42                        30
+  feed                                             314                       322
+  care                                             322                       323
+  collect_fertilizer                               254                       176
+  fertilize                                         80                       110
+  place                                             14                        82
+  pickup                                           167                       125
+  drop                                             103                        11
+  Dimitri ZABRE !! shed saturated at start of days [23] -- end-of-day drop was truncated, produce destroyed
+
+--- MARKET -----------------------------------------------------------------
+  net = sell revenue - buy-back cost. Read the NET column: WHEAT and
+  FERTILIZER can be repurchased, and a round-trip nets ~zero cash while
+  still adding its full value to the gross sell side.
+
+  Dimitri ZABRE  gross sales $141,832   NET $104,392
+     STRAWBERRY      205 units  $    41,379  avg $   202   29.2%
+     WHEAT           722 units  $    32,602  avg $    45   23.0%   bought   899 for $   37,440  ->  NET   -177 units  $    -4,838
+     WOOL            152 units  $    20,649  avg $   136   14.6%
+     MELON           143 units  $    17,757  avg $   124   12.5%
+     MILK            213 units  $    17,359  avg $    81   12.2%
+     FERTILIZER      155 units  $    12,086  avg $    78    8.5%
+
+  Rohan Jain *  gross sales $109,034   NET $93,757
+     STRAWBERRY      204 units  $    39,665  avg $   194   36.4%
+     MELON           144 units  $    25,451  avg $   177   23.3%
+     MILK            210 units  $    17,471  avg $    83   16.0%
+     WOOL            154 units  $    15,813  avg $   103   14.5%
+     FERTILIZER       80 units  $     6,103  avg $    76    5.6%   bought    15 for $    1,023  ->  NET     65 units  $     5,080
+     WHEAT            63 units  $     3,219  avg $    51    3.0%   bought   317 for $   14,254  ->  NET   -254 units  $   -11,035
+     EGG              20 units  $     1,312  avg $    66    1.2%
+     stranded at end (scores $0): 4 units {'FERTILIZER': 1, 'MILK': 3}
+
+--- MONEY BY DAY -----------------------------------------------------------
+   day             Dimitri ZABRE              Rohan Jain *
+     0                       105                     1,287
+     1                        18                       250
+     2                       108                       350
+     3                        26                       328
+     4                         6                       251
+     5                       993                       271
+     6                     1,130                       330
+     7                       146                       283
+     8                         8                       275
+     9                     1,276                     1,375
+    10                     1,333                     1,198
+    11                     9,169                     7,854
+    12                    12,940                     5,698
+    13                    17,303                     5,661
+    14                    19,362                     5,126
+    15                    20,256                     5,124
+    16                    24,468                     3,690
+    17                    27,321                     5,623
+    18                    32,866                     7,797
+    19                    35,847                     6,374
+    20                    41,554                    12,376
+    21                    44,207                    18,468
+    22                    55,193                    25,608
+    23                    60,450                    30,023
+    24                    73,153                    36,776
+    25                    78,297                    40,855
+    26                    87,596                    46,328
+    27                    90,599                    51,931
+    28                   100,279                    57,619
+    29                   108,478                    64,206
+
