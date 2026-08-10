@@ -12,6 +12,7 @@ win/loss only -- margin is irrelevant to rating.
 from __future__ import annotations
 
 import argparse
+import glob
 import sys
 import time
 from collections import Counter
@@ -190,7 +191,14 @@ def main() -> int:
         return 0
 
     seeds = [args.seed0 + 13 * i for i in range(args.seeds)]
-    return bench(args.agent, [o for o in args.opponents.split(",") if o], seeds, args.steps)
+    opponents = []
+    for o in args.opponents.split(","):
+        if o == "panel":
+            # every scripted rival built by panel.py from replay digests
+            opponents += sorted(glob.glob("agents/panel_*.py"))
+        elif o:
+            opponents.append(o)
+    return bench(args.agent, opponents, seeds, args.steps)
 
 
 if __name__ == "__main__":

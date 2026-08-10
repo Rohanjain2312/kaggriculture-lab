@@ -55,6 +55,56 @@ the general scorer, rather than competing inside it.
 discipline, tomato/carrot, shop-draw conditioning, land level), so treat the
 causal claim here as unproven until a build measures it.
 
+## 0. The opponent panel — **BUILT 2026-08-10**, and it says the build is not their edge
+
+`panel.py` extracts a competitor's build from replay digests and scripts it onto
+our machinery: hiring curve, land schedule, herd composition, planting schedule.
+Everything else -- routing, selling, watering, fertilizer -- stays as `main.py`
+does it, so a panel agent is **their strategy with execution held constant**.
+
+```bash
+python panel.py --build
+python bench.py main.py --opponents panel
+```
+
+**Finding 1: the top of this ladder runs one script.** Of the seven competitors
+with >=2 digested 1.32.6 seasons, **six share an identical build** -- land
+`{7:2, 11:3}`, herd `{COW:8, SHEEP:6}`, same planting schedule, differing only by
+a hand or two per day. `kakuteki` shows *zero* variation across all six of its
+seasons while its money swings $62k-$91k, so that spread is seed and opponent,
+not decisions. Only **Seb** differs: 4 quadrants from day 5, 20 animals,
+strawberry from day 5. `panel.py` groups on land+herd so the panel is not six
+copies of one opponent.
+
+**Finding 2: with execution held constant we beat their build.** 20 seeds:
+
+| opponent | build from | win rate | our $ | their $ |
+|---|---|---|---|---|
+| `panel_kakuteki` | 21 seasons, 6 competitors | **100%** (40-0) | 82,632 | 61,841 |
+| `panel_seb_allegedly` | 4 seasons | **62%** (25-15) | 71,850 | 66,740 |
+| `archetype` (old balance) | 3 accounts | 100% (40-0) | 118,203 | 29,805 |
+
+**This is the seventh refutation of "copy what the elites do".** The dominant
+meta build loses to ours 40-0 when neither side gets an execution advantage. The
+panel agents also earn 13-17% less than the real competitors did ($61,841 vs
+$71,366; $66,740 vs $80,123), which is the size of the execution gap -- their
+build is worth *less* than ours, and their results are better, so **their entire
+edge is execution.**
+
+**Finding 3: we finally have a non-saturated sparring partner.** `pass`,
+`archetype` and `panel_kakuteki` are all 100% wins and therefore measure nothing.
+`panel_seb_allegedly` at **62%** has room to move in both directions. Use it as
+the head-to-head metric instead of a mirror -- mirrors flatter production cuts
+and one predicted a 79% win the ladder scored at +0.3.
+
+**Caveats.** The scripts set *intent*: our cash gate still defers land (kakuteki
+targets 2 quadrants on day 7 and reaches it on day 9), and Seb's sheep cap at 6
+of a targeted 10 on the reserved pasture tiles. Plantings are reconstructed from
+per-day census deltas because the elite digests predate `digest.py` recording the
+crop on PLANT and the raw replays are pruned. And our 40% *ladder* win rate is
+against rating peers (~905), not against these 3000+ competitors, so it is not
+the same comparison.
+
 ## How to validate (read before testing anything)
 
 **Know the noise floor: ±$1,300.** The same unchanged agent measured 161,673 /
