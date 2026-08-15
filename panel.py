@@ -35,7 +35,10 @@ from typing import Any
 
 CROPS = ("WHEAT", "CARROT", "TOMATO", "STRAWBERRY", "MELON")
 ANIMALS = ("GOOSE", "COW", "SHEEP")
-DIGESTS = "docs/analysis/digests"
+# Every top-cohort digest directory. `digests-top10` was added 2026-08-14 and is
+# the only source containing the current rank-1 build; leaving it out silently
+# rebuilds the panel from week-old profiles.
+DIGESTS = ("docs/analysis/digests", "docs/analysis/digests-top10")
 TEMPLATE = "main.py"
 OUT_DIR = "agents"
 
@@ -43,7 +46,8 @@ OUT_DIR = "agents"
 def load_seasons(version: str = "1.32.6") -> dict[str, list[dict[str, Any]]]:
     """Every player-season from the top-cohort digests, grouped by competitor."""
     by_name: dict[str, list[dict[str, Any]]] = collections.defaultdict(list)
-    for path in sorted(glob.glob(f"{DIGESTS}/*.json")):
+    paths = sorted(p for d in DIGESTS for p in glob.glob(f"{d}/*.json"))
+    for path in paths:
         with open(path) as fh:
             d = json.load(fh)
         if version and d.get("module_version") != version:

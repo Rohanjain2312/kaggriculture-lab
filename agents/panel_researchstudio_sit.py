@@ -46,7 +46,7 @@ import os
 import sys
 import traceback
 
-AGENT_VERSION = "panel:kakuteki"   # keep in sync with docs/SUBMISSIONS.md
+AGENT_VERSION = "v6-curve"   # keep in sync with docs/SUBMISSIONS.md
 
 DEBUG = os.environ.get("KAGGRICULTURE_DEBUG") == "1"
 
@@ -86,6 +86,27 @@ MARKET_PARAMS = {
     "MILK":       {"base": 160, "T": 122, "below_func": "sqrt",   "below_target": 0.60, "above_func": "linear", "above_target": 1.60},
     "WOOL":       {"base": 200, "T": 105, "below_func": "log",    "below_target": 0.20, "above_func": "sq",     "above_target": 3.20},
     "FERTILIZER": {"base": 100, "T": 200, "below_func": "linear", "below_target": 0.40, "above_func": "linear", "above_target": 0.40},
+}
+
+# PR #1399 (kaggle-environments 1.32.7) gives TOMATO, CARROT and EGG a "hinge"
+# curve: linear in the deficit up to T, then quadratic. A product with real shop
+# demand and no producer stops drifting and spikes -- TOMATO at a 500 deficit
+# goes $120 -> $552. Only these three rows change, so they are expressed as an
+# overlay rather than a second table that could drift out of sync.
+#
+# Note CARROT also gets `below_target` 0.20 -> 1.00, a 5x amplitude change on top
+# of the shape change. That is what makes CARROT the product that separates the
+# two tables at almost every inventory level, which `detect_market_params` relies
+# on -- below the knee `hinge` and `linear` are identical for TOMATO and EGG.
+HINGE_GAIN = 8.0
+HINGE_OVERRIDES = {
+    "CARROT": {"below_func": "hinge", "below_target": 1.00},
+    "TOMATO": {"below_func": "hinge", "below_target": 0.40},
+    "EGG":    {"below_func": "hinge", "below_target": 0.40},
+}
+MARKET_PARAMS_HINGE = {
+    item: dict(params, **HINGE_OVERRIDES.get(item, {}))
+    for item, params in MARKET_PARAMS.items()
 }
 
 SHOPS = {
@@ -188,29 +209,34 @@ MOVE_PENALTY = 4          # priority charged per tile of travel when assigning
 
 
 # --------------------------------------------------------------------------- #
-# PANEL OPPONENT -- build copied from "kakuteki"
+# PANEL OPPONENT -- build copied from "researchstudio.site"
 # --------------------------------------------------------------------------- #
-# Extracted by panel.py from 21 digested 1.32.6 season(s);
-# that competitor averaged $71,366. Only the four strategic
+# Extracted by panel.py from 13 digested 1.32.6 season(s);
+# that competitor averaged $84,616. Only the four strategic
 # decisions below are scripted -- hiring, land, herd and planting. Routing,
 # selling, watering and fertilizer stay as main.py does them, so this is their
 # *build* on our machinery, not a clone of them. They execute better than we do,
 # so treat this as a floor on their strength.
-PANEL_NAME = 'kakuteki'
-SCRIPT_HANDS = [5, 0, 2, 1, 4, 1, 2, 8, 5, 7, 8, 14, 7, 11, 7, 11, 11, 12, 10, 12, 14, 12, 13, 14, 14, 12, 11, 14, 10, 10]
-SCRIPT_LAND = {7: 2, 11: 3}
-SCRIPT_HERD = {'COW': 8, 'SHEEP': 6}
-SCRIPT_PLANT = {1: [('WHEAT', 5), ('MELON', 7)], 7: [('STRAWBERRY', 5)], 8: [('STRAWBERRY', 14)], 10: [('WHEAT', 3)], 11: [('STRAWBERRY', 8)], 12: [('STRAWBERRY', 15), ('MELON', 2)], 13: [('WHEAT', 1)], 15: [('WHEAT', 1)], 18: [('WHEAT', 1)], 20: [('WHEAT', 3)], 21: [('WHEAT', 6)], 22: [('WHEAT', 2)], 23: [('WHEAT', 6)], 24: [('WHEAT', 7)], 27: [('WHEAT', 3)], 28: [('WHEAT', 1)]}
+PANEL_NAME = 'researchstudio.site'
+SCRIPT_HANDS = [5, 0, 4, 5, 5, 1, 4, 6, 9, 11, 8, 13, 11, 11, 11, 12, 11, 11, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 4]
+SCRIPT_LAND = {6: 2, 9: 3}
+SCRIPT_HERD = {'COW': 7, 'SHEEP': 5}
+SCRIPT_PLANT = {1: [('WHEAT', 6), ('MELON', 3)], 5: [('WHEAT', 2)], 8: [('STRAWBERRY', 4)], 9: [('STRAWBERRY', 11), ('MELON', 1)], 10: [('WHEAT', 4), ('STRAWBERRY', 6), ('MELON', 2)], 11: [('WHEAT', 2), ('STRAWBERRY', 4)], 12: [('WHEAT', 4), ('STRAWBERRY', 5)], 13: [('WHEAT', 7), ('STRAWBERRY', 1)], 18: [('WHEAT', 1)], 19: [('WHEAT', 6)], 20: [('WHEAT', 4)], 22: [('WHEAT', 2)], 23: [('WHEAT', 6)], 24: [('WHEAT', 5)], 25: [('WHEAT', 8)], 26: [('WHEAT', 7)]}
 RIVAL_SUPPLY_SHARE = 0.0  # the build is fixed, so do not also adapt it
 
 _CACHE = {}
+
+# Which market curve set this episode is running, re-detected from the board every
+# turn. A one-element list rather than a rebind so the module stays a pure cache:
+# nothing is carried between turns that is not recomputed from `obs` first.
+_ACTIVE_PARAMS = [MARKET_PARAMS]
 
 
 # --------------------------------------------------------------------------- #
 # Market model (mirrors kaggriculture.market_price exactly)
 # --------------------------------------------------------------------------- #
 
-def shape(func, x):
+def shape(func, x, T=None):
     """Price-curve shape function; matches the environment's `_shape`."""
     x = max(0.0, x)
     if func == "linear":
@@ -223,22 +249,65 @@ def shape(func, x):
         return math.log(1.0 + x)
     if func == "log10":
         return math.log10(1.0 + x)
+    if func == "hinge":
+        # Degenerates to linear without a knee, matching the environment.
+        if not T or T <= 0:
+            return x
+        u = x / T
+        return u + HINGE_GAIN * max(0.0, u - 1.0) ** 2
     return x
 
 
-def market_price(item, inv):
-    """Unit price of `item` at market inventory `inv`, floored at $1."""
-    p = MARKET_PARAMS[item]
+def price_from(params, item, inv):
+    """Unit price of `item` at inventory `inv` under an explicit parameter table."""
+    p = params[item]
     base, T = p["base"], p["T"]
-    if inv < MARKET_I0:
+    i0 = p.get("I0", MARKET_I0)
+    if inv < i0:
         f = p["below_func"]
-        amp = p["below_target"] * base / shape(f, T)
-        price = base + amp * shape(f, MARKET_I0 - inv)
+        amp = p["below_target"] * base / shape(f, T, T)
+        price = base + amp * shape(f, i0 - inv, T)
     else:
         f = p["above_func"]
-        amp = p["above_target"] * base / shape(f, T)
-        price = base - amp * shape(f, inv - MARKET_I0)
+        amp = p["above_target"] * base / shape(f, T, T)
+        price = base - amp * shape(f, inv - i0, T)
     return max(1, int(round(price)))
+
+
+def detect_market_params(market):
+    """Pick the parameter table that reproduces the prices this episode shows.
+
+    The environment does not announce which curve set is live, and getting it
+    wrong is expensive in both directions: valuing TOMATO on the old curve in a
+    post-#1399 episode misses a product priced at $552, and valuing it on the new
+    curve today invents demand that is not there. So read it off the board --
+    every turn carries both the inventory and the price the environment computed
+    from it, which is enough to identify the table.
+
+    Judge the tables as a *set*, never per product: below the knee `hinge` and
+    `linear` coincide exactly for TOMATO and EGG, so a per-product vote
+    flip-flops on ties. CARROT is the discriminator. Ties keep the current table,
+    so an ambiguous board (everything at I0 on turn one) stays on today's curve.
+    """
+    supplied = market.get("params")
+    if supplied:
+        return supplied                      # explicit config beats inference
+    prices = market.get("prices") or {}
+    inventory = market.get("inventory") or {}
+    best, best_hits = MARKET_PARAMS, -1
+    for table in (MARKET_PARAMS, MARKET_PARAMS_HINGE):
+        hits = 0
+        for item, observed in prices.items():
+            if item in table and item in inventory:
+                hits += int(price_from(table, item, inventory[item]) == observed)
+        if hits > best_hits:
+            best, best_hits = table, hits
+    return best
+
+
+def market_price(item, inv):
+    """Unit price of `item` at market inventory `inv`, under the live curve set."""
+    return price_from(_ACTIVE_PARAMS[0], item, inv)
 
 
 def sell_count(item, inv, floor_price, cap):
@@ -1269,6 +1338,10 @@ def agent(obs, config=None):
             obs["_cfg"] = dict(config) if config else {}
         except Exception:
             pass
+        try:
+            _ACTIVE_PARAMS[0] = detect_market_params(obs.get("market") or {})
+        except Exception:
+            _ACTIVE_PARAMS[0] = MARKET_PARAMS     # never let detection break a turn
         return play(obs)
     except Exception:
         if DEBUG:
