@@ -42,6 +42,28 @@ with no change to the agent.
 | `v5-pivot` | 55338743 | 2026-08-08 | 879.5 | 63% over 60 games vs v4-gate | `RIVAL_SUPPLY_SHARE=0.25` |
 | `v4-gate-r2` | 55340304 | 2026-08-08 | 905.4 | — | + config fix (melon overvalued up to 8x) |
 | `v5-pivot-r2` | 55340305 | 2026-08-08 | **905.7** | 79% over 24 games vs v4-gate-r2 | + config fix; **ranked pair with v4-gate-r2** |
+| `v6-curve` | 55518009 | 2026-08-15 | *600.0 provisional* | **identical to the dollar vs `pass`**; 70.8% post-1399 | version-adaptive market curve; **ranked pair is now v6-curve + v5-pivot-r2** |
+
+### `v6-curve` (55518009) — submitted 2026-08-15, provisional
+
+Carries both market parameter tables and detects per turn which is live, by
+checking each against the prices on the board. **Deliberately inert on today's
+ladder** — $152,349 vs `pass`, identical to the dollar to `v5-pivot`, and
+identical vs `starter` and `baseline_v0` too. It exists to be correct the day
+Kaggle ships 1.32.7, without needing the rollout timed.
+
+So **read its rating as a null result unless it diverges from `v5-pivot-r2`**. If
+the two settle apart on this balance, something in the detection is firing when
+it should not — that is the signal to watch, and the ranked pair is set up to
+show it (identical agents, so any gap is noise or a bug).
+
+Measured before shipping: 0 mismatches against the installed 1.32.6 env across
+all 9 products and every inventory level; CARROT separates the two tables at
+1,482/1,499 levels; post-1399 70.8% (17W-7L) over 24 paired games and 100%
+(14W-0L) on a pinned PIZZA_SHOP ×3 draw. Full numbers in
+`docs/IMPROVEMENT_BACKLOG.md` item 0.
+
+**4 submissions left on 2026-08-15.** `v4-gate-r2` has dropped out of matchmaking.
 
 **All scores above read together on 2026-08-10** (rank **1375 / 3545**), because
 ratings drift: this same table previously recorded v2-haul at 940.7, v3-fert at
@@ -154,6 +176,13 @@ clears the gate, dropping wheat/tomato/carrot/late-strawberry and keeping melon 
 timely strawberry. Labour is the binding constraint (watering runs 1.00-1.08 per
 plant per day all season), so a marginal tile takes water from a better one.
 +$3,591/game over 8 paired seed sets, 7/8 positive. Kept as `agents/v4_gate.py`.
+
+> **Re-tested 2026-08-14 and still correct.** We run 13 hands over 43 crop tiles
+> (3.3 tiles/hand) where the rank-1 ladder agent runs 8 over 61 (7.6), which
+> looked like evidence the gate had become the binding constraint. Swept: 10 →
+> $75,888, 12 → $77,751, 14 → $86,595, **16 → $92,511**, 18 → $89,560. The gate
+> is at its optimum in both directions and `RUNWAY_DAYS = 6` likewise. See
+> `docs/REFUTED.md`. **Do not re-sweep these without new evidence.**
 
 **`v3-fert`** — one line: `P_COLLECT_FERT` 45 → 64, moving it from the bottom of
 the priority table to just under `P_CARE`. Animal fertilizer is one bool per tile

@@ -46,7 +46,7 @@ import os
 import sys
 import traceback
 
-AGENT_VERSION = "v3-fert"   # keep in sync with docs/SUBMISSIONS.md
+AGENT_VERSION = "v6-curve"   # keep in sync with docs/SUBMISSIONS.md
 
 DEBUG = os.environ.get("KAGGRICULTURE_DEBUG") == "1"
 
@@ -88,6 +88,27 @@ MARKET_PARAMS = {
     "FERTILIZER": {"base": 100, "T": 200, "below_func": "linear", "below_target": 0.40, "above_func": "linear", "above_target": 0.40},
 }
 
+# PR #1399 (kaggle-environments 1.32.7) gives TOMATO, CARROT and EGG a "hinge"
+# curve: linear in the deficit up to T, then quadratic. A product with real shop
+# demand and no producer stops drifting and spikes -- TOMATO at a 500 deficit
+# goes $120 -> $552. Only these three rows change, so they are expressed as an
+# overlay rather than a second table that could drift out of sync.
+#
+# Note CARROT also gets `below_target` 0.20 -> 1.00, a 5x amplitude change on top
+# of the shape change. That is what makes CARROT the product that separates the
+# two tables at almost every inventory level, which `detect_market_params` relies
+# on -- below the knee `hinge` and `linear` are identical for TOMATO and EGG.
+HINGE_GAIN = 8.0
+HINGE_OVERRIDES = {
+    "CARROT": {"below_func": "hinge", "below_target": 1.00},
+    "TOMATO": {"below_func": "hinge", "below_target": 0.40},
+    "EGG":    {"below_func": "hinge", "below_target": 0.40},
+}
+MARKET_PARAMS_HINGE = {
+    item: dict(params, **HINGE_OVERRIDES.get(item, {}))
+    for item, params in MARKET_PARAMS.items()
+}
+
 SHOPS = {
     "BAKERY":         ["EGG", "WHEAT"],
     "PIZZA_SHOP":     ["MILK", "TOMATO", "WHEAT"],
@@ -99,6 +120,7 @@ SHOPS = {
     "FARMERS_MARKET": ["WHEAT", "CARROT", "TOMATO", "STRAWBERRY"],
 }
 
+MAX_SHOP_INSTANCES = 8    # env caps total shop instances; shops repeat
 LAND_PRICES = [1000, 2000, 4000]
 MOVES = {"NORTH": (0, -1), "SOUTH": (0, 1), "EAST": (1, 0), "WEST": (-1, 0)}
 
@@ -126,6 +148,20 @@ HAUL_ITEMS = ("MELON", "STRAWBERRY", "MILK", "WOOL", "EGG", "TOMATO", "CARROT")
 PLANT_LATEST_HOUR = 21    # a plant must still be watered the day it goes in
 LAST_SELL_HOUR = 21       # DONE fires at step 718, so hour 22 is the last sale
 
+# The opponent's supply is part of the price we will get, and it is visible.
+# Crops and animals are valued against an inventory projected forward for the
+# town's remaining demand (DRAIN_SHARE) but, until now, with no allowance for
+# what the opponent is about to land. Their board shows every crop, its planted
+# day, and every animal. Counting their pipeline into the projected inventory
+# makes a contested product worth less at the margin, so the mix pivots off
+# whatever they are heavy in -- wool when they run cows, strawberry when they run
+# melon -- without any explicit rule saying so.
+RIVAL_SUPPLY_SHARE = 0.25 # how much of their pipeline we price in. Swept against
+                          # the shipped agent: 0.25 -> 63-70% win, 0.5 -> 60%,
+                          # 0.75 -> 62%. Discounting their *whole* pipeline
+                          # over-reacts; a quarter of it is enough to tip the
+                          # margin off a contested product without abandoning it.
+
 MAX_ANIMALS = 16
 ANIMAL_ACTIONS = 5        # feed + care + share of harvest/collect + travel, per day
 ANIMAL_ROI = 2.0          # required revenue-to-cost ratio before buying one
@@ -134,6 +170,16 @@ FERT_MIN_VALUE = 150      # don't spend an action fertilizing for less than this
 FERT_BUY_RATIO = 3.0      # buy fertilizer while a unit returns this much value
 FERT_SHED_MARGIN = 25     # shed space never spent on fertilizer
 FERT_KEEP_MAX = 12        # fertilizer held back from sale at any one time
+MIN_PLANT_SCORE = 16      # only plant a tile whose marginal score clears this.
+                          # Labour, not land, is the binding constraint -- watering
+                          # runs at 1.00-1.08 actions per plant per day all season,
+                          # so a marginal tile takes water from a better one. At
+                          # the margin melon scores ~62 and timely strawberry
+                          # ~24-28, against wheat 14.2, tomato 14.1, carrot 10.6,
+                          # and strawberry planted past ~day 16 at 7.8. Swept over
+                          # 10 seed sets: 0/10 -> 161,621; 14 -> 161,891;
+                          # 16 -> 163,353; 20 -> 163,771; 25 -> 147,179 (25 cuts
+                          # mid-season strawberry and collapses).
 
 # Job priorities (higher runs first).
 P_FEED_CRIT = 110         # an unfed animal dies tonight; worth more than any plant
@@ -163,12 +209,17 @@ MOVE_PENALTY = 4          # priority charged per tile of travel when assigning
 
 _CACHE = {}
 
+# Which market curve set this episode is running, re-detected from the board every
+# turn. A one-element list rather than a rebind so the module stays a pure cache:
+# nothing is carried between turns that is not recomputed from `obs` first.
+_ACTIVE_PARAMS = [MARKET_PARAMS]
+
 
 # --------------------------------------------------------------------------- #
 # Market model (mirrors kaggriculture.market_price exactly)
 # --------------------------------------------------------------------------- #
 
-def shape(func, x):
+def shape(func, x, T=None):
     """Price-curve shape function; matches the environment's `_shape`."""
     x = max(0.0, x)
     if func == "linear":
@@ -181,22 +232,65 @@ def shape(func, x):
         return math.log(1.0 + x)
     if func == "log10":
         return math.log10(1.0 + x)
+    if func == "hinge":
+        # Degenerates to linear without a knee, matching the environment.
+        if not T or T <= 0:
+            return x
+        u = x / T
+        return u + HINGE_GAIN * max(0.0, u - 1.0) ** 2
     return x
 
 
-def market_price(item, inv):
-    """Unit price of `item` at market inventory `inv`, floored at $1."""
-    p = MARKET_PARAMS[item]
+def price_from(params, item, inv):
+    """Unit price of `item` at inventory `inv` under an explicit parameter table."""
+    p = params[item]
     base, T = p["base"], p["T"]
-    if inv < MARKET_I0:
+    i0 = p.get("I0", MARKET_I0)
+    if inv < i0:
         f = p["below_func"]
-        amp = p["below_target"] * base / shape(f, T)
-        price = base + amp * shape(f, MARKET_I0 - inv)
+        amp = p["below_target"] * base / shape(f, T, T)
+        price = base + amp * shape(f, i0 - inv, T)
     else:
         f = p["above_func"]
-        amp = p["above_target"] * base / shape(f, T)
-        price = base - amp * shape(f, inv - MARKET_I0)
+        amp = p["above_target"] * base / shape(f, T, T)
+        price = base - amp * shape(f, inv - i0, T)
     return max(1, int(round(price)))
+
+
+def detect_market_params(market):
+    """Pick the parameter table that reproduces the prices this episode shows.
+
+    The environment does not announce which curve set is live, and getting it
+    wrong is expensive in both directions: valuing TOMATO on the old curve in a
+    post-#1399 episode misses a product priced at $552, and valuing it on the new
+    curve today invents demand that is not there. So read it off the board --
+    every turn carries both the inventory and the price the environment computed
+    from it, which is enough to identify the table.
+
+    Judge the tables as a *set*, never per product: below the knee `hinge` and
+    `linear` coincide exactly for TOMATO and EGG, so a per-product vote
+    flip-flops on ties. CARROT is the discriminator. Ties keep the current table,
+    so an ambiguous board (everything at I0 on turn one) stays on today's curve.
+    """
+    supplied = market.get("params")
+    if supplied:
+        return supplied                      # explicit config beats inference
+    prices = market.get("prices") or {}
+    inventory = market.get("inventory") or {}
+    best, best_hits = MARKET_PARAMS, -1
+    for table in (MARKET_PARAMS, MARKET_PARAMS_HINGE):
+        hits = 0
+        for item, observed in prices.items():
+            if item in table and item in inventory:
+                hits += int(price_from(table, item, inventory[item]) == observed)
+        if hits > best_hits:
+            best, best_hits = table, hits
+    return best
+
+
+def market_price(item, inv):
+    """Unit price of `item` at market inventory `inv`, under the live curve set."""
+    return price_from(_ACTIVE_PARAMS[0], item, inv)
 
 
 def sell_count(item, inv, floor_price, cap):
@@ -227,26 +321,49 @@ def shop_demand(shop, item):
     return 2 if len(products) == 1 else 1
 
 
-def future_drain(item, day, unlocked_shops):
+def future_drain(item, day, unlocked_shops, cfg=None):
     """Expected town consumption of `item` from `day` through the end of the season.
 
-    Shops already unlocked are counted exactly; the ones still to open are
-    averaged, since which unlocks next is random.
+    Rewritten for kaggle_environments 1.32.6, which changed the town in three ways
+    that all cut demand, and one that changes its shape:
+
+    * The town centre now fires on `townCenterSellInterval` (default **24**, i.e.
+      once a day) rather than 12, and its old 1x/2x/4x day-threshold multiplier is
+      **gone** -- it takes exactly one unit of each product per tick, forever.
+      Late-season centre demand is therefore 1/day where the old model projected
+      8/day.
+    * Shops are drawn **with replacement**, capped at `MAX_SHOP_INSTANCES = 8`, so
+      `unlocked_shops` is a multiset: four Donut Shops and no Yarn Store is a legal
+      game. Duplicates each consume independently, and a product whose only buyer
+      never spawns has no shop demand at all.
+    * Intervals come from the episode config, which is randomised per game. Nothing
+      here may be hardcoded.
+
+    Already-unlocked instances are counted exactly, duplicates included. Each
+    still-to-open slot is valued at the mean demand across all shop types, which is
+    the correct expectation for a uniform draw with replacement.
     """
+    cfg = cfg or {}
+    tpd = float(cfg.get("turnsPerDay", TURNS_PER_DAY) or TURNS_PER_DAY)
+    shop_int = float(cfg.get("townShopSellInterval", 4) or 4)
+    centre_int = float(cfg.get("townCenterSellInterval", 24) or 24)
+    unlock_int = max(1, int(cfg.get("townShopUnlockInterval", 3) or 3))
+
     unlocked = list(unlocked_shops or [])
-    remaining = [s for s in SHOPS if s not in unlocked]
-    known_rate = sum(shop_demand(s, item) for s in unlocked)
-    rem_rate = sum(shop_demand(s, item) for s in remaining)
-    rem_n = len(remaining)
+    known_rate = sum(shop_demand(s, item) for s in unlocked)   # counts duplicates
+    mean_rate = sum(shop_demand(s, item) for s in SHOPS) / float(len(SHOPS))
+
+    shop_ticks = tpd / shop_int if shop_int > 0 else 0.0
+    centre_ticks = tpd / centre_int if centre_int > 0 else 0.0
 
     total = 0.0
     for d in range(day, LAST_DAY + 1):
-        opened = max(0, min(rem_n, d // 3 - len(unlocked)))
-        rate = known_rate + (rem_rate * opened / rem_n if rem_n else 0.0)
-        total += 6.0 * rate                      # 24 turns / 4-turn shop interval
+        # Instances unlock at each `unlock_int` day boundary, capped at the max.
+        instances = min(MAX_SHOP_INSTANCES, d // unlock_int)
+        pending = max(0, instances - len(unlocked))
+        total += shop_ticks * (known_rate + mean_rate * pending)
         if item != "FERTILIZER":
-            mult = 4 if d >= 20 else 2 if d >= 10 else 1
-            total += 2.0 * mult                  # 24 turns / 12-turn center interval
+            total += centre_ticks * 1.0          # flat 1 per tick; no multiplier
     return total
 
 
@@ -347,6 +464,40 @@ def hire_burn(target_hands):
     return sum(fib(i) for i in range(target_hands))
 
 
+def rival_pipeline(obs, board_size):
+    """Units of each product the opponent still has coming, from their visible board.
+
+    Their shed is hidden, so this is production not stock -- which is the right
+    quantity anyway: stock they are already selling is in the price we can see,
+    while their pipeline is the part the price does not know about yet.
+    """
+    key = ("rivalpipe", obs["player"], obs["day"])
+    if key in _CACHE:
+        return _CACHE[key]
+    day = obs["day"]
+    pipe = {}
+    for pid, farm in enumerate(obs["farms"]):
+        if pid == obs["player"]:
+            continue
+        for row in farm["tiles"]:
+            for tile in row:
+                if not isinstance(tile, dict):
+                    continue
+                if tile.get("kind") == "PLANT":
+                    crop = tile.get("crop")
+                    if crop not in CROPS:
+                        continue
+                    units, _, _ = crop_projection(crop, max(day, tile.get("planted_day", day)))
+                    if units > 0:
+                        pipe[crop] = pipe.get(crop, 0.0) + units
+                elif tile.get("animal"):
+                    a = ANIMALS[tile["animal"]]
+                    pipe[a["product"]] = pipe.get(a["product"], 0.0) + \
+                        animal_units(tile["animal"], day)
+    _CACHE[key] = pipe
+    return pipe
+
+
 def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_reserve=0):
     """Choose a crop for each of the next `n_tiles` plantings, one tile at a time.
 
@@ -367,7 +518,9 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
 
     inv = obs["market"]["inventory"]
     shops = obs["town"].get("unlocked_shops", [])
+    cfg = obs.get("_cfg") or {}
     pipe = pipeline_units(farm, shed, board_size)
+    rival = rival_pipeline(obs, board_size) if RIVAL_SUPPLY_SHARE else {}
 
     proj = {}
     prefix = {}
@@ -376,7 +529,8 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
         if units <= 0:
             continue
         proj[crop] = (units, occupancy, harvests)
-        base_inv = int(inv[crop] - DRAIN_SHARE * future_drain(crop, day, shops))
+        base_inv = int(inv[crop] - DRAIN_SHARE * future_drain(crop, day, shops, cfg)
+                       + RIVAL_SUPPLY_SHARE * rival.get(crop, 0.0))
         need = min(900, int(pipe.get(crop, 0)) + units * n_tiles + 2)
         arr = [0] * (need + 1)
         for k in range(need):
@@ -398,7 +552,7 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
             if start + units >= len(arr):
                 continue
             score = (arr[start + units] - arr[start] - seed) / float(1 + 2 * occupancy + harvests)
-            if score > 0 and (best is None or score > best[0]):
+            if score > MIN_PLANT_SCORE and (best is None or score > best[0]):
                 best = (score, crop)
         if best is None:
             break
@@ -477,6 +631,8 @@ def pick_animal(obs, farm, shed, board_size, budget, n_animals, workforce):
         return None
     inv = obs["market"]["inventory"]
     shops = obs["town"].get("unlocked_shops", [])
+    cfg = obs.get("_cfg") or {}
+    rival = rival_pipeline(obs, board_size) if RIVAL_SUPPLY_SHARE else {}
 
     # Count what is already committed to each product so a herd that has
     # saturated milk stops buying cows and moves to another product.
@@ -497,7 +653,8 @@ def pick_animal(obs, farm, shed, board_size, budget, n_animals, workforce):
             continue
         product = a["product"]
         start = int(committed.get(product, 0)) + int(shed.get(product, 0))
-        base_inv = int(inv[product] - DRAIN_SHARE * future_drain(product, day, shops))
+        base_inv = int(inv[product] - DRAIN_SHARE * future_drain(product, day, shops, cfg)
+                       + RIVAL_SUPPLY_SHARE * rival.get(product, 0.0))
         gross = cum_revenue(product, base_inv, start + units) - cum_revenue(product, base_inv, start)
         if gross < cost * ANIMAL_ROI:
             continue
@@ -1124,9 +1281,22 @@ def play(obs):
     }
 
 
-def agent(obs):
-    """Entry point. Never raises: a crash would mark the whole submission Error."""
+def agent(obs, config=None):
+    """Entry point. Never raises: a crash would mark the whole submission Error.
+
+    `config` carries the episode's randomised town intervals. It is stashed on
+    `obs` rather than threaded through every call site, because the only consumer
+    is the drain projection.
+    """
     try:
+        try:
+            obs["_cfg"] = dict(config) if config else {}
+        except Exception:
+            pass
+        try:
+            _ACTIVE_PARAMS[0] = detect_market_params(obs.get("market") or {})
+        except Exception:
+            _ACTIVE_PARAMS[0] = MARKET_PARAMS     # never let detection break a turn
         return play(obs)
     except Exception:
         if DEBUG:
