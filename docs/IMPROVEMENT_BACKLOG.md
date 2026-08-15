@@ -6,6 +6,87 @@ test refutes them, so a settled question never gets re-litigated.
 
 **Status:** `idea` → `validated locally` → `shipped` → `confirmed on ladder`
 
+## 0. Standing-aware posture — **estimator BUILT and works; the SELL lever is dead**
+
+Built 2026-08-15 (`scratchpad/posture.py`). Two separable halves; one works.
+
+**The margin estimator works.** `projected_margin()` prices money + standing crop
++ remaining animal yield on both boards, sheds excluded on both sides so the
+visible-shed asymmetry cannot bias it toward us. Day-25 sign correct **5/5**,
+consistently conservative (est $28.3k vs actual $33.1k). *Caveat: all 5 test games
+were wins, so the "behind" branch is untested.* **Keep this function.**
+
+**Routing it through the sell floor changes nothing.** Win rate identical on all
+5 panel opponents (100/88/81/69/100, same as baseline); instrumented, the sell
+decision changed on **0 of 1,468 item-turns**.
+
+Mechanism, and it is decisive: by the time standing is estimable, the sell floor
+is no longer what is stopping us. Blocked share by phase, vs `panel_rival`:
+
+| days | 0-9 | 10-17 | 18-21 | **22-29** |
+|---|---|---|---|---|
+| reserve blocks | 45.6% | **84.0%** | 64.0% | **22.5%** |
+
+In the posture window (day 22+) `pressured` is set, which returns before the
+reserve is consulted — shed pressure is already forcing liquidation, so 0 turns
+were blocked there. **The reserve binds hardest at days 10-17, when standing is
+not yet knowable.** The two windows do not overlap.
+
+So the original "score-aware posture is dead as a selling lever" verdict was
+right, for a reason nobody had measured. It is dead because the late-game
+constraint is shed capacity, not the price floor.
+
+**Investment posture also measured dead (2026-08-15).** Built as a planting-gate
+offset (`scratchpad/invest.py`); land needed no wiring, it already stops at day 16.
+
+- vs `main.py`, 32 paired games, **median margin $763** — genuinely close games,
+  where posture is supposed to decide: **15W-15L-2T, 50.0%**, mean margin −$144.
+- swept `INVEST_AHEAD` 0/6/15 × `INVEST_DAY` 14/18: **50.0% in all six**, total
+  money spread **$83**. Not a timidity problem — it is inert at every magnitude.
+
+Mechanism, and it mirrors the sell-side result exactly: **a more binding
+constraint sits in front of the lever.** Selling late is governed by shed
+pressure, not the price floor; planting late is governed by the cash floor, not
+`MIN_PLANT_SCORE`. Moving a gate that is not the binding one changes nothing.
+
+**Keep `projected_margin()`** — it is correct and reusable (day-25 sign 5/5).
+What has no evidence is routing it into either the sell or the plant gate.
+
+**What survives, in order:**
+2. **The mid-game floor is a separate, larger question.** 84% blocked at days
+   10-17 is not about standing at all. Ask whether the floor is simply too high
+   there — but note the sweeps that would move it (`MIN_PLANT_SCORE`,
+   `RUNWAY_DAYS`) are already at their optimum, so this is a shape question, not
+   a level question.
+
+## Original framing
+
+**Not implemented. Nothing in the agent conditions on whether we are ahead or
+behind** — confirmed by grep; the only "margin" in `main.py` is marginal *price*.
+
+By ~day 25 both boards are fully visible, so the final margin is estimable while
+there is still time to act. Money-on-hand alone understates a player mid-cycle,
+so the estimate must price standing crop + remaining harvests on both sides.
+
+**Two thirds of the work already exists and is half-wired:** `rival_pipeline()`
+(`main.py:467`) already computes their standing production from their visible
+board, and `obs["farms"]` carries their money every turn. v5-pivot feeds the
+pipeline into *price discounting* only. Missing: combine into a projected margin
+and condition on it.
+
+Unlocks two things closed on a premise that no longer holds (see `docs/REFUTED.md`
+2026-08-15 — the reserve blocks 62-66% of item-turns against a real opponent, not
+the 7.9% measured against `pass`):
+- ahead late -> liquidate into the win; behind late -> hold for the spike
+- denial timing: sell ahead of their forecastable dump
+
+**Validation warning — this is invisible to every metric currently in use.**
+Absolute money vs `pass` cannot see it (no opponent), and the mirror cannot
+either (both sides flip posture at once and it cancels). Needs the asymmetric
+panel, `--opponents panel`. Build the margin estimator *first*: denial timing
+without a standing estimate is unconditional early selling, which is the version
+already measured as noise.
+
 ## 0. ~~Planting schedule is broken~~ — **REFUTED 2026-08-14, same day it was filed**
 
 Filed as the highest-confidence item here, then measured. **All three fixes lost,

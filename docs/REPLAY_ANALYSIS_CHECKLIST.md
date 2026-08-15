@@ -344,3 +344,44 @@ An entire product line that the whole elite field ignores is the same shape as
 the fertilizer finding — the biggest wins so far have been absences, not
 inefficiencies. It is also where the organisers aim balance changes: PR #1399
 targets exactly these three products.
+
+## The panel cannot measure close-game levers (added 2026-08-15)
+
+`bench.py --opponents panel` is the asymmetric instrument, and it is the right
+one for build and valuation changes. It **cannot** measure anything that only
+acts in close games.
+
+Measured over 12 panel games: **median |margin| $24,595**. The real top-cohort
+ladder median is **$4,914** — the panel is 5x wider, and only 3 of 12 games land
+inside $4,000. Panel agents are a competitor's *build* on our machinery and the
+tool's own docstring calls them a floor on their strength, so we beat them by
+margins the ladder never produces.
+
+**For a lever that only fires in close games, bench against a near-identical
+agent instead** — `sweep.py` (vs `agents/sweep_ref.py`) or a direct paired run
+against `main.py`. That produced a median margin of **$763**, tighter than the
+ladder, which is what let standing-aware posture be ruled out properly.
+
+Pick the instrument from the change: build/valuation -> panel; anything
+conditioned on the score -> near-identical opponent.
+
+## A broken variant scores $3,000, not an error (added 2026-08-15)
+
+An agent that fails to load, or whose `agent()` raises every turn, still reports
+**`status=DONE`** and simply passes — finishing on its starting money. Before
+2026-08-15 `sweep.py` never checked status, so a broken variant printed
+`0.0%, $3,000` and read as "this idea is terrible" rather than "this is broken".
+
+`bench.py` was already safe against *load* errors because `run_episode` passes
+`debug=True`, which raises. It was **not** safe against a runtime error inside
+`agent()`, which `main.py` catches and turns into PASS.
+
+Both now call `looks_inert(env, seat)`, which checks whether the seat ever issued
+a non-PASS action; `sweep.py` prints `!! BROKEN in n/N episodes`. Verified in both
+directions against a deliberately broken agent and a healthy one.
+
+Also fixed: `max_turn_seconds` read seat 0 unconditionally, so the timing
+reported for the flipped half of every bench run was the *opponent's*.
+
+**No earlier conclusion was corrupted** — every sweep result on record sits
+between $57k and $96k, nowhere near the $3,000 crash signature.

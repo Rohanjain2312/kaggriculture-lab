@@ -569,3 +569,53 @@ every variant, so every sweep above was decided on mean money alone. The variant
 *rankings* remain valid — all faced the same reference — but win% carried no
 information. Re-copy before the next sweep, and treat win% in any sweep recorded
 before 2026-08-14 as uninformative.
+
+## UNREFUTED: the sell-timing family's load-bearing number was wrong (2026-08-15)
+
+The entries above kill roadmap items 1, 2, 3 and 7 with one shared cause:
+
+> **The reserve is not a binding constraint.** Instrumented over a full game, of
+> 939 item-turns holding stock: sold everything **89.4%**, reserve capped 2.8%,
+> reserve blocked 7.9%. Any lever that works by moving the sell floor has ~11% of
+> turns to act on.
+
+**That number was measured in an empty market.** Re-measured 2026-08-15 on
+1.32.6, 3 seeds per opponent, instrumenting the same decision in `plan_sales`:
+
+| opponent | sold everything | capped | **blocked** | item-turns |
+|---|---|---|---|---|
+| `pass` | 82.2% | 3.3% | 14.5% | 518 |
+| `sweep_ref` (mirror) | 30.0% | 5.4% | **64.7%** | 1,529 |
+| `panel_ueddy` | 28.1% | 5.8% | **66.2%** | 1,522 |
+| `panel_rival` (rank 1) | 31.4% | 6.6% | **62.0%** | 1,469 |
+
+Against `pass` the old figure roughly reproduces (82.2% vs 89.4%). **Against any
+real opponent it inverts: the reserve binds on 68-72% of item-turns.**
+
+The mechanism is not subtle in hindsight. A second agent selling into the same
+market holds prices below our reserve, so our floor refuses far more often. An
+empty market has no such pressure. The original conclusion generalised from a
+one-player game to a two-player one — the same class of error as measuring win
+rate against `pass` and the "$148k wheat gap".
+
+**What this does and does not establish.** It voids the *stated reason* items 1,
+2, 3 and 7 were closed. It does **not** show any of them works — item 3 was also
+measured directly (16-0 either way, byte-identical money vs `v3-fert`), though
+that too was on the pre-1.32.6 balance against an archetype we no longer face.
+
+Live again, and now with a large surface to act on — we decline to sell on ~2/3
+of item-turns, so anything conditioning *that* decision has real room:
+
+* **Score-aware posture** (item 1). Its surviving form was "modulate investment,
+  not selling", because selling was thought saturated. It is not. Ahead late →
+  liquidate into the win; behind late → hold for the spike.
+* **Denial timing** (items 3 and 8). Selling ahead of their forecastable dump
+  changes behaviour now, where before it changed nothing.
+
+The building blocks already exist and are half-used: `rival_pipeline()`
+(`main.py:467`) already computes their standing production from their visible
+board, and `obs["farms"]` carries their money every turn. v5-pivot feeds the
+pipeline into *price discounting* only, and **nothing anywhere conditions on
+whether we are ahead or behind.**
+
+**Do not re-close the sell-timing family by citing the 89.4% figure.**

@@ -62,7 +62,7 @@ against a real strategy**, which is the metric that matters.
 
 *This is the measuring instrument for everything else — hence first.*
 
-### 1. Score-aware risk posture — `REFUTED as a selling lever`
+### 1. Score-aware risk posture — `REOPENED 2026-08-15`
 Only win/loss counts, so the shape of the distribution matters more than its
 mean. We can see their money all game and never look at it.
 
@@ -87,7 +87,7 @@ cuts inventory and lifts the price, so price is a predictable sawtooth. We sell
 on a price-vs-reserve rule that does not know the calendar — selling just after a
 drain rather than just before is free margin.
 
-### 3. Anticipate the opponent's dumps — `REFUTED`
+### 3. Anticipate the opponent's dumps — `REOPENED 2026-08-15`
 Melon is non-ongoing with `max_yield_day 12`, so it matures **all at once**, and
 their tiles carry `planted_day`. Their dump is forecastable to the day. Sell into
 the market ahead of it rather than after.
@@ -108,6 +108,13 @@ projection, so a contested product is worth less at the margin. **63% win rate o
 This also delivers item 4's substance: *composition* adapts to the opponent. Its
 *sizing* half is not needed — herd size re-tuned with the pivot on still prefers
 16 (13 → 28%, 16 → 70%, 19 → 70%).
+
+>  **REOPENED 2026-08-15 — the number below was measured in an empty market.**
+>  Re-measured on 1.32.6 against real opponents, the reserve **blocks 62-66%** of
+>  item-turns and we sell everything on only 28-31% (vs `pass`: 82%). The sell
+>  floor is the *dominant* constraint, not a slack one. This voids the stated
+>  reason items 1, 2, 3 and 7 were closed — it does not show they work. See
+>  REFUTED.md, "the sell-timing family's load-bearing number was wrong".
 
 **All three of the above, plus item 1, died of one cause.** Instrumented over a
 full game, we sell everything available on **89.4%** of item-turns holding stock;

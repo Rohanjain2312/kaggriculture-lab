@@ -65,6 +65,32 @@ all 9 products and every inventory level; CARROT separates the two tables at
 
 **4 submissions left on 2026-08-15.** `v4-gate-r2` has dropped out of matchmaking.
 
+#### 1.32.7 landed the same day — the bet paid off, with no resubmission
+
+`kaggle-environments` **1.32.7 shipped 2026-08-15**, hours after `v6-curve` went
+up. Diffed against the installed 1.32.6 rather than trusted: it is **exactly PR
+#1399 and nothing else** — no silently-deleted mechanic this time.
+
+Verified against the *installed* env, not a simulation of it:
+
+| check | result |
+|---|---|
+| installed 1.32.7 vs the sdist that was diffed | byte-identical |
+| our HINGE model vs installed env | **0 mismatches / 61,803 price checks** |
+| `detect_market_params` on a real 1.32.7 board | picks HINGE |
+| `main.py` on 1.32.7 | 0 errors, 100% vs `pass` at $157,584 |
+
+**The agent already on the ladder switches itself.** This is the payoff for the
+version-adaptive design: no submission slot spent, no rollout to time.
+
+**Consequence for reading the ranked pair:** `v6-curve` and `v5-pivot-r2` were
+behaviourally identical on 1.32.6, which is why the pair was a null-result check.
+On 1.32.7 they **diverge** — `v5-pivot-r2` values TOMATO on the dead curve.
+The gap between them from here is the measurement of the change.
+
+**Everything measured on 1.32.6 is now provisional**, including the sell-anchor
+and herd sweeps run earlier today. Re-measure before acting on any of it.
+
 **All scores above read together on 2026-08-10** (rank **1375 / 3545**), because
 ratings drift: this same table previously recorded v2-haul at 940.7, v3-fert at
 932.3 and v1-herd at 910.5 from different days. Only same-moment readings are

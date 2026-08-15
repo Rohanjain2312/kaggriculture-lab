@@ -79,6 +79,12 @@ Evidence for each is in `docs/REPLAY_ANALYSIS_CHECKLIST.md` and `docs/REFUTED.md
 — these are the operating rules, kept short because this file loads every session.
 
 **The environment changes under you — diff it, don't trust a changelog.**
+**Current pin: `kaggle-environments==1.32.7`** (2026-08-15). Diffed on arrival:
+it is exactly PR #1399 — `hinge` curves for TOMATO/CARROT/EGG (CARROT also takes
+`below_target` 0.20 → 1.00) and a `T` argument threaded through `_shape` — and
+**nothing else**. `main.py` detects the live curve set per turn, so it needed no
+change; verified 0 mismatches over 61,803 price checks against the installed env.
+
 `kaggle-environments` 1.32.6 (2026-08-07) cut town demand hard and the post
 described three changes; the source diff showed four. The fourth silently deleted
 one of the three mechanics this agent was built around (`PICKUP` no longer no-ops
