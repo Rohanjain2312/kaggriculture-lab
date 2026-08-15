@@ -1,15 +1,47 @@
+# --- Credentials. Never commit these. -----------------------------------------
+# This is a Kaggle project and KAGGRICULTURE_SETUP.md walks through API tokens,
+# so a token file landing in the working directory is a realistic accident, not a
+# hypothetical one. `kaggle.json` and `access_token` normally live in ~/.kaggle/
+# (outside this folder) -- these patterns catch a copy made "just for a minute".
+kaggle.json
+access_token
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials*
+*_token
+*_secret
+
+# --- Environments -------------------------------------------------------------
 venv/
+.venv/
+env/
+ENV/
 __pycache__/
 *.pyc
-.sweep/
-.DS_Store
 
-# Replays are large (the sample ladder replay alone is 18 MB).
+# --- Large, regenerable data --------------------------------------------------
+# Replays are large (a single ladder replay is ~31 MB; the folder reached 1 GB).
+# `digest.py` reduces each to ~40 KB and those digests ARE committed --
+# docs/analysis/digests*/ is the corpus that outlives the raw files.
 replays/
 !replays/.gitkeep
 
-# Workflow scratch variants (regenerable).
+# Scratch and tooling output.
+.sweep/
 .tmp_lens/
+*.log
+trace.txt
+why.txt
 
-# Pasted screenshots.
+# --- Editor / OS --------------------------------------------------------------
+.DS_Store
+.claude/settings.local.json
+
+# --- Images -------------------------------------------------------------------
+# Blanket-ignores pasted screenshots, which is why it exists. Note this also
+# silently drops any chart or diagram intentionally added to docs/ -- force-add
+# those with `git add -f docs/<file>.png`.
 *.png
