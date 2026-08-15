@@ -6,6 +6,97 @@ test refutes them, so a settled question never gets re-litigated.
 
 **Status:** `idea` → `validated locally` → `shipped` → `confirmed on ladder`
 
+## 0. ~~Planting schedule is broken~~ — **REFUTED 2026-08-14, same day it was filed**
+
+Filed as the highest-confidence item here, then measured. **All three fixes lost,
+two of them badly.** Numbers and the instrumented trace are in `docs/REFUTED.md`
+→ "The planting schedule bug is not a bug".
+
+Short version: the flat at 10 tiles is `MIN_PLANT_SCORE` correctly refusing wheat
+at 13-15 against a gate of 16 — not the cash floor, as guessed above. The day-10
+hole *is* the cash floor, refusing a melon that scores 46.9; relaxing that floor
+costs **$56,469/game vs `pass`**, with 12 weeds and 3 animal deaths.
+`MIN_PLANT_SCORE`, `RUNWAY_DAYS` and `LIVESTOCK_RESERVE` are each already at a
+local optimum and every single-parameter move in every direction loses money.
+
+**Also wrong above:** "this refutes labour is the binding constraint". The
+tiles-per-hand gap is real (3.3 to the leader's 7.6) but it does not follow that
+relaxing the gate helps — it was measured and it does not.
+
+**Kept as a live observation, not a fix:** peak crop area 43.5 tiles to the
+leader's 61. The gap is real; it is not reachable by moving a threshold, because
+the constants are jointly tuned around a melon/strawberry economy and the leader
+runs a different one. Evidence *for* the valuation work below — the #1399 curve
+fix moves the crop mix (0 → 14 tomato tiles) where no threshold sweep does.
+
+**Do not re-propose a threshold sweep on these three constants without new
+evidence.**
+
+## 0. Version-adaptive market curve for PR #1399 — **`validated locally` 2026-08-14, in `main.py`**
+
+**Implemented and measured.** `main.py` now carries both curve sets and picks per
+turn from the board. Numbers below are all measured in this repo, independently
+of the analysis that proposed the change.
+
+| check | result |
+|---|---|
+| our old-curve model vs installed 1.32.6 env | **0 mismatches** across all 9 products × every inventory level |
+| detection on a 1.32.6 board | picks OLD (correct) |
+| CARROT separates the two tables | **1,482 / 1,499** deficit levels (98.9%) |
+| **behaviour on today's env** | **$152,349 vs `pass` — identical to the dollar** to the pre-change agent; also identical vs `starter` and `baseline_v0` |
+| post-#1399, paired 12 seeds × 2 seats | **70.8% (17W-7L)**, $86,392 vs $82,889 |
+| post-#1399, pinned PIZZA_SHOP ×3 + FARMERS_MARKET ×2 | **100% (14W-0L)**, $201,605 vs $137,480 |
+| post-#1399, pinned PET_CAFE ×2 + FARMERS_MARKET ×3 | **92.9% (13W-1L)**, $92,501 vs $88,864 |
+| invariants | `agent` still the last callable, no module-scope imports, 0 errors under `KAGGRICULTURE_DEBUG=1`, max turn 0.016-0.088s |
+
+Mechanism verified rather than inferred: on a pinned tomato draw the adaptive
+agent holds **65 TOMATO tiles by day 14** where the control holds 1, with tomato
+priced at **$469**, and `detect_market_params` reports HINGE. No strategy code
+changed — only what the crops are worth.
+
+**The carrot counter-finding did not reproduce.** It was reported as −57 win-rate
+points on a carrot-heavy draw and flagged as a blocker. Measured here at
+**+92.9%**. The original test paired a naive-swap agent against a never-plant-
+carrot agent, which is not the decision in front of us; adaptive-vs-pre-fix is,
+and it wins. The per-planting overhead item below is still worth doing on its own
+merits, but **it is not a prerequisite for this.**
+
+**Before shipping:** re-copy `agents/sweep_ref.py` from `main.py` (it is currently
+the pre-curve-fix control, deliberately, so this change can still be measured
+against it), snapshot to `agents/v6_curve.py`, and set `AGENT_VERSION`. The
+opponent panel still carries the stale curve — rebuild it or it cannot see this.
+
+### Original entry
+
+Added 2026-08-14. **PR #1399 is still open and targets 1.32.7; PyPI's latest is
+1.32.6, verified.** When it lands, tomato/carrot/egg prices go quadratic above a
+demand knee: TOMATO at a 500-unit deficit goes **$120 → $552**.
+
+We are unusually exposed *and* unusually well placed. Exposed: on a pinned
+PIZZA_SHOP ×3 draw our agent measured **0 wins in 28 games**. Well placed:
+`build_plant_plan` is already crop-agnostic and **no gate blocks tomato — the
+stale price curve does**, so the fix is three constants and two functions
+(`main.py:79-89`, `:196-209`, `:212-224`), not a strategy rewrite.
+
+Keep **both** parameter sets and pick per turn by checking each against
+`obs["market"]["prices"]` at the observed inventory. Measured behaviour-identical
+on today's ladder (28-28-4, same money to the dollar, same planting) and +26.6
+win-rate points post-1399. Also honour `obs["market"]["params"]` when present.
+
+**Must land together with the per-planting overhead fix below** — the naive swap
+is **−57 win-rate points on a carrot-heavy draw**.
+
+**Not yet independently reproduced** — those win rates come from the parallel
+analysis harness. Re-measure before shipping.
+
+## 0. Charge per-planting overhead in the plant score — `idea`
+
+`main.py:485` scores a tile as `(marginal revenue − seed) / (1 + 2·occupancy +
+harvests)`. A 4-day carrot is charged the same per tile-day as a 17-day melon,
+so the dig-and-replant overhead is invisible. Latent today (carrot never clears
+the gate at current prices); becomes a trap the moment #1399 lifts carrot past
+$60/unit — the planner floods 22 carrot tiles and loses 6-22.
+
 ## 0. Earlier, larger strawberry — `idea`, structurally blocked
 
 The elite farm is denser on **less** land: 78 owned tiles against our 88, 3-6

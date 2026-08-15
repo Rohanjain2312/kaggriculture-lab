@@ -4,6 +4,28 @@ Agent for the Kaggle "Kaggriculture" simulation competition. Read
 `docs/KAGGRICULTURE_REFERENCE.md` for game rules and `docs/KAGGRICULTURE_SETUP.md`
 for environment setup.
 
+## THE ULTIMATE GOAL — beat the opponent, not the money
+
+**Win each individual game against the one opponent sitting across from us.**
+Scoring is win/loss per episode: a $1 win scores exactly as much as a $50k win,
+and a $200k game lost by $500 scores nothing. Absolute money is a *proxy that
+decouples from the objective precisely where games are decided* — in a close
+game, +$5k to both sides changes nothing while −$3k to them flips the result.
+
+This is the point we keep drifting away from, and it is the one that matters.
+Every analysis, metric and proposed change must answer **"does this turn a loss
+into a win against that opponent?"** — not "does this earn more?".
+
+Concretely:
+- Analyse the **margin distribution and the mechanism of each loss**, not our
+  earnings curve. A change that moves ten −$3k games to +$1k beats one that adds
+  $20k to games already won.
+- **Opponent-denial counts as profit.** Selling into a market before they do,
+  contesting the products their build depends on, and racing them to shop demand
+  all score zero on absolute money and full value on the real objective.
+- Absolute money vs `pass` stays a **guard** ("did I break it?"), never the
+  decision metric. See `docs/ROADMAP.md`.
+
 ## Layout
 
 | path | role |
@@ -13,10 +35,13 @@ for environment setup.
 | `sweep.py` | tune constants by playing variants head-to-head against a frozen reference |
 | `digest.py` | reduce raw replays (~32 MB each) to ~27 KB digests in `docs/analysis/digests/`; **raw replays are pruned after digesting, the digest is what stays** |
 | `analyze.py` | replay post-mortem: no-op audit, wasted motion, market split, fertilizer audit, planting schedule, action mix, opponent reconstruction |
+| `tools/margin.py` | **head-to-head post-mortem — what separates winner from loser, paired within-game.** `--focus TEAM` when one agent dominates the corpus. Marks order-derived features `~` (intent, not volume) |
 | `docs/REPLAY_ANALYSIS_CHECKLIST.md` | checklist to work through per analysis — **append new checks to it** |
 | `docs/IMPROVEMENT_BACKLOG.md` | candidate changes with evidence + what was already refuted |
 | `docs/SUBMISSIONS.md` | one row per submission; snapshot `main.py` to `agents/` when shipping |
 | `docs/analysis/` | saved `analyze.py` output per batch — replays are ~26 MB and get pruned, this is what stays |
+| `docs/analysis/digests-top10/` | 22 top-cohort episodes at 1.32.6 (2026-08-14), all involving rank 1; source for `panel.py --build` |
+| `docs/analysis/digests-ours/` | our own local games, digested, so our build can be compared feature-for-feature against the ladder |
 | `docs/brainstorms/` | Rohan's strategy notes; reviewed, then carried into the backlog with the verification appended |
 | `agents/baseline_v0.py` | the original greedy agent, kept as a benchmark |
 | `replays/` | raw episodes, **pruned once digested** -- see `docs/analysis/digests/` (`index.csv` = one row per player-season). `replays/local/` is locally generated and regenerable |
@@ -75,11 +100,15 @@ the decision metric. See `docs/ROADMAP.md`.
 measured with a throwaway agent or a replay audit. Paper reasoning has been wrong
 repeatedly — most expensively a "$148k wheat gap" that was a counting artifact.
 
-**Beware the four metrics that lie.** Head-to-head flatters production cuts
+**Beware the five metrics that lie.** Head-to-head flatters production cuts
 (making less crashes the shared market less). Gross sells flatter round-trippers
 (net `BUY_PRODUCT` against `SELL`). One seed set flatters luck (use paired
 comparisons across >= 8). `peak weeds` counts deliberate end-game abandonment
-(judge days 2-27).
+(judge days 2-27). **Order quantities are intent, not volume** — unfilled stock
+is re-offered every turn, so cumulative orders over-count; a 2026-08-14 corpus
+showed 1,872 fertilizer "sales" from a herd that can produce ~390. Build
+conclusions on board state and action counts, which are exact; use order rows for
+direction only. This error class has now appeared three times.
 
 **Tune only after the bugs are out, and check what a removed gate was masking.**
 `MAX_ANIMALS` optimised to 8 against a counting bug; the true optimum was 16.

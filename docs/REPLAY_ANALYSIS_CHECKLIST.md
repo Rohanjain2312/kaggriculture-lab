@@ -290,3 +290,57 @@ Reading raw replays directly is what made the elite analysis unaffordable: 32 MB
 files x a fan-out of agents burned ~2M tokens and returned findings that did not
 survive testing. Query `index.csv` first; open a per-episode digest only for
 detail it does not carry.
+
+## Pair by team, not by winner, when one agent dominates (added 2026-08-14)
+
+`tools/margin.py` defaults to a paired winner-vs-loser test: for each feature,
+how often was the winner's value higher *in the same episode, on the same board,
+against the same market*. Anything near 50% is noise no matter how large the
+absolute gap looks.
+
+But a corpus pulled from one team's episode list is **all that team's games**.
+The 2026-08-14 pull was 22 episodes that all involved rank 1, who went 18W-4L —
+so "what winners do" was really "what that one agent does" in 82% of rows. Use
+`--focus <TEAM>` there: it pairs the named team against whoever it faced, and
+separately reports what the opponents who *beat* it did differently from the
+opponents who lost. Two answerable questions instead of one confounded one.
+
+## Orders are intent; never quote them as volumes (added 2026-08-14)
+
+`digest.py` records market orders, and an unfilled order is re-offered the next
+turn, so cumulative order quantity over-counts — badly. The 2026-08-14 corpus
+showed rank 1 "selling" **1,872 units of FERTILIZER from a 14-animal herd that
+can physically produce ~390**, a 4.8x inflation that reads as a 12x edge over
+the field.
+
+This is the third time this exact error class has appeared (after the "$148k
+wheat gap" and gross-vs-net sells). `tools/margin.py` now marks every
+order-derived feature with `~` and prints the caveat. **Board state (tile
+census, money, hands, plants) and action counts are exact — build conclusions on
+those, and use order rows for direction only.** Sanity-check any volume claim
+against what the farm can physically produce.
+
+## Check the planting curve for flats and holes (added 2026-08-14)
+
+Plot plants-per-day rather than peak or mean. Two failure shapes are invisible
+in aggregates and were both live in `main.py` on 2026-08-14:
+
+* **A flat at a round number** (ours sat at exactly 10 plants for days 1-9) is a
+  constraint binding, not a valuation choosing. Find the constraint.
+* **A hole** (ours dropped to 0 plants and 0 watered on day 10 in 4/6 seeds) is a
+  synchronised harvest with no replant — a full idle day mid-season.
+
+Compare tiles-per-hand against the cohort while you are there. Ours was 3.3
+against rank 1's 7.6, which is what showed labour had stopped being the binding
+constraint that `MIN_PLANT_SCORE` was built to respect.
+
+## Ask what the shops want that nobody grows (added 2026-08-14)
+
+`tools/margin.py` reports "uncontested demand": products the drawn shop multiset
+buys that **neither** player produced. TOMATO was unproduced in **95%** of the
+2026-08-14 corpus and 97% of the older one; EGG 86%; CARROT 94%.
+
+An entire product line that the whole elite field ignores is the same shape as
+the fertilizer finding — the biggest wins so far have been absences, not
+inefficiencies. It is also where the organisers aim balance changes: PR #1399
+targets exactly these three products.

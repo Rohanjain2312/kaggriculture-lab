@@ -121,6 +121,54 @@ def collect_actions(steps: list[Any], player: int) -> dict[str, Any]:
             "hires": hires}
 
 
+def orders_by_day(steps: list[Any], player: int, turns_per_day: int) -> list[dict[str, Any]]:
+    """Per-day SELL/BUY flow for one player, with the price each order saw.
+
+    The whole-episode aggregate in `collect_actions` cannot answer *when* a
+    player hit the market, and market timing is a head-to-head weapon: selling
+    into a product before the opponent does moves the price against them. This
+    keeps the day resolution that question needs.
+    """
+    per_day: dict[int, dict[str, Any]] = {}
+    for index, step in enumerate(steps):
+        entry = step[player]
+        action = entry.get("action")
+        if not isinstance(action, dict):
+            continue
+        orders = action.get("market") or []
+        if not orders:
+            continue
+        day = index // turns_per_day
+        prices = entry.get("observation", {}).get("market", {}).get("prices", {})
+        row = per_day.setdefault(day, {"day": day, "sell": {}, "buy": {}, "value": 0.0})
+        for order in orders:
+            if not order or len(order) < 2 or order[0] in ("HIRE",):
+                continue
+            kind, item = order[0], str(order[1])
+            qty = int(order[2]) if len(order) > 2 else 1
+            price = float(prices.get(item, 0))
+            if kind == "SELL":
+                bucket = row["sell"]
+                row["value"] += qty * price
+            elif kind == "BUY_PRODUCT":
+                bucket = row["buy"]
+                row["value"] -= qty * price
+            else:
+                continue
+            slot = bucket.setdefault(item, {"qty": 0, "price_sum": 0.0})
+            slot["qty"] += qty
+            slot["price_sum"] += qty * price
+    out = []
+    for day in sorted(per_day):
+        row = per_day[day]
+        for side in ("sell", "buy"):
+            for item, slot in row[side].items():
+                slot["avg_price"] = round(slot.pop("price_sum") / max(slot["qty"], 1), 1)
+        row["value"] = round(row["value"])
+        out.append(row)
+    return out
+
+
 def digest_episode(path: str) -> dict[str, Any]:
     """Reduce one replay file to its digest dict."""
     with open(path) as fh:
@@ -201,6 +249,7 @@ def digest_episode(path: str) -> dict[str, Any]:
                  "final_money": (raw.get("rewards") or [None] * n_players)[player],
                  "by_day": days}
         entry.update(collect_actions(steps, player))
+        entry["orders_by_day"] = orders_by_day(steps, player, turns_per_day)
         out["players"].append(entry)
 
     # Market trajectory is shared, so record it once.

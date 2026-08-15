@@ -484,3 +484,88 @@ because every one was tuned against the others' errors.** Correcting a term in
 isolation breaks the calibration that made the whole work. Any future correctness
 fix must be swept together with the terms it interacts with, and judged on
 measurement, not on being right.
+
+## The "planting schedule bug" is not a bug (2026-08-14)
+
+`docs/analysis/top10_headtohead_2026-08-14.md` reported two defects in the
+planting curve and ranked fixing them as the highest-confidence item in the
+backlog. **Both were measured and both hypotheses lost.** The curve is a tightly
+tuned local optimum, not a defect.
+
+The observations themselves were real and reproduce: days 1-9 pinned at exactly
+10 plants, and day 10 dropping to 0 plants / 0 watered in 4 of 6 seeds, against
+the rank-1 ladder agent's 19-35 tiles over the same window.
+
+**What the instrumented trace actually showed** (seed 7, `WHY_FILE` logging of
+every crop's cash check and score inside `build_plant_plan`) — two *different*
+causes, neither the one assumed:
+
+* **Days 1-9:** `WHEAT` is the only crop `crop_projection` returns units for, and
+  it scores **13.2-14.8 against `MIN_PLANT_SCORE = 16`**. The board is flat
+  because the gate is correctly refusing a low-value crop, not because of cash.
+* **Day 10:** `MELON` scores **46.9**, far above the gate, and is refused purely
+  on cash — $587 against a floor of $1,678 ($250 hard floor + $900 livestock
+  reserve + $528 payroll runway).
+
+### Refutation 1 — exempting fast-payback crops from the livestock reserve
+
+`FAST_CASH_DAYS`: waive `LIVESTOCK_RESERVE` for a crop whose seed returns before
+the herd purchase it protects. **Zero effect** — identical to the dollar at
+thresholds 0, 3, 4 and 6 ($92,511 mean), because `days_to_cash` returns
+`max_yield_day` (WHEAT 4, CARROT 3), and the crops it would have unblocked are
+rejected by the score gate anyway. At 10 (which also exempts strawberry) it
+collapsed to 6.2% / $57,045.
+
+### Refutation 2 — suspending the reserves below a working-tile minimum
+
+`MIN_WORKING_TILES`: apply only the hard `CASH_FLOOR` until the farm has a
+minimum number of tiles working, on the reasoning that a runway protecting a crew
+with nothing to water inverts its own purpose.
+
+| `MIN_WORKING_TILES` | win% vs ref | mean $ | worst $ |
+|---|---|---|---|
+| 0 (control) | 100.0% | **92,511** | 75,394 |
+| 12 | 0.0% | 61,334 | 37,067 |
+| 24 | 0.0% | 70,108 | 53,079 |
+| 36 | 93.8% | 85,353 | 52,760 |
+
+Against the guard that matters: **$95,880 vs `pass`, against main.py's $152,349
+— a $56,469/game loss.** `bench.py --trace` gives the mechanism: `max_weeds=12`
+and **3 animal deaths**. Planting early with no cash means no hires, which means
+plants unwatered and livestock unfed. This is the same failure recorded when the
+reserve was removed outright (peak weeds 3 → 24); the reserve is load-bearing.
+
+### Refutation 3 — lowering the gate to admit the early wheat engine
+
+The rank-1 agent runs wheat for early cash flow. Ours scores 13-15 against a gate
+of 16, so admitting it looked like the missing engine. Monotonically worse:
+
+| `MIN_PLANT_SCORE` | 10 | 12 | 14 | **16** | 18 |
+|---|---|---|---|---|---|
+| mean $ | 75,888 | 77,751 | 86,595 | **92,511** | 89,560 |
+
+`RUNWAY_DAYS` was swept in the same pass and is also already at its peak
+(2→84,975, 5→87,682, **6→92,511**, 8→83,191).
+
+### What this means — the constants are jointly tuned, in the wrong basin
+
+`MIN_PLANT_SCORE`, `RUNWAY_DAYS` and `LIVESTOCK_RESERVE` are each at a local
+optimum and **every single-parameter move in every direction loses money**. They
+are jointly tuned around a melon/strawberry economy. The rank-1 agent runs a
+different economy (wheat cash engine, herd complete by day 11, carrot, low
+melon), and no single threshold move crosses between the two basins — which is
+consistent with every tuning change we have shipped being worth ~0 on the ladder.
+
+**The lever is valuation, not thresholds.** The PR #1399 curve fix changes what
+crops are *worth* rather than where a cutoff sits, which is why it moves the mix
+(0 tomato tiles → up to 14) when no threshold sweep does.
+
+### Methodology defect found in the process
+
+**`agents/sweep_ref.py` is stale — it is `v3-fert`, two versions behind `main.py`
+(`v5-pivot`).** `CLAUDE.md` requires re-copying it after accepting a change and
+that was missed for two versions. Consequence: win% saturates at 100% for nearly
+every variant, so every sweep above was decided on mean money alone. The variant
+*rankings* remain valid — all faced the same reference — but win% carried no
+information. Re-copy before the next sweep, and treat win% in any sweep recorded
+before 2026-08-14 as uninformative.
