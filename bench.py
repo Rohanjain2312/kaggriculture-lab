@@ -38,13 +38,43 @@ def episode_result(env: Any) -> tuple[str, str, float, float]:
     return (final[0].status, final[1].status, float(final[0].reward or 0), float(final[1].reward or 0))
 
 
-def max_turn_seconds(env: Any) -> float:
-    """Largest per-turn wall time recorded for player 0, or 0.0 if unavailable."""
+def max_turn_seconds(env: Any, player: int = 0) -> float:
+    """Largest per-turn wall time recorded for `player`, or 0.0 if unavailable.
+
+    Takes the seat explicitly: half of every bench run plays our agent from seat
+    1, and reading seat 0 there reports the *opponent's* timing.
+    """
     best = 0.0
     for entry in getattr(env, "logs", []) or []:
-        if isinstance(entry, list) and entry and isinstance(entry[0], dict):
-            best = max(best, float(entry[0].get("duration") or 0.0))
+        if isinstance(entry, list) and len(entry) > player and isinstance(entry[player], dict):
+            best = max(best, float(entry[player].get("duration") or 0.0))
     return best
+
+
+def looks_inert(env: Any, player: int) -> bool:
+    """True if this seat never issued a real action all game.
+
+    An agent that fails to load or raises at import still reports `status=DONE`
+    and simply passes every turn, finishing on its starting money. Status alone
+    therefore cannot tell a crashed agent from a bad one -- a broken variant
+    reads as "$3,000, terrible idea" rather than as an error. Verified: a
+    module-level `raise` produces DONE/DONE with reward 3000.
+    """
+    for step in env.steps:
+        if player >= len(step):
+            continue
+        action = step[player]["action"]
+        if not isinstance(action, dict):
+            continue
+        farmer = action.get("farmer") or []
+        if farmer and farmer[0] != "PASS":
+            return False
+        if action.get("market"):
+            return False
+        for hand in action.get("hands") or []:
+            if hand and hand[0] != "PASS":
+                return False
+    return True
 
 
 # --------------------------------------------------------------------------- #
@@ -151,12 +181,18 @@ def bench(agent: str, opponents: list[str], seeds: list[int], steps: int = 720) 
             env = run_episode(rival if flip else agent, agent if flip else rival, seed, steps)
             wall = time.perf_counter() - t0
             s0, s1, m0, m1 = episode_result(env)
+            seat = 1 if flip else 0
             if s0 != "DONE" or s1 != "DONE":
                 errors.append(f"seed{seed}:{s0}/{s1}")
                 any_error = True
+            elif looks_inert(env, seat):
+                # Not a bad result -- a broken one. Loud, because it otherwise
+                # reads as a plausible "this idea is terrible" number.
+                errors.append(f"seed{seed}:INERT(agent never acted)")
+                any_error = True
             mine.append(m1 if flip else m0)
             theirs.append(m0 if flip else m1)
-            slowest = max(slowest, max_turn_seconds(env) or wall / max(1, steps))
+            slowest = max(slowest, max_turn_seconds(env, seat) or wall / max(1, steps))
             if mine[-1] > theirs[-1]:
                 wins += 1
             elif mine[-1] < theirs[-1]:

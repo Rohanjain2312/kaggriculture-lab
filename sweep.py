@@ -16,6 +16,8 @@ import sys
 
 from kaggle_environments import make
 
+from bench import looks_inert
+
 SCRATCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".sweep")
 
 
@@ -33,21 +35,30 @@ def make_variant(source, settings, path):
 
 
 def score(agent, ref, seeds, steps):
-    """Play `agent` as both seats against `ref`; return (win_rate, mean, worst)."""
+    """Play `agent` as both seats against `ref`; return (win_rate, mean, worst, broken).
+
+    A variant that fails to load still reports `status=DONE` and passes every
+    turn, finishing on its starting money -- so without an explicit check a
+    broken variant reads as a plausible "terrible idea" rather than an error.
+    `broken` counts episodes where the variant never issued a single action.
+    """
     wins = 0.0
     monies = []
+    broken = 0
     for seed in seeds:
         for flip in (False, True):
             env = make("kaggriculture", configuration={"episodeSteps": steps, "seed": seed})
             env.run([ref, agent] if flip else [agent, ref])
             final = env.steps[-1]
             me, them = (1, 0) if flip else (0, 1)
+            if final[me].status != "DONE" or looks_inert(env, me):
+                broken += 1
             mine = float(final[me].reward or 0)
             theirs = float(final[them].reward or 0)
             monies.append(mine)
             wins += 1.0 if mine > theirs else 0.5 if mine == theirs else 0.0
     n = len(monies)
-    return 100.0 * wins / n, sum(monies) / n, min(monies)
+    return 100.0 * wins / n, sum(monies) / n, min(monies), broken
 
 
 def main():
@@ -78,10 +89,16 @@ def main():
     for combo in itertools.product(*options):
         settings = dict(zip(names, combo))
         label = " ".join("%s=%s" % kv for kv in settings.items())
-        path = make_variant(source, settings, os.path.join(SCRATCH, "v.py"))
-        win, mean, worst = score(path, args.ref, seeds, args.steps)
+        # Per-process filename: two sweeps running at once would otherwise both
+        # write the same variant file and score each other's agent.
+        path = make_variant(source, settings,
+                            os.path.join(SCRATCH, "v_%d.py" % os.getpid()))
+        win, mean, worst, broken = score(path, args.ref, seeds, args.steps)
         results.append((win, mean, label))
-        print("%-42s %6.1f%% %11s %11s" % (label, win, format(int(mean), ","), format(int(worst), ",")))
+        flag = "  !! BROKEN in %d/%d episodes -- this number is not a result" % (
+            broken, 2 * len(seeds)) if broken else ""
+        print("%-42s %6.1f%% %11s %11s%s" % (
+            label, win, format(int(mean), ","), format(int(worst), ","), flag))
 
     results.sort(reverse=True)
     print("\nbest: %s  (%.1f%%, $%s)" % (results[0][2], results[0][0], format(int(results[0][1]), ",")))
