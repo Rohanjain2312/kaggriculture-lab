@@ -42,6 +42,7 @@ with no change to the agent.
 | `v5-pivot` | 55338743 | 2026-08-08 | 879.5 | 63% over 60 games vs v4-gate | `RIVAL_SUPPLY_SHARE=0.25` |
 | `v4-gate-r2` | 55340304 | 2026-08-08 | 905.4 | — | + config fix (melon overvalued up to 8x) |
 | `v5-pivot-r2` | 55340305 | 2026-08-08 | **905.7** | 79% over 24 games vs v4-gate-r2 | + config fix; **ranked pair with v4-gate-r2** |
+| `v6-curve-r2` | 55560444 | 2026-08-16 | *600.0 provisional* | detection 8.0%->0.0% misread | sticky curve detection; **ranked pair with v6-curve** |
 | `v6-curve` | 55518009 | 2026-08-15 | *600.0 provisional* | **identical to the dollar vs `pass`**; 70.8% post-1399 | version-adaptive market curve; **ranked pair is now v6-curve + v5-pivot-r2** |
 
 ### `v6-curve` (55518009) — submitted 2026-08-15, provisional
