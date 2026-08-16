@@ -6,6 +6,39 @@ test refutes them, so a settled question never gets re-litigated.
 
 **Status:** `idea` → `validated locally` → `shipped` → `confirmed on ladder`
 
+## 0. We are the only farm on the ladder that does not grow wheat — `idea`
+
+From the 40-episode **1.32.7** corpus (`docs/analysis/digests-1327/`), pulled
+2026-08-15, 80 top-cohort player-seasons. Share selling each product net-positive:
+
+| product | ladder | ours |
+|---|---|---|
+| **WHEAT** | **99%** | **0%** |
+| **CARROT** | **71%** | **0%** |
+| EGG | 4% | **100%** |
+| STRAWBERRY / MELON / MILK / WOOL / FERTILIZER | 100% | 100% |
+
+We are a net wheat **buyer** — we purchase grain to feed animals. Essentially the
+entire ladder grows it, feeds from it, and sells the surplus. That is the missing
+7th product line, and it lines up with the two paired signals that clear
+significance on this corpus: `n_products_sold` winner-higher **81% (p=0.021)** and
+`firstsell_WHEAT` winner-earlier **80% (p=0.035)**.
+
+**Read `docs/REFUTED.md` before acting.** "Wheat rotation" was killed there twice.
+But it was killed on a *bogus premise* — the "$148k wheat gap" that turned out to
+be a gross-sells counting artifact. This evidence is different in kind: **net**
+units per player-season, on the current balance, with a significant paired test.
+That justifies re-opening the question, not assuming the answer.
+
+**The question reduces to one thing: is growing wheat for feed cheaper than
+buying it?** Test that directly and in isolation — do not rebuild the crop plan
+around it. Prior wheat attempts died by bundling.
+
+Egg is the mirror image and probably fine as-is: the field leaves egg demand
+unmet, so our geese sell into a market nobody contests. Under #1399 EGG also
+takes the hinge, which makes an uncontested egg line *more* valuable, not less.
+Do not "fix" it to match the field.
+
 ## 0. Standing-aware posture — **estimator BUILT and works; the SELL lever is dead**
 
 Built 2026-08-15 (`scratchpad/posture.py`). Two separable halves; one works.

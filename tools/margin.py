@@ -171,6 +171,75 @@ def player_features(digest: dict[str, Any], pid: int) -> dict[str, Any]:
     return feats
 
 
+def mix_overlap(a: dict[str, int], b: dict[str, int]) -> float:
+    """How much two players' product mixes coincide, 0 (disjoint) to 1 (identical).
+
+    Both vectors are normalised to shares first, so this measures *what* each
+    farm sells, not how much. It is the direct test of a strategic question the
+    earnings view cannot ask: do winners contest the same products as their
+    opponent, or deliberately sell somewhere else?
+    """
+    pa = {k: v for k, v in a.items() if v > 0}
+    pb = {k: v for k, v in b.items() if v > 0}
+    ta, tb = sum(pa.values()), sum(pb.values())
+    if not ta or not tb:
+        return 0.0
+    return sum(min(pa.get(k, 0) / ta, pb.get(k, 0) / tb) for k in set(pa) | set(pb))
+
+
+def lead_changes(curve: list[float]) -> int:
+    """How many times the lead changed hands after the opening."""
+    flips = 0
+    sign = 0
+    for lead in curve[3:]:
+        s = (lead > 0) - (lead < 0)
+        if s and sign and s != sign:
+            flips += 1
+        if s:
+            sign = s
+    return flips
+
+
+def interaction_row(digest: dict[str, Any], winner: int) -> dict[str, Any]:
+    """Opponent-relative features: share of each contested market, and timing."""
+    w = digest["players"][winner]
+    l = digest["players"][1 - winner]
+    nw = {k: v for k, v in w["net_product_units"].items() if v > 0}
+    nl = {k: v for k, v in l["net_product_units"].items() if v > 0}
+
+    out: dict[str, Any] = {"overlap": round(mix_overlap(nw, nl), 3)}
+
+    # Share of every product BOTH players sold -- the genuinely zero-sum ones.
+    contested = [k for k in set(nw) & set(nl)]
+    if contested:
+        shares = [nw[k] / (nw[k] + nl[k]) for k in contested]
+        out["contested_products"] = len(contested)
+        out["contested_share"] = round(sum(shares) / len(shares), 3)
+    # Products only one side sold at all -- uncontested ground taken.
+    out["solo_products_w"] = len(set(nw) - set(nl))
+    out["solo_products_l"] = len(set(nl) - set(nw))
+
+    # First to market on each contested product, and whether being first paid.
+    first_w = first_l = 0
+    price_gain = []
+    for item in contested:
+        dw, dl = first_sell_day(w, item), first_sell_day(l, item)
+        if dw is None or dl is None or dw == dl:
+            continue
+        pw, pl = realised_price(w, item), realised_price(l, item)
+        if dw < dl:
+            first_w += 1
+        else:
+            first_l += 1
+        if pw is not None and pl is not None:
+            price_gain.append((pw - pl) if dw < dl else (pl - pw))
+    out["first_to_market_w"] = first_w
+    out["first_to_market_l"] = first_l
+    if price_gain:
+        out["first_mover_price_edge"] = round(sum(price_gain) / len(price_gain), 1)
+    return out
+
+
 def episode_row(path: str) -> dict[str, Any] | None:
     """Winner/loser feature pair for one episode, or None if it is unusable."""
     d = json.load(open(path))
@@ -193,6 +262,8 @@ def episode_row(path: str) -> dict[str, Any] | None:
         "margin_pct": (rewards[winner] - rewards[1 - winner]) / max(rewards[1 - winner], 1) * 100,
         "decisive_day": decisive_day(curve),
         "lead_curve": curve,
+        "lead_changes": lead_changes(curve),
+        "interaction": interaction_row(d, winner),
         "W": player_features(d, winner),
         "L": player_features(d, 1 - winner),
     }
@@ -283,6 +354,52 @@ def report(rows: list[dict[str, Any]], me: str | None) -> None:
                     if any(x > 0 for x in r["lead_curve"][:20]) and r["decisive_day"]
                     and r["decisive_day"] > 20)
         print(f"  games where the day-20 leader still lost: {flips}/{len(rows)}")
+
+    # ---- interaction: the game plan, not the earnings -----------------------
+    print("\n## HOW THE WINNER BEAT THEM  (opponent-relative, not earnings)")
+    inter = [r["interaction"] for r in rows]
+    ov = [i["overlap"] for i in inter]
+    print(f"  product-mix overlap with the opponent: median {statistics.median(ov):.2f}"
+          f"  (1.00 = identical mix, 0 = disjoint)")
+    hi = [r for r in rows if r["interaction"]["overlap"] >= statistics.median(ov)]
+    lo = [r for r in rows if r["interaction"]["overlap"] < statistics.median(ov)]
+    for label, grp in (("high overlap (contest)", hi), ("low overlap (differentiate)", lo)):
+        if grp:
+            m = statistics.median(r["margin_pct"] for r in grp)
+            print(f"    {label:<28} n={len(grp):>3}   median winning margin {m:>5.1f}%")
+
+    shares = [i["contested_share"] for i in inter if "contested_share" in i]
+    if shares:
+        n_above = sum(1 for s in shares if s > 0.5)
+        print(f"\n  winner's share of CONTESTED product volume: median "
+              f"{statistics.median(shares):.1%}")
+        print(f"    winner outproduced the loser on contested ground in "
+              f"{n_above}/{len(shares)} games  p={binomial_p(n_above, len(shares)):.3f}")
+
+    solo_w = [i["solo_products_w"] for i in inter]
+    solo_l = [i["solo_products_l"] for i in inter]
+    more = sum(1 for a, b in zip(solo_w, solo_l) if a > b)
+    diff = sum(1 for a, b in zip(solo_w, solo_l) if a != b)
+    print(f"\n  uncontested product lines held (opponent sold none):")
+    print(f"    winner median {statistics.median(solo_w):.0f}, loser median "
+          f"{statistics.median(solo_l):.0f}"
+          + (f"  -- winner held more in {more}/{diff}, p={binomial_p(more, diff):.3f}"
+             if diff else ""))
+
+    fw = sum(i["first_to_market_w"] for i in inter)
+    fl = sum(i["first_to_market_l"] for i in inter)
+    if fw + fl:
+        print(f"\n  first to market on a contested product: winner {fw}, loser {fl}"
+              f"  ({fw/(fw+fl):.0%} to the winner, p={binomial_p(fw, fw+fl):.3f})")
+    edges = [i["first_mover_price_edge"] for i in inter if "first_mover_price_edge" in i]
+    if edges:
+        print(f"  price the first mover realised, vs the follower: "
+              f"{statistics.median(edges):+.1f}/unit")
+
+    lc = [r["lead_changes"] for r in rows]
+    never = sum(1 for x in lc if x == 0)
+    print(f"\n  lead changes after day 3: median {statistics.median(lc):.0f}"
+          f"   never changed hands in {never}/{len(lc)} games")
 
     # ---- the paired test ---------------------------------------------------
     print("\n## WHAT SEPARATES WINNER FROM LOSER  (paired, same board, same market)")

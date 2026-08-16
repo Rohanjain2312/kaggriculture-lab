@@ -619,3 +619,158 @@ pipeline into *price discounting* only, and **nothing anywhere conditions on
 whether we are ahead or behind.**
 
 **Do not re-close the sell-timing family by citing the 89.4% figure.**
+
+## SELL_ANCHOR — the diagnosis was right, the fix is worth nothing (2026-08-15)
+
+**Diagnosis (stands, independently verified).** `sell_floor` returns
+`max(0.97 x price_now, SELL_ANCHOR x slack x base)`. Instrumented over days
+10-17 vs `panel_rival`: **100% of blocked item-turns are stopped by the absolute
+`0.75 x base` anchor, 0% by the price-relative term.** Confirmed constructively —
+relaxing the relative term (0.90 -> 0.86) left mid-game blocking at 84.7% against
+a control's 84.0%, i.e. unchanged. The reserve blocks 45.6% / **84.0%** / 64.0% /
+22.5% of item-turns across days 0-9 / 10-17 / 18-21 / 22-29.
+
+**The fix does not convert into wins.** `SELL_ANCHOR = 0.60`:
+
+| evidence | result |
+|---|---|
+| sweep vs `panel_rival`, n=20 | 95.0%, best of 5 values |
+| full panel, 12 seeds (n=120) | 92.5% vs control 90.8% — **+2 games** |
+| **full panel, 25 DISJOINT seeds (n=250)** | **95.6% vs control 96.0% — −1 game** |
+| money vs `pass` | $138,735 vs $138,811 — flat |
+
+The replication used **disjoint seeds (seed0=100) rather than an extension of the
+original set**, deliberately: extending would have inherited whatever seed luck
+produced the +2 and reported it again as a weak positive. On seeds it had never
+seen, the effect is zero.
+
+Note how large the seed effect is — the same control agent reads 90.8% on one
+25-seed set and 96.0% on another. **Any panel result below ~5 percentage points
+on a single seed set is noise.** Two of today's candidate results were inside
+that band.
+
+**What this does not refute:** that conversion timing matters. Elite analysis
+(n=79) shows first-to-market going to the winner 60% of the time (p=0.035), and
+holding at 90% even when the winner's build is *not* ahead. Selling the same
+goods slightly cheaper is only one way to arrive earlier, and it is now measured
+flat. Levers that change *when produce exists* — harvest timing, haul cadence —
+are untested and are a different mechanism.
+
+## Day-10 tempo: "plant what we can afford" (2026-08-15)
+
+**The observation is real and stands.** Over 45 of our own 1.32.7 ladder games,
+opponents hold LESS cash than us on days 0-8 (median $85-450 vs our $251-448) and
+still add ~2 plants a day, reaching **30 plants by day 10 against our 3**. They
+buy animals later (day 7+) out of crop returns; we buy by day 4 and then sit on
+$250 we cannot convert.
+
+Correct root cause, from an instrumented per-crop trace (seed 7): days 1-10
+MELON scores **46-47 against a gate of 16** and is refused purely on **cash** --
+floor $1,678 vs $255-448 held. It is not the score gate. *(An earlier claim in
+this session that the gate was refusing wheat was wrong -- an artifact of `awk`
+collapsing the trace to one line per day.)*
+
+**The fix was built and it fails on both counts.** `FILL_WHEN_BLOCKED`: when every
+crop clearing `MIN_PLANT_SCORE` is unaffordable, plant the best affordable crop
+instead of nothing, on the reasoning that no better tile is being displaced.
+
+| | control | FILL_WHEN_BLOCKED |
+|---|---|---|
+| plants, days 1-9 | 10 10 10 10 10 10 10 10 10 | **11 8 8 8 8 8 8 8 9** |
+| panel (7 opponents, 12 seeds) | **159/168 (94.6%)** | 151/168 (89.9%) |
+| **money vs `pass`** | **$148,140** | **$79,454** |
+
+**It does not even raise the plant count** -- it *lowers* it, 10 -> 8. A cheap
+crop planted early occupies the tile through the window when melon becomes
+affordable, so the board ends up holding less value, and the vs-`pass` guard
+collapses by **$68,686/game**. Rejected on the guard alone.
+
+**What remains open:** the opponents' actual mechanism is *sequencing* -- animals
+later, cheap plantings continuously -- not "fill empty tiles with whatever is
+affordable". Deferring the early herd to fund continuous planting is untested and
+is a different change from this one.
+
+## Day-10 tempo, attempt 2: deferring the herd (2026-08-16)
+
+Opponents buy animals from day 7+ and fund continuous planting from crop returns;
+we buy by day 4 and go broke. Hypothesis: defer the herd (and lift the livestock
+reserve with it, since holding $900 for animals we are not allowed to buy is what
+starves planting) so early cash goes into tiles instead.
+
+`HERD_START_DAY` vs `agents/panel_rival.py` on 1.32.7, 20 games per value:
+
+| value | win% | mean $ | worst $ |
+|---|---|---|---|
+| **0 (current)** | **100.0%** | **78,375** | **50,479** |
+| 3 | 75.0% | 75,362 | 37,855 |
+| 5 | 75.0% | 76,493 | 34,982 |
+| 7 | 75.0% | 76,493 | 34,982 |
+
+**-25 percentage points, lower mean, and a floor $15k worse.** Days 5 and 7 give
+identical figures because we finish the early herd by day 4 either way, so both
+block the same purchases.
+
+Mechanism: animals are the best return per action in the game -- a $400 cow
+yields ~36 milk over a season -- so delaying them forfeits compounding that crop
+tiles do not replace. **The opponents' late herd is a consequence of their build,
+not a cause of their strength.** That is the third time
+`CLAUDE.md`'s rule has bitten: *an opponent's behaviour is evidence about their
+optimum, not ours.*
+
+### The day-10 tempo gap now has two refuted fixes
+
+The observation is not in doubt -- 30 plants to our 3 at day 10, from 45 real
+ladder games, with opponents holding *less* cash than us throughout. What has
+failed is every attempt to close it:
+
+1. `FILL_WHEN_BLOCKED` (plant the best affordable crop rather than nothing):
+   **-$68,686/game vs `pass`**, and it lowered the plant count 10 -> 8.
+2. `HERD_START_DAY` (defer the herd to free early cash): **-25pp win rate.**
+
+Both assumed the gap is a *resource allocation* problem. Two independent
+refutations suggest it is not -- the difference is more likely in how efficiently
+they convert the same resources (they reach 30 tiles while poorer), which points
+at execution, not at what we spend money on. Do not attempt a third variation on
+"spend the early cash differently" without new evidence.
+
+## Wool allocation: more sheep earns more and wins less (2026-08-16)
+
+Ladder analysis over 45 of our 1.32.7 games: we field **3 sheep to our opponents'
+6** (exact board state; `wool_net` 66 vs 144), substituting geese. Estimated at
+~5 loss-flips. Tested as `SHEEP_BIAS`, a multiplier on SHEEP's marginal score in
+`pick_animal`.
+
+Sweep vs `agents/panel_rival.py` was **uninformative**: control sits at 100%
+there, so the comparison could only detect regressions. Re-run on the full
+7-opponent panel, 16 matched seeds:
+
+| opponent | control | SHEEP_BIAS=1.2 |
+|---|---|---|
+| kostiantyn | 94% | **100%** |
+| mohamed | 100% | 94% |
+| **raiden_b** | 78% | **53%** |
+| researchstudio | 100% | 100% |
+| rival | 100% | 91% |
+| thunder | 97% | **100%** |
+| **ueddy** | 94% | **75%** |
+| **total** | **212/224 (94.6%)** | **196/224 (87.5%)** |
+| mean money | $82,637 | **$87,172 (+$4,535)** |
+| vs `pass` | $146,645 | $146,793 |
+
+**Money rose $4,535/game against every single opponent while win rate fell 7.1
+points -- 16 games.** Optimising money ships this change; the objective rejects
+it. It collapses precisely in our two weakest matchups (`raiden_b` 78 -> 53,
+`ueddy` 94 -> 75) while padding games already won.
+
+Mechanism: WOOL has the harshest glut curve in the game (`above_target 3.20`,
+shape `sq`). More sheep pushes more wool into a market that punishes oversupply
+quadratically, so the extra output banks well in comfortable games and crashes
+the close ones.
+
+**This is the cleanest demonstration in this file of why absolute money is a
+guard and not the decision metric** -- the two moved in opposite directions, hard,
+on the same 224 games.
+
+**And it is the fourth time today that copying an opponent's observable choice
+has failed:** their 6 sheep is right for *their* build. `CLAUDE.md`: an
+opponent's behaviour is evidence about their optimum, not ours.

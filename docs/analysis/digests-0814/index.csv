@@ -1,0 +1,3 @@
+episode_id,module_version,player,name,final_money,opponent_money,won,mirror,town_centre_interval,peak_animals,peak_plants,final_hands,final_quadrants,hires,actions_total,moves,op_WATER,op_PLANT,op_HARVEST,op_FEED,op_CARE,op_COLLECT_FERTILIZER,op_FERTILIZE,op_DIG,op_BUILD,op_PLACE,op_PICKUP,op_DROP,net_WHEAT,net_CARROT,net_TOMATO,net_STRAWBERRY,net_MELON,net_EGG,net_MILK,net_WOOL,net_FERTILIZER
+93109774,1.32.6,0,jasonstillchasin,138301.0,136520.0,1,0,24,12,62,10,3,264,6698,2854,1010,199,390,290,967,296,72,40,0,13,135,70,239,0,0,286,102,0,215,132,216
+93109774,1.32.6,1,Mohamed abdelrazik,136520.0,138301.0,0,0,24,12,61,10,3,264,6739,2895,1008,198,390,290,955,290,72,43,0,13,135,89,290,0,0,300,126,0,320,154,300

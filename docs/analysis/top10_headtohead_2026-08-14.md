@@ -287,3 +287,75 @@ build (herd-first, day-0 wheat, carrot, low melon) instead of week-old profiles
 - **"Match their shop alignment."** Our `alignment` metric puts the #1 *below*
   its opponents (14%, p=0.001) purely because fertilizer and melon are not
   shop-demanded. The metric is confounded; do not optimise it as written.
+
+---
+
+# Addendum, 2026-08-15 — how they beat their opponent, at n=79
+
+Corpus: **79 episodes sampled from `kaggle/kaggriculture-episodes-2026-08-14`**
+(digests in `docs/analysis/digests-0814/`). That dataset holds ~690 episodes/day
+whose *median* episode averages 3045 rating — effectively the whole elite field,
+and 30x the hand-scraped corpus. All 1.32.6, so product-mix conclusions do not
+transfer to 1.32.7; everything below is balance-independent.
+
+## The games are knife-edge and they see-saw
+
+| | |
+|---|---|
+| median margin | **2.8% / $2,158** |
+| decided by <=2% | **35/79 (44%)** |
+| smallest margin | **$3** |
+| lead changes after day 3 | **median 4**; never changed in only 7/79 |
+| decided in days 0-5 | **0/71** |
+
+## Winning is NOT out-producing them
+
+Winner's share of **contested** product volume: **50.3%** — dead even. The winner
+outproduced the loser on shared ground in 44/79 games, **p=0.368**. There is no
+edge in volume on goods both sides sell.
+
+## What does separate them — all opponent-relative
+
+| behaviour | result |
+|---|---|
+| **first to market on a contested product** | **60% to the winner, p=0.035** |
+| first to sell MILK | winner earlier 71%, **p=0.029** |
+| first to sell FERTILIZER | winner earlier 69%, **p=0.041** |
+| held lines the opponent sold none of | winner more in 23/34, p=0.058 |
+| hires | winner higher 68%, **p=0.038** |
+
+Mix overlap with the opponent is median 0.90. Splitting on it: when both sell the
+same mix the median winning margin is **1.5%**; when mixes diverge, **3.6%**.
+
+## First-to-market is not a proxy for a faster build — they are substitutes
+
+The obvious objection is that whoever builds faster naturally reaches market
+first. Conditioning on build tempo at day 10 (plants + 5x animals, winner minus
+loser) refutes it:
+
+| | n | winner first to market |
+|---|---|---|
+| winner's build **not** ahead (<=0) | 29 | **26/29 (90%)**, p<0.001 |
+| winner's build ahead (>0) | 11 | 3/11 (27%) |
+
+The association runs the *other* way: when the winner reached market first their
+build tempo was **-7** (smaller board); when the loser did, it was **+8**.
+
+**Two mutually exclusive routes to winning:**
+* **convert earlier** — smaller board, sell sooner — **29 of 40** decided games
+* **build bigger** — accumulate, arrive later — 11 of 40
+
+Conversion timing is the *common* route, and it is independent of board size.
+
+*Caveat:* the money-at-day-10 split (winner first 95% when ahead, 47% when
+behind) is **circular** — selling earlier causes the day-10 money lead. Only the
+build-tempo split is clean, and the conclusion rests on it alone.
+
+## Where this leaves our agent
+
+We are on **neither** route: 43.5 tiles to the leader's 61, *and* day 21 to
+strawberry against their 16. Smaller board and later conversion.
+
+This is the strongest available argument for the `SELL_ANCHOR` work, which moves
+*when we convert* while leaving production, herd and planting untouched — making
+it a controlled test of conversion timing rather than a tuning knob.
