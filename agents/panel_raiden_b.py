@@ -209,19 +209,19 @@ MOVE_PENALTY = 4          # priority charged per tile of travel when assigning
 
 
 # --------------------------------------------------------------------------- #
-# PANEL OPPONENT -- build copied from "カワシギ"
+# PANEL OPPONENT -- build copied from "Raiden.B"
 # --------------------------------------------------------------------------- #
-# Extracted by panel.py from 10 digested 1.32.6 season(s);
-# that competitor averaged $89,744. Only the four strategic
+# Extracted by panel.py from 4 digested 1.32.6 season(s);
+# that competitor averaged $96,910. Only the four strategic
 # decisions below are scripted -- hiring, land, herd and planting. Routing,
 # selling, watering and fertilizer stay as main.py does them, so this is their
 # *build* on our machinery, not a clone of them. They execute better than we do,
 # so treat this as a floor on their strength.
-PANEL_NAME = 'カワシギ'
-SCRIPT_HANDS = [5, 0, 4, 5, 5, 4, 4, 8, 11, 12, 11, 12, 10, 11, 8, 12, 9, 12, 12, 12, 12, 12, 12, 12, 11, 11, 11, 11, 10, 8]
-SCRIPT_LAND = {6: 2, 11: 3}
-SCRIPT_HERD = {'COW': 9, 'SHEEP': 5}
-SCRIPT_PLANT = {1: [('WHEAT', 1), ('MELON', 9)], 5: [('STRAWBERRY', 1)], 6: [('STRAWBERRY', 3)], 7: [('STRAWBERRY', 2)], 8: [('STRAWBERRY', 4)], 9: [('WHEAT', 5), ('STRAWBERRY', 9)], 11: [('WHEAT', 5), ('STRAWBERRY', 4)], 12: [('WHEAT', 6), ('STRAWBERRY', 12)], 13: [('STRAWBERRY', 5)], 14: [('STRAWBERRY', 2)], 16: [('WHEAT', 2)], 17: [('WHEAT', 2)], 18: [('WHEAT', 3)], 19: [('WHEAT', 1)], 22: [('CARROT', 1)], 23: [('WHEAT', 4), ('CARROT', 2)], 24: [('WHEAT', 1)], 25: [('WHEAT', 1)], 26: [('WHEAT', 7)], 27: [('WHEAT', 3)]}
+PANEL_NAME = 'Raiden.B'
+SCRIPT_HANDS = [3, 3, 3, 6, 7, 8, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11]
+SCRIPT_LAND = {6: 2, 10: 3}
+SCRIPT_HERD = {'COW': 10, 'SHEEP': 6}
+SCRIPT_PLANT = {1: [('CARROT', 2)], 2: [('WHEAT', 4), ('MELON', 3)], 3: [('WHEAT', 4), ('MELON', 2)], 4: [('WHEAT', 2), ('MELON', 2)], 5: [('MELON', 2)], 6: [('WHEAT', 2)], 7: [('WHEAT', 2), ('CARROT', 2), ('STRAWBERRY', 3), ('MELON', 8)], 8: [('STRAWBERRY', 4)], 10: [('WHEAT', 2), ('STRAWBERRY', 4), ('MELON', 3)], 11: [('STRAWBERRY', 6)], 12: [('WHEAT', 2), ('STRAWBERRY', 2)], 13: [('WHEAT', 1)], 14: [('WHEAT', 2), ('STRAWBERRY', 2)], 16: [('WHEAT', 1)], 17: [('WHEAT', 6)], 18: [('WHEAT', 1)], 19: [('WHEAT', 1)], 21: [('WHEAT', 2)], 22: [('WHEAT', 1)], 23: [('WHEAT', 2)], 24: [('WHEAT', 2)], 25: [('WHEAT', 3)], 26: [('WHEAT', 1)], 27: [('WHEAT', 4)]}
 RIVAL_SUPPLY_SHARE = 0.0  # the build is fixed, so do not also adapt it
 
 _CACHE = {}

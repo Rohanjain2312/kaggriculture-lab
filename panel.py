@@ -38,7 +38,9 @@ ANIMALS = ("GOOSE", "COW", "SHEEP")
 # Every top-cohort digest directory. `digests-top10` was added 2026-08-14 and is
 # the only source containing the current rank-1 build; leaving it out silently
 # rebuilds the panel from week-old profiles.
-DIGESTS = ("docs/analysis/digests", "docs/analysis/digests-top10")
+DIGESTS = ("docs/analysis/digests", "docs/analysis/digests-top10",
+           "docs/analysis/digests-1327", "docs/analysis/digests-0814",
+           "docs/analysis/digests-ours-ladder")
 TEMPLATE = "main.py"
 OUT_DIR = "agents"
 

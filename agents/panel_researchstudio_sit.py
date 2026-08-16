@@ -211,8 +211,8 @@ MOVE_PENALTY = 4          # priority charged per tile of travel when assigning
 # --------------------------------------------------------------------------- #
 # PANEL OPPONENT -- build copied from "researchstudio.site"
 # --------------------------------------------------------------------------- #
-# Extracted by panel.py from 13 digested 1.32.6 season(s);
-# that competitor averaged $84,616. Only the four strategic
+# Extracted by panel.py from 6 digested 1.32.6 season(s);
+# that competitor averaged $75,920. Only the four strategic
 # decisions below are scripted -- hiring, land, herd and planting. Routing,
 # selling, watering and fertilizer stay as main.py does them, so this is their
 # *build* on our machinery, not a clone of them. They execute better than we do,
@@ -220,8 +220,8 @@ MOVE_PENALTY = 4          # priority charged per tile of travel when assigning
 PANEL_NAME = 'researchstudio.site'
 SCRIPT_HANDS = [5, 0, 4, 5, 5, 1, 4, 6, 9, 11, 8, 13, 11, 11, 11, 12, 11, 11, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 4]
 SCRIPT_LAND = {6: 2, 9: 3}
-SCRIPT_HERD = {'COW': 7, 'SHEEP': 5}
-SCRIPT_PLANT = {1: [('WHEAT', 6), ('MELON', 3)], 5: [('WHEAT', 2)], 8: [('STRAWBERRY', 4)], 9: [('STRAWBERRY', 11), ('MELON', 1)], 10: [('WHEAT', 4), ('STRAWBERRY', 6), ('MELON', 2)], 11: [('WHEAT', 2), ('STRAWBERRY', 4)], 12: [('WHEAT', 4), ('STRAWBERRY', 5)], 13: [('WHEAT', 7), ('STRAWBERRY', 1)], 18: [('WHEAT', 1)], 19: [('WHEAT', 6)], 20: [('WHEAT', 4)], 22: [('WHEAT', 2)], 23: [('WHEAT', 6)], 24: [('WHEAT', 5)], 25: [('WHEAT', 8)], 26: [('WHEAT', 7)]}
+SCRIPT_HERD = {'COW': 6, 'SHEEP': 3}
+SCRIPT_PLANT = {1: [('WHEAT', 6), ('MELON', 3)], 5: [('WHEAT', 2)], 8: [('STRAWBERRY', 6)], 9: [('STRAWBERRY', 11), ('MELON', 3)], 10: [('WHEAT', 2), ('STRAWBERRY', 6), ('MELON', 2)], 11: [('WHEAT', 1), ('STRAWBERRY', 4)], 12: [('WHEAT', 6), ('STRAWBERRY', 6)], 13: [('WHEAT', 4)], 14: [('WHEAT', 2)], 19: [('WHEAT', 6)], 20: [('WHEAT', 2)], 22: [('WHEAT', 2)], 23: [('WHEAT', 6)], 24: [('WHEAT', 6)], 25: [('WHEAT', 6)], 26: [('WHEAT', 10)], 27: [('WHEAT', 1)]}
 RIVAL_SUPPLY_SHARE = 0.0  # the build is fixed, so do not also adapt it
 
 _CACHE = {}
