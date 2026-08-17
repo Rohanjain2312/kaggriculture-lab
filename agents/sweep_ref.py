@@ -46,7 +46,7 @@ import os
 import sys
 import traceback
 
-AGENT_VERSION = "v6-curve-r2"   # keep in sync with docs/SUBMISSIONS.md
+AGENT_VERSION = "v7-fert"   # keep in sync with docs/SUBMISSIONS.md
 
 DEBUG = os.environ.get("KAGGRICULTURE_DEBUG") == "1"
 
@@ -699,6 +699,17 @@ def fertilize_gain(tile, day):
         return min(gain, room)
 
     window_start = (c["max_yield_day"] + 1) // 2
+    # If daily watering alone already reaches the cap before we would harvest,
+    # fertilizer can add nothing: it doubles a watered day's bonus, but the yield
+    # is capped and HARVEST is illegal before first_yield_day, so an earlier cap
+    # buys no time either. Melon is the only crop where this bites -- it has 7
+    # bonus days (ages 6-12) to fill 5 units, so it saturates on its own. The
+    # docstring above has always said so; the code did not, and the cost was
+    # real: ~25 units of sellable fertilizer diverted onto melon over days 4-8
+    # (~$2,400 at the day-4-8 price), plus the same phantom demand withholding
+    # stock from sale through `keep["FERTILIZER"]`.
+    if 1 + (c["max_yield_day"] - window_start + 1) >= c["max_yield"]:
+        return 0
     gain = 0
     for d in range(day, day + 3):
         age = d - tile["planted_day"]
