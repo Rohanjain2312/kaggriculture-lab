@@ -114,7 +114,13 @@ cadence — 5 submissions a day instead of hundreds of local games in minutes.
 measured with a throwaway agent or a replay audit. Paper reasoning has been wrong
 repeatedly — most expensively a "$148k wheat gap" that was a counting artifact.
 
-**Beware the five metrics that lie.** Head-to-head flatters production cuts
+**A submission's first ~30 ladder games are inflated.** New submissions enter on a
+*descending* provisional rating, so early opponents are weak. v6-curve opened
+64.3% against $64.9k opponents and settled at 44.1%; v5-pivot is flat across 182
+games, so the ladder is sound and only the early games mislead. **Read a win rate
+at ~100 games, and never compare two submissions at different game counts.**
+
+**Beware the six metrics that lie.** Head-to-head flatters production cuts
 (making less crashes the shared market less). Gross sells flatter round-trippers
 (net `BUY_PRODUCT` against `SELL`). One seed set flatters luck (use paired
 comparisons across >= 8). `peak weeds` counts deliberate end-game abandonment
