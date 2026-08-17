@@ -43,6 +43,7 @@ SUBMISSIONS: list[tuple[str, int]] = [
     ("v6-curve", 55518009),
     ("v6-curve-r2", 55560444),
     ("v7-fert", 55567649),
+    ("v8-gate", 55585462),
 ]
 
 BANDS: list[tuple[int, float]] = [
