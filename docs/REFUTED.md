@@ -888,3 +888,58 @@ while it insisted they were within a point of each other.
 submissions a day against a local harness that runs hundreds of games in minutes,
 which inverts the usual cadence: local runs become a filter for *breakage*, and
 the ladder becomes the only place a win is demonstrated.
+
+---
+
+## 2026-08-17 — the replacement instrument, and two hypotheses it killed
+
+`tools/ladder.py`. `ListEpisodes` returns each agent's `reward`, and reward *is*
+final money — verified exactly on **210/210** player-seasons against the digests.
+So the full win/loss *and margin* record costs one API call per submission and no
+replay downloads. This measures the scoring metric directly; the panel never did.
+
+### What it says
+
+| submission | games | record | win% | our $ | opp $ |
+|---|---|---|---|---|---|
+| v5-pivot | 182 | 83-99 | 45.6% | 81,041 | 81,881 |
+| v6-curve | 59 | 26-33 | 44.1% | 77,283 | 78,860 |
+| v6-curve-r2 | 40 | 20-20 | 50.0% | 84,903 | 81,737 |
+| **v7-fert** | 27 | 15-12 | **55.6%** | 83,003 | 76,725 |
+| pooled | 308 | 144-164 | 46.8% | 80,995 | 80,831 |
+
+Pooled, we are at **dead parity on money** ($81.0k vs $80.8k) with a **symmetric**
+margin distribution (median loss $14,542, median win $14,685). We are not losing
+narrowly and we are not being out-earned; we are a coin flip with a wide spread.
+
+The band table is the roadmap, because it converts dollars into the metric that
+scores: a change worth a **$7k swing** is worth **+16 points of win rate**
+(46.8% -> 62.7%). Only 9 of 164 losses are inside $1k, so shaving pennies off
+close games has almost no ceiling — the mass sits at $3k-$15k.
+
+### Killed: the seat effect
+
+Seat 0 read 38.1% against seat 1's 54.1% over one 182-game submission — a
+16-point gap. It **reversed sign** on the next submission (48.4% vs 42.9%),
+pooled to p = 0.07, and the environment builds both farms from the same call
+(`farms = [_new_farm(...) for _ in range(num_agents)]`). Noise. Seat order *is*
+asymmetric for same-turn market fills (actions resolve `for i, s in
+enumerate(state)`), but that asymmetry does not reach the scoreboard.
+
+### Killed: stranded end-of-season inventory
+
+The digests show us carrying 44 units on day 29 against opponents' 26, which
+looked like produce we never sold. It is not: `digest.py` snapshots at
+`SNAPSHOT_HOUR = 12`, so that is **midday in-flight stock**, not what is left at
+the end. Measured on exact final-step board state over 5 local games:
+**0 units and $0 stranded, on both sides.** `endgame_dropoff` does its job.
+
+### Flagged, not acted on: the $3k-$7k band
+
+Outside one band we are 134W-134L — exactly even. Inside $3k-$7k we are
+**13W-30L** (raw p = 0.0095), same sign on all four submissions. But those
+submissions share most of their code, so they are not independent tests; neither
+half is significant alone (p = 0.06 and p = 0.07), and correcting for the six
+bands tested puts the pooled result at p ~ 0.06. A genuine "we lose exactly $Xk"
+mechanism should also shift the neighbouring bands, and they are flat.
+**Suggestive, not established.** Re-test it as v7-fert's sample grows.
