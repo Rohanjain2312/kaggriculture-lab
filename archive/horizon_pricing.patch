@@ -1,0 +1,162 @@
+diff --git a/main.py b/main.py
+index 48709d3..d9f2df8 100644
+--- a/main.py
++++ b/main.py
+@@ -162,6 +162,14 @@ RIVAL_SUPPLY_SHARE = 0.25 # how much of their pipeline we price in. Swept agains
+                           # over-reacts; a quarter of it is enough to tip the
+                           # margin off a contested product without abandoning it.
+ 
++RIVAL_HORIZON_SHARE = 1.0 # crops only: how much of their pipeline that lands
++                          # *before our own harvest* we price in. The flat
++                          # RIVAL_SUPPLY_SHARE above had to be one number for
++                          # every crop, so it was far too low for melon (squared
++                          # curve, T=300) and irrelevant for carrot (sqrt, T=450).
++                          # Filtering by arrival day makes the discount specific,
++                          # so their supply counts in full once it is in front of us.
++
+ MAX_ANIMALS = 16
+ ANIMAL_ACTIONS = 5        # feed + care + share of harvest/collect + travel, per day
+ ANIMAL_ROI = 2.0          # required revenue-to-cost ratio before buying one
+@@ -329,8 +337,12 @@ def shop_demand(shop, item):
+     return 2 if len(products) == 1 else 1
+ 
+ 
+-def future_drain(item, day, unlocked_shops, cfg=None):
+-    """Expected town consumption of `item` from `day` through the end of the season.
++def future_drain(item, day, unlocked_shops, cfg=None, until=None):
++    """Expected town consumption of `item` from `day` through `until` (default: season end).
++
++    `until` is the day our own produce reaches the market. Drain that happens
++    after we have sold cannot lift the price we get, so crediting the whole
++    remaining season over-values anything with a short horizon.
+ 
+     Rewritten for kaggle_environments 1.32.6, which changed the town in three ways
+     that all cut demand, and one that changes its shape:
+@@ -365,7 +377,8 @@ def future_drain(item, day, unlocked_shops, cfg=None):
+     centre_ticks = tpd / centre_int if centre_int > 0 else 0.0
+ 
+     total = 0.0
+-    for d in range(day, LAST_DAY + 1):
++    horizon = LAST_DAY if until is None else min(LAST_DAY, int(until))
++    for d in range(day, horizon + 1):
+         # Instances unlock at each `unlock_int` day boundary, capped at the max.
+         instances = min(MAX_SHOP_INSTANCES, d // unlock_int)
+         pending = max(0, instances - len(unlocked))
+@@ -473,17 +486,28 @@ def hire_burn(target_hands):
+ 
+ 
+ def rival_pipeline(obs, board_size):
+-    """Units of each product the opponent still has coming, from their visible board.
++    """Opponent supply still to come, as {product: {ready_day: units}}.
+ 
+     Their shed is hidden, so this is production not stock -- which is the right
+     quantity anyway: stock they are already selling is in the price we can see,
+     while their pipeline is the part the price does not know about yet.
++
++    Bucketed by the day each tile starts producing, because *when* their supply
++    lands is what decides whether it is in the market before we sell. Ongoing
++    crops and animals are booked at their first yield day, which counts them
++    early and so marks a contested product down rather than up.
+     """
+     key = ("rivalpipe", obs["player"], obs["day"])
+     if key in _CACHE:
+         return _CACHE[key]
+     day = obs["day"]
+     pipe = {}
++
++    def book(product, ready_day, units):
++        if units > 0:
++            slot = pipe.setdefault(product, {})
++            slot[ready_day] = slot.get(ready_day, 0.0) + units
++
+     for pid, farm in enumerate(obs["farms"]):
+         if pid == obs["player"]:
+             continue
+@@ -495,17 +519,38 @@ def rival_pipeline(obs, board_size):
+                     crop = tile.get("crop")
+                     if crop not in CROPS:
+                         continue
+-                    units, _, _ = crop_projection(crop, max(day, tile.get("planted_day", day)))
+-                    if units > 0:
+-                        pipe[crop] = pipe.get(crop, 0.0) + units
++                    planted = max(day, tile.get("planted_day", day))
++                    units, _, _ = crop_projection(crop, planted)
++                    c = CROPS[crop]
++                    ready = planted + (c["first_yield_day"] if c["ongoing"]
++                                       else c["max_yield_day"])
++                    book(crop, min(ready, LAST_DAY), units)
+                 elif tile.get("animal"):
+                     a = ANIMALS[tile["animal"]]
+-                    pipe[a["product"]] = pipe.get(a["product"], 0.0) + \
+-                        animal_units(tile["animal"], day)
++                    book(a["product"], min(day + a["first_yield_day"], LAST_DAY),
++                         animal_units(tile["animal"], day))
+     _CACHE[key] = pipe
+     return pipe
+ 
+ 
++def rival_supply_by(rival, product, until):
++    """How much of their pipeline for `product` reaches the market by day `until`."""
++    return sum(units for ready, units in rival.get(product, {}).items()
++               if ready <= until)
++
++
++def sale_horizon(crop, day):
++    """The day produce from planting `crop` today is finished arriving."""
++    c = CROPS[crop]
++    if c["ongoing"]:
++        units = sum(1 for k in range(c["max_yield"])
++                    if day + c["first_yield_day"] + k * c["interval"] <= LAST_DAY)
++        last = day + c["first_yield_day"] + max(0, units - 1) * c["interval"]
++    else:
++        last = day + c["max_yield_day"]
++    return min(LAST_DAY, last)
++
++
+ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_reserve=0):
+     """Choose a crop for each of the next `n_tiles` plantings, one tile at a time.
+ 
+@@ -528,7 +573,9 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
+     shops = obs["town"].get("unlocked_shops", [])
+     cfg = obs.get("_cfg") or {}
+     pipe = pipeline_units(farm, shed, board_size)
+-    rival = rival_pipeline(obs, board_size) if RIVAL_SUPPLY_SHARE else {}
++    # Gated on the constant this path actually uses, so sweeping the animal-side
++    # RIVAL_SUPPLY_SHARE to 0 does not silently switch the crop horizon off too.
++    rival = rival_pipeline(obs, board_size) if RIVAL_HORIZON_SHARE else {}
+ 
+     proj = {}
+     prefix = {}
+@@ -537,8 +584,17 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
+         if units <= 0:
+             continue
+         proj[crop] = (units, occupancy, harvests)
+-        base_inv = int(inv[crop] - DRAIN_SHARE * future_drain(crop, day, shops, cfg)
+-                       + RIVAL_SUPPLY_SHARE * rival.get(crop, 0.0))
++        # Price this tile against the market on the day its produce actually
++        # arrives, not today's. Melon planted on day 11 sells on day 23, by
++        # which time both herds' melon has landed -- and melon's above-curve is
++        # squared, so 100 units of unmodelled supply is the difference between
++        # $225 and $25. Measured over three seeds: melon planted d5-9 was priced
++        # at $271 and fetched $27. The horizon also self-balances, since a longer
++        # wait counts more of their supply *and* more of the town's drain.
++        horizon = sale_horizon(crop, day)
++        base_inv = int(inv[crop]
++                       - DRAIN_SHARE * future_drain(crop, day, shops, cfg, until=horizon)
++                       + RIVAL_HORIZON_SHARE * rival_supply_by(rival, crop, horizon))
+         need = min(900, int(pipe.get(crop, 0)) + units * n_tiles + 2)
+         arr = [0] * (need + 1)
+         for k in range(need):
+@@ -661,8 +717,11 @@ def pick_animal(obs, farm, shed, board_size, budget, n_animals, workforce):
+             continue
+         product = a["product"]
+         start = int(committed.get(product, 0)) + int(shed.get(product, 0))
++        # Animals produce until the season ends, so the horizon is the whole
++        # season and this stays on the flat share. Left deliberately unchanged
++        # while the crop-side horizon is measured on its own.
+         base_inv = int(inv[product] - DRAIN_SHARE * future_drain(product, day, shops, cfg)
+-                       + RIVAL_SUPPLY_SHARE * rival.get(product, 0.0))
++                       + RIVAL_SUPPLY_SHARE * rival_supply_by(rival, product, LAST_DAY))
+         gross = cum_revenue(product, base_inv, start + units) - cum_revenue(product, base_inv, start)
+         if gross < cost * ANIMAL_ROI:
+             continue

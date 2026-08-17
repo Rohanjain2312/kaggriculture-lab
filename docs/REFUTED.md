@@ -943,3 +943,81 @@ half is significant alone (p = 0.06 and p = 0.07), and correcting for the six
 bands tested puts the pooled result at p ~ 0.06. A genuine "we lose exactly $Xk"
 mechanism should also shift the neighbouring bands, and they are flat.
 **Suggestive, not established.** Re-test it as v7-fert's sample grows.
+
+---
+
+## 2026-08-17 — harvest-day crop pricing: a real mispricing whose fix pays nothing
+
+**The mispricing is real and exact.** The planner prices a tile against *today's*
+market but sells into the market that exists on its harvest day. Instrumented
+over three seeds, projected price vs what that same tile actually fetched:
+
+| melon planted | planner said | market paid |
+|---|---|---|
+| d0-4 | $255 | $227 |
+| d5-9 | $271 | **$27** |
+| d10-14 | $248 | **$19** |
+
+Melon's above-baseline curve is `sq` with T=300, the steepest in the game, and
+melon absorbs only ~150 units before hitting the floor — both players together
+put in ~300. Strawberry carries the **opposite** error ($209 projected, $270
+paid). That asymmetry is why the flat `HARVEST_DECAY` discount read as neutral:
+it marks down the crop that is already undervalued.
+
+`RIVAL_SUPPLY_SHARE = 0.25` cannot express this. It is one global number, far too
+low for melon's squared curve and irrelevant for carrot (`sqrt`, T=450) — and it
+was swept on the panel.
+
+**The fix works mechanically.** Price each crop against its own harvest day:
+credit only the town drain occurring before we sell (`future_drain(..., until=)`)
+and count the opponent's supply that *arrives* before then, at full weight
+(`rival_pipeline` bucketed by ready-day). Longer horizon counts more of their
+supply and more drain, so it self-balances. Melon's realised harvest price went
+**$27 -> $126** and **$19 -> $117**: the market stops collapsing because we stop
+feeding it. It also began planting tomato, which the probe showed we were pricing
+at $90 against a $206 realised price.
+
+**And it produces no margin.** Paired against frozen v7-fert on the panel:
+
+| seeds | variant | better | mean margin delta |
+|---|---|---|---|
+| 700-711 (96 pairs) | hz=1.00 | 40/96 | **-$564** |
+| 760-767 (64 pairs) | hz=1.00 | 33/64 | +$1,904 |
+| 760-767 (64 pairs) | hz=0.60 | 34/64 | +$5,773 |
+| 760-767 (64 pairs) | hz=0.35 | 32/64 | +$3,011 |
+
+Pooled for hz=1.00: **73/160 (45.6%), mean +$423** — a coin flip whose sign
+flips between disjoint seed sets. Every sign test is null; the one large mean
+(hz=0.60) comes from a few blowouts, not a consistent shift.
+
+*Why a correct model loses.* Retreating from melon hands the high price to an
+opponent who keeps dumping. We give up the revenue, they collect the price.
+**Correct pricing is a gain, and a gain is not a swing.** Reverted; patch kept at
+`archive/horizon_pricing.patch`.
+
+*Instrument note.* Panel mean margins run +$24k to +$26k, so a few hundred
+dollars of effect is far inside its resolution. This is the panel's demotion
+(above) showing up a second time in one day.
+
+---
+
+## 2026-08-17 — a sixth metric that lies: a submission's first ~30 ladder games
+
+New submissions enter with a provisional rating that **descends**, so early games
+are drawn against weaker opponents and the early win rate is inflated.
+
+| v6-curve, chronological | win rate | opponent mean $ |
+|---|---|---|
+| games 1-14 | **64.3%** | 64,910 |
+| games 15-28 | 42.9% | 82,553 |
+| games 29-42 | 35.7% | 88,892 |
+| games 43-56 | 35.7% | 77,124 |
+
+It finished at 44.1%. v5-pivot, the only large sample, is flat across all four
+quarters (46.7 / 42.2 / 44.4 / 46.7), so the ladder itself is sound — it is the
+*first* games that mislead.
+
+**So v7-fert's 55.6% over 27 games means nothing yet.** Its first 27 games track
+v6-curve's first 27 (53.6%) almost exactly, and its opponents' mean money is
+still climbing ($57.9k -> $89.1k). Do not read a submission's win rate before
+~100 games, and never compare two submissions at different game counts.
