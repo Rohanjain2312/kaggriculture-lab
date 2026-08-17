@@ -1,1282 +1,117 @@
 {
- "v6-curve": {
-  "submission_id": 55518009,
-  "episodes": [
-   {
-    "episode_id": 93789501,
-    "create_time": "2026-08-17T01:06:07.376207Z",
-    "ours": 43319,
-    "theirs": 82334,
-    "opp_team": 16698136,
-    "opp_name": "David Estevez",
-    "our_seat": 1,
-    "our_score": 846.3631874967369
-   },
-   {
-    "episode_id": 93785159,
-    "create_time": "2026-08-17T00:30:07.786091100Z",
-    "ours": 56181,
-    "theirs": 94098,
-    "opp_team": 16632245,
-    "opp_name": "We are Charlie Brown",
-    "our_seat": 1,
-    "our_score": 851.2623210194265
-   },
-   {
-    "episode_id": 93770472,
-    "create_time": "2026-08-16T23:10:10.985764400Z",
-    "ours": 111273,
-    "theirs": 87579,
-    "opp_team": 16700510,
-    "opp_name": "Gaurav_065",
-    "our_seat": 1,
-    "our_score": 854.8100594357772
-   },
-   {
-    "episode_id": 93722922,
-    "create_time": "2026-08-16T19:37:44.187757400Z",
-    "ours": 34851,
-    "theirs": 51324,
-    "opp_team": 16641230,
-    "opp_name": "An V1",
-    "our_seat": 1,
-    "our_score": 848.2048446813853
-   },
-   {
-    "episode_id": 93688752,
-    "create_time": "2026-08-16T17:05:37.251419300Z",
-    "ours": 43836,
-    "theirs": 95324,
-    "opp_team": 16698294,
-    "opp_name": "John Doe",
-    "our_seat": 0,
-    "our_score": 853.7992247115067
-   },
-   {
-    "episode_id": 93668172,
-    "create_time": "2026-08-16T15:33:33.335321100Z",
-    "ours": 115127,
-    "theirs": 104501,
-    "opp_team": 16661585,
-    "opp_name": "Fully Liquidated",
-    "our_seat": 0,
-    "our_score": 857.9335364961097
-   },
-   {
-    "episode_id": 93663684,
-    "create_time": "2026-08-16T15:13:32.931463300Z",
-    "ours": 59236,
-    "theirs": 88319,
-    "opp_team": 16703203,
-    "opp_name": "Hamza Shafik ",
-    "our_seat": 1,
-    "our_score": 852.5615629731699
-   },
-   {
-    "episode_id": 93628454,
-    "create_time": "2026-08-16T12:37:35.196765800Z",
-    "ours": 57158,
-    "theirs": 102499,
-    "opp_team": 16727998,
-    "opp_name": "hidsaito",
-    "our_seat": 1,
-    "our_score": 856.9528024353585
-   },
-   {
-    "episode_id": 93597474,
-    "create_time": "2026-08-16T10:17:05.211284200Z",
-    "ours": 44715,
-    "theirs": 52019,
-    "opp_team": 16639973,
-    "opp_name": "akky",
-    "our_seat": 0,
-    "our_score": 860.7279283835243
-   },
-   {
-    "episode_id": 93551479,
-    "create_time": "2026-08-16T06:52:57.940007300Z",
-    "ours": 63659,
-    "theirs": 92625,
-    "opp_team": 16660281,
-    "opp_name": "xiy lin",
-    "our_seat": 1,
-    "our_score": 866.0209112899375
-   },
-   {
-    "episode_id": 93529175,
-    "create_time": "2026-08-16T05:12:56.142442700Z",
-    "ours": 101076,
-    "theirs": 22302,
-    "opp_team": 16724355,
-    "opp_name": "hansama.qht",
-    "our_seat": 1,
-    "our_score": 870.7681785820528
-   },
-   {
-    "episode_id": 93508056,
-    "create_time": "2026-08-16T03:37:06.941171300Z",
-    "ours": 91041,
-    "theirs": 53113,
-    "opp_team": 16691938,
-    "opp_name": "PRASHANT SUTHAR11",
-    "our_seat": 1,
-    "our_score": 868.8505815844068
-   },
-   {
-    "episode_id": 93466138,
-    "create_time": "2026-08-16T00:28:55.068812400Z",
-    "ours": 79862,
-    "theirs": 71567,
-    "opp_team": 16685069,
-    "opp_name": "derek_kuang0213",
-    "our_seat": 1,
-    "our_score": 865.534870174214
-   },
-   {
-    "episode_id": 93449838,
-    "create_time": "2026-08-15T23:16:56.070816500Z",
-    "ours": 78563,
-    "theirs": 83724,
-    "opp_team": 16656274,
-    "opp_name": "googunmo",
-    "our_seat": 1,
-    "our_score": 859.2335525289157
-   },
-   {
-    "episode_id": 93411772,
-    "create_time": "2026-08-15T20:24:52.044183900Z",
-    "ours": 63589,
-    "theirs": 77166,
-    "opp_team": 16665816,
-    "opp_name": "Vikas1306",
-    "our_seat": 0,
-    "our_score": 865.6458745224248
-   },
-   {
-    "episode_id": 93383976,
-    "create_time": "2026-08-15T18:20:53.136583500Z",
-    "ours": 107680,
-    "theirs": 116169,
-    "opp_team": 16714474,
-    "opp_name": "Glenn Dalbey",
-    "our_seat": 0,
-    "our_score": 871.3041153234614
-   },
-   {
-    "episode_id": 93378901,
-    "create_time": "2026-08-15T17:56:55.363920200Z",
-    "ours": 89265,
-    "theirs": 69089,
-    "opp_team": 16644221,
-    "opp_name": "Guzha Panashe H",
-    "our_seat": 1,
-    "our_score": 877.1321617470757
-   },
-   {
-    "episode_id": 93341373,
-    "create_time": "2026-08-15T15:08:54.931931Z",
-    "ours": 48502,
-    "theirs": 51082,
-    "opp_team": 16666165,
-    "opp_name": "ChrisLeiteScha",
-    "our_seat": 0,
-    "our_score": 867.8655537728475
-   },
-   {
-    "episode_id": 93306067,
-    "create_time": "2026-08-15T12:32:19.514943700Z",
-    "ours": 79618,
-    "theirs": 123947,
-    "opp_team": 16723528,
-    "opp_name": "Singaraj B",
-    "our_seat": 0,
-    "our_score": 873.9949774242559
-   },
-   {
-    "episode_id": 93293801,
-    "create_time": "2026-08-15T11:36:21.148384500Z",
-    "ours": 75421,
-    "theirs": 69576,
-    "opp_team": 16654542,
-    "opp_name": "JayveerSingh6",
-    "our_seat": 1,
-    "our_score": 881.0157422163086
-   },
-   {
-    "episode_id": 93261369,
-    "create_time": "2026-08-15T09:12:20.705970Z",
-    "ours": 68749,
-    "theirs": 98462,
-    "opp_team": 16694186,
-    "opp_name": "souju00",
-    "our_seat": 1,
-    "our_score": 873.8321717230473
-   },
-   {
-    "episode_id": 93251822,
-    "create_time": "2026-08-15T08:28:20.705512500Z",
-    "ours": 76276,
-    "theirs": 76689,
-    "opp_team": 16624888,
-    "opp_name": "okome_niigata",
-    "our_seat": 0,
-    "our_score": 880.2417263770006
-   },
-   {
-    "episode_id": 93228522,
-    "create_time": "2026-08-15T06:44:21.634320700Z",
-    "ours": 84898,
-    "theirs": 83925,
-    "opp_team": 16707453,
-    "opp_name": "Kaan Dınız",
-    "our_seat": 0,
-    "our_score": 891.5883579734749
-   },
-   {
-    "episode_id": 93227637,
-    "create_time": "2026-08-15T06:40:22.038793300Z",
-    "ours": 106783,
-    "theirs": 88248,
-    "opp_team": 16670453,
-    "opp_name": "141",
-    "our_seat": 0,
-    "our_score": 884.1995349895658
-   },
-   {
-    "episode_id": 93214294,
-    "create_time": "2026-08-15T05:40:22.179658400Z",
-    "ours": 114114,
-    "theirs": 60379,
-    "opp_team": 16622015,
-    "opp_name": "Ioannis M",
-    "our_seat": 0,
-    "our_score": 876.1985056458226
-   },
-   {
-    "episode_id": 93198314,
-    "create_time": "2026-08-15T04:28:20.479116600Z",
-    "ours": 96425,
-    "theirs": 111291,
-    "opp_team": 16648215,
-    "opp_name": "Terrence Chuwe",
-    "our_seat": 0,
-    "our_score": 868.0588475046898
-   },
-   {
-    "episode_id": 93194607,
-    "create_time": "2026-08-15T04:12:20.432946200Z",
-    "ours": 64561,
-    "theirs": 83865,
-    "opp_team": 16623555,
-    "opp_name": "yindujuxi",
-    "our_seat": 0,
-    "our_score": 879.2409109114811
-   },
-   {
-    "episode_id": 93193747,
-    "create_time": "2026-08-15T04:08:20.553602800Z",
-    "ours": 97636,
-    "theirs": 79585,
-    "opp_team": 16697936,
-    "opp_name": "Sami Cakiral",
-    "our_seat": 0,
-    "our_score": 891.1596174897745
-   },
-   {
-    "episode_id": 93192849,
-    "create_time": "2026-08-15T04:04:20.469499800Z",
-    "ours": 72900,
-    "theirs": 78426,
-    "opp_team": 16639973,
-    "opp_name": "akky",
-    "our_seat": 0,
-    "our_score": 882.9641365281316
-   },
-   {
-    "episode_id": 93191933,
-    "create_time": "2026-08-15T04:00:20.376609200Z",
-    "ours": 105368,
-    "theirs": 113578,
-    "opp_team": 16697893,
-    "opp_name": "YWehbe",
-    "our_seat": 1,
-    "our_score": 891.6227057737939
-   },
-   {
-    "episode_id": 93191002,
-    "create_time": "2026-08-15T03:56:21.932010500Z",
-    "ours": 101828,
-    "theirs": 125440,
-    "opp_team": 16677514,
-    "opp_name": "mayoristaNLP",
-    "our_seat": 1,
-    "our_score": 901.5831776234627
-   },
-   {
-    "episode_id": 93190110,
-    "create_time": "2026-08-15T03:52:20.530719200Z",
-    "ours": 77296,
-    "theirs": 89740,
-    "opp_team": 16623616,
-    "opp_name": "nasubiman",
-    "our_seat": 0,
-    "our_score": 914.3839572565307
-   },
-   {
-    "episode_id": 93189215,
-    "create_time": "2026-08-15T03:48:20.738911200Z",
-    "ours": 53825,
-    "theirs": 60717,
-    "opp_team": 16654743,
-    "opp_name": "Jaume Batlle i Ferrer",
-    "our_seat": 0,
-    "our_score": 925.4386381282396
-   },
-   {
-    "episode_id": 93188315,
-    "create_time": "2026-08-15T03:44:20.576451500Z",
-    "ours": 81185,
-    "theirs": 110257,
-    "opp_team": 16651180,
-    "opp_name": "yangyefd",
-    "our_seat": 1,
-    "our_score": 939.3901152604802
-   },
-   {
-    "episode_id": 93187420,
-    "create_time": "2026-08-15T03:40:20.666531800Z",
-    "ours": 119758,
-    "theirs": 117193,
-    "opp_team": 16692954,
-    "opp_name": "Adam Nhan",
-    "our_seat": 0,
-    "our_score": 949.06107333991
-   },
-   {
-    "episode_id": 93186526,
-    "create_time": "2026-08-15T03:36:22.754289300Z",
-    "ours": 52166,
-    "theirs": 81615,
-    "opp_team": 16723967,
-    "opp_name": "dk2lone",
-    "our_seat": 1,
-    "our_score": 937.019598631812
-   },
-   {
-    "episode_id": 93185628,
-    "create_time": "2026-08-15T03:32:20.460975Z",
-    "ours": 63817,
-    "theirs": 60768,
-    "opp_team": 16695093,
-    "opp_name": "Ryota Murai",
-    "our_seat": 0,
-    "our_score": 945.218655330983
-   },
-   {
-    "episode_id": 93184685,
-    "create_time": "2026-08-15T03:28:20.530350500Z",
-    "ours": 77088,
-    "theirs": 77832,
-    "opp_team": 16696561,
-    "opp_name": "Ali Ramazanov",
-    "our_seat": 0,
-    "our_score": 935.8108959499651
-   },
-   {
-    "episode_id": 93183793,
-    "create_time": "2026-08-15T03:24:20.666821700Z",
-    "ours": 70767,
-    "theirs": 58173,
-    "opp_team": 16662375,
-    "opp_name": "Yunusa Hussein Adeiza",
-    "our_seat": 1,
-    "our_score": 952.6881309397695
-   },
-   {
-    "episode_id": 93182892,
-    "create_time": "2026-08-15T03:20:21.769887600Z",
-    "ours": 61256,
-    "theirs": 59598,
-    "opp_team": 16671659,
-    "opp_name": "Jiang",
-    "our_seat": 0,
-    "our_score": 940.9530182627522
-   },
-   {
-    "episode_id": 93181999,
-    "create_time": "2026-08-15T03:16:23.297273200Z",
-    "ours": 60643,
-    "theirs": 72732,
-    "opp_team": 16667762,
-    "opp_name": "KucingGanteng",
-    "our_seat": 0,
-    "our_score": 925.4317332960242
-   },
-   {
-    "episode_id": 93181100,
-    "create_time": "2026-08-15T03:12:22.340537900Z",
-    "ours": 92297,
-    "theirs": 81058,
-    "opp_team": 16665058,
-    "opp_name": "Llin Ding",
-    "our_seat": 0,
-    "our_score": 943.8316493091986
-   },
-   {
-    "episode_id": 93180191,
-    "create_time": "2026-08-15T03:08:22.156286700Z",
-    "ours": 97788,
-    "theirs": 102468,
-    "opp_team": 16663584,
-    "opp_name": "Deployable LLMs",
-    "our_seat": 0,
-    "our_score": 926.1390112462277
-   },
-   {
-    "episode_id": 93179280,
-    "create_time": "2026-08-15T03:04:21.785201700Z",
-    "ours": 65642,
-    "theirs": 68148,
-    "opp_team": 16664149,
-    "opp_name": "Bushel Seed",
-    "our_seat": 0,
-    "our_score": 948.1714146960062
-   },
-   {
-    "episode_id": 93179266,
-    "create_time": "2026-08-15T03:04:21.766600500Z",
-    "ours": 36922,
-    "theirs": 27169,
-    "opp_team": 16659103,
-    "opp_name": "Arin",
-    "our_seat": 0,
-    "our_score": 975.6397703138057
-   },
-   {
-    "episode_id": 93179352,
-    "create_time": "2026-08-15T03:04:21.928152100Z",
-    "ours": 129961,
-    "theirs": 115440,
-    "opp_team": 16716558,
-    "opp_name": "Evan Tobias",
-    "our_seat": 0,
-    "our_score": 958.0934058739825
-   },
-   {
-    "episode_id": 93178394,
-    "create_time": "2026-08-15T03:00:20.074948700Z",
-    "ours": 58962,
-    "theirs": 56464,
-    "opp_team": 16687808,
-    "opp_name": "GorillaGhost",
-    "our_seat": 1,
-    "our_score": 933.645126939322
-   },
-   {
-    "episode_id": 93177659,
-    "create_time": "2026-08-15T02:56:27.963449500Z",
-    "ours": 118345,
-    "theirs": 119614,
-    "opp_team": 16663614,
-    "opp_name": "Nevska",
-    "our_seat": 1,
-    "our_score": 911.9822245104755
-   },
-   {
-    "episode_id": 93177485,
-    "create_time": "2026-08-15T02:56:27.565418800Z",
-    "ours": 54177,
-    "theirs": 75553,
-    "opp_team": 16707639,
-    "opp_name": "Fujinawa",
-    "our_seat": 0,
-    "our_score": 946.7223324229197
-   },
-   {
-    "episode_id": 93176594,
-    "create_time": "2026-08-15T02:52:20.445874900Z",
-    "ours": 56591,
-    "theirs": 51792,
-    "opp_team": 16632536,
-    "opp_name": "Aleksander Sachuk",
-    "our_seat": 0,
-    "our_score": 981.5193042571266
-   },
-   {
-    "episode_id": 93175699,
-    "create_time": "2026-08-15T02:48:20.588813100Z",
-    "ours": 84445,
-    "theirs": 92249,
-    "opp_team": 16639719,
-    "opp_name": "JASONSLIMWONG",
-    "our_seat": 1,
-    "our_score": 937.8051176468533
-   },
-   {
-    "episode_id": 93174810,
-    "create_time": "2026-08-15T02:44:20.736470800Z",
-    "ours": 67935,
-    "theirs": 104899,
-    "opp_team": 16655712,
-    "opp_name": "Smart Manoj",
-    "our_seat": 0,
-    "our_score": 992.1208258513219
-   },
-   {
-    "episode_id": 93173900,
-    "create_time": "2026-08-15T02:40:20.200273600Z",
-    "ours": 121371,
-    "theirs": 120801,
-    "opp_team": 16659749,
-    "opp_name": "Kavsik YVS",
-    "our_seat": 0,
-    "our_score": 1028.527823020683
-   },
-   {
-    "episode_id": 93172966,
-    "create_time": "2026-08-15T02:36:20.927505300Z",
-    "ours": 96610,
-    "theirs": 79450,
-    "opp_team": 16670420,
-    "opp_name": "Mihir Argulkar",
-    "our_seat": 0,
-    "our_score": 976.4558550743257
-   },
-   {
-    "episode_id": 93172056,
-    "create_time": "2026-08-15T02:32:19.917047700Z",
-    "ours": 65403,
-    "theirs": 58143,
-    "opp_team": 16677774,
-    "opp_name": "Abdulatif Mahgoub",
-    "our_seat": 1,
-    "our_score": 919.9245297790378
-   },
-   {
-    "episode_id": 93171160,
-    "create_time": "2026-08-15T02:28:19.943293500Z",
-    "ours": 69237,
-    "theirs": 31340,
-    "opp_team": 16667874,
-    "opp_name": "Vidushiii",
-    "our_seat": 0,
-    "our_score": 836.6754351097145
-   },
-   {
-    "episode_id": 93171325,
-    "create_time": "2026-08-15T02:28:20.229200100Z",
-    "ours": 51579,
-    "theirs": 53158,
-    "opp_team": 16623540,
-    "opp_name": "TheDuck",
-    "our_seat": 1,
-    "our_score": 708.2951590756647
-   },
-   {
-    "episode_id": 93170265,
-    "create_time": "2026-08-15T02:24:20.264889500Z",
-    "ours": 51981,
-    "theirs": 17776,
-    "opp_team": 16663963,
-    "opp_name": "M0h4m3d-Byte",
-    "our_seat": 0,
-    "our_score": 807.0441391100092
-   },
-   {
-    "episode_id": 93169385,
-    "create_time": "2026-08-15T02:20:19.829305Z",
-    "ours": 89113,
-    "theirs": 20335,
-    "opp_team": 16621367,
-    "opp_name": "Numari",
-    "our_seat": 1,
-    "our_score": 701.036777036325
-   }
-  ]
- },
- "v6-curve-r2": {
-  "submission_id": 55560444,
-  "episodes": [
-   {
-    "episode_id": 93804110,
-    "create_time": "2026-08-17T03:06:39.259138100Z",
-    "ours": 77501,
-    "theirs": 52871,
-    "opp_team": 16699140,
-    "opp_name": "St.Valentine",
-    "our_seat": 1,
-    "our_score": 860.7921884352508
-   },
-   {
-    "episode_id": 93795032,
-    "create_time": "2026-08-17T01:50:07.536657700Z",
-    "ours": 109035,
-    "theirs": 115515,
-    "opp_team": 16669466,
-    "opp_name": "vuppuluri sriramsubhash",
-    "our_seat": 1,
-    "our_score": 854.7836820998359
-   },
-   {
-    "episode_id": 93775818,
-    "create_time": "2026-08-16T23:34:10.375910600Z",
-    "ours": 54552,
-    "theirs": 72572,
-    "opp_team": 16656941,
-    "opp_name": "Winter Lamb",
-    "our_seat": 1,
-    "our_score": 861.3345406356187
-   },
-   {
-    "episode_id": 93763189,
-    "create_time": "2026-08-16T22:38:09.041061900Z",
-    "ours": 81389,
-    "theirs": 92297,
-    "opp_team": 16623886,
-    "opp_name": "onepunch999",
-    "our_seat": 1,
-    "our_score": 867.1064890676823
-   },
-   {
-    "episode_id": 93756710,
-    "create_time": "2026-08-16T22:10:06.997139300Z",
-    "ours": 58337,
-    "theirs": 48968,
-    "opp_team": 16729564,
-    "opp_name": "Eirik Tveiten",
-    "our_seat": 0,
-    "our_score": 876.1404319568402
-   },
-   {
-    "episode_id": 93746851,
-    "create_time": "2026-08-16T21:26:06.788794600Z",
-    "ours": 22446,
-    "theirs": 62362,
-    "opp_team": 16622349,
-    "opp_name": "Mengfei Li",
-    "our_seat": 0,
-    "our_score": 869.1797504216677
-   },
-   {
-    "episode_id": 93745389,
-    "create_time": "2026-08-16T21:18:09.057253900Z",
-    "ours": 63340,
-    "theirs": 67061,
-    "opp_team": 16637340,
-    "opp_name": "the_vinci_coder",
-    "our_seat": 1,
-    "our_score": 877.1822092574207
-   },
-   {
-    "episode_id": 93736360,
-    "create_time": "2026-08-16T20:37:38.880050500Z",
-    "ours": 71734,
-    "theirs": 82140,
-    "opp_team": 16640877,
-    "opp_name": "Yorix.um",
-    "our_seat": 1,
-    "our_score": 884.6323516866431
-   },
-   {
-    "episode_id": 93735465,
-    "create_time": "2026-08-16T20:33:36.892237600Z",
-    "ours": 77981,
-    "theirs": 81499,
-    "opp_team": 16632224,
-    "opp_name": "yamakawanin",
-    "our_seat": 1,
-    "our_score": 891.213493312222
-   },
-   {
-    "episode_id": 93734566,
-    "create_time": "2026-08-16T20:29:37.133249800Z",
-    "ours": 62266,
-    "theirs": 68843,
-    "opp_team": 16659715,
-    "opp_name": "masb",
-    "our_seat": 1,
-    "our_score": 900.4065609451284
-   },
-   {
-    "episode_id": 93733674,
-    "create_time": "2026-08-16T20:25:37.367883900Z",
-    "ours": 58494,
-    "theirs": 48453,
-    "opp_team": 16667959,
-    "opp_name": "Cadence",
-    "our_seat": 0,
-    "our_score": 908.9711180527019
-   },
-   {
-    "episode_id": 93732778,
-    "create_time": "2026-08-16T20:21:37.695656500Z",
-    "ours": 67988,
-    "theirs": 58025,
-    "opp_team": 16663361,
-    "opp_name": "protoLabs.studio",
-    "our_seat": 0,
-    "our_score": 901.691677331821
-   },
-   {
-    "episode_id": 93731894,
-    "create_time": "2026-08-16T20:17:43.890963100Z",
-    "ours": 135245,
-    "theirs": 109160,
-    "opp_team": 16657172,
-    "opp_name": "Honkazu",
-    "our_seat": 1,
-    "our_score": 892.3968351030779
-   },
-   {
-    "episode_id": 93730995,
-    "create_time": "2026-08-16T20:13:38.250227800Z",
-    "ours": 81280,
-    "theirs": 83169,
-    "opp_team": 16666452,
-    "opp_name": "victor souza",
-    "our_seat": 0,
-    "our_score": 884.4444740445063
-   },
-   {
-    "episode_id": 93730074,
-    "create_time": "2026-08-16T20:09:37.192694900Z",
-    "ours": 86803,
-    "theirs": 96165,
-    "opp_team": 16630760,
-    "opp_name": "dkzmn",
-    "our_seat": 0,
-    "our_score": 896.8779097146177
-   },
-   {
-    "episode_id": 93729193,
-    "create_time": "2026-08-16T20:05:37.444027100Z",
-    "ours": 83606,
-    "theirs": 73399,
-    "opp_team": 16705242,
-    "opp_name": "Chonghao Peng",
-    "our_seat": 0,
-    "our_score": 910.2294005989924
-   },
-   {
-    "episode_id": 93728296,
-    "create_time": "2026-08-16T20:01:37.434018700Z",
-    "ours": 110564,
-    "theirs": 85177,
-    "opp_team": 16668021,
-    "opp_name": "bali rasem",
-    "our_seat": 0,
-    "our_score": 900.0359161802533
-   },
-   {
-    "episode_id": 93727398,
-    "create_time": "2026-08-16T19:57:39.478988100Z",
-    "ours": 101411,
-    "theirs": 90091,
-    "opp_team": 16710389,
-    "opp_name": "GuerillaMoon",
-    "our_seat": 0,
-    "our_score": 887.146073278747
-   },
-   {
-    "episode_id": 93726509,
-    "create_time": "2026-08-16T19:53:37.243700Z",
-    "ours": 124706,
-    "theirs": 109451,
-    "opp_team": 16653222,
-    "opp_name": "StevenYuan7788",
-    "our_seat": 1,
-    "our_score": 873.5125217409404
-   },
-   {
-    "episode_id": 93725620,
-    "create_time": "2026-08-16T19:49:37.326406200Z",
-    "ours": 79984,
-    "theirs": 64369,
-    "opp_team": 16666900,
-    "opp_name": "sooflee",
-    "our_seat": 1,
-    "our_score": 859.7743258742537
-   },
-   {
-    "episode_id": 93724721,
-    "create_time": "2026-08-16T19:45:37.348448200Z",
-    "ours": 147643,
-    "theirs": 124397,
-    "opp_team": 16636454,
-    "opp_name": "epigene",
-    "our_seat": 1,
-    "our_score": 847.4108621326391
-   },
-   {
-    "episode_id": 93723845,
-    "create_time": "2026-08-16T19:41:37.348608200Z",
-    "ours": 78965,
-    "theirs": 58086,
-    "opp_team": 16627906,
-    "opp_name": "Tergel Munkhbat",
-    "our_seat": 1,
-    "our_score": 831.6185959684142
-   },
-   {
-    "episode_id": 93722909,
-    "create_time": "2026-08-16T19:37:44.173899300Z",
-    "ours": 50234,
-    "theirs": 102815,
-    "opp_team": 16632493,
-    "opp_name": "oni chan arigato",
-    "our_seat": 1,
-    "our_score": 813.1169905359787
-   },
-   {
-    "episode_id": 93722009,
-    "create_time": "2026-08-16T19:33:37.288854Z",
-    "ours": 94623,
-    "theirs": 113964,
-    "opp_team": 16666165,
-    "opp_name": "ChrisLeiteScha",
-    "our_seat": 1,
-    "our_score": 826.6186254711725
-   },
-   {
-    "episode_id": 93721115,
-    "create_time": "2026-08-16T19:29:37.333184300Z",
-    "ours": 87927,
-    "theirs": 110023,
-    "opp_team": 16668923,
-    "opp_name": "duy tran",
-    "our_seat": 1,
-    "our_score": 840.2670016905229
-   },
-   {
-    "episode_id": 93720212,
-    "create_time": "2026-08-16T19:25:37.977045800Z",
-    "ours": 66918,
-    "theirs": 98101,
-    "opp_team": 16663969,
-    "opp_name": "Aarush Kute",
-    "our_seat": 0,
-    "our_score": 856.6090918313963
-   },
-   {
-    "episode_id": 93719311,
-    "create_time": "2026-08-16T19:21:37.271422100Z",
-    "ours": 80570,
-    "theirs": 109616,
-    "opp_team": 16670424,
-    "opp_name": "Josep Audenis",
-    "our_seat": 1,
-    "our_score": 872.4665727727103
-   },
-   {
-    "episode_id": 93718419,
-    "create_time": "2026-08-16T19:17:40.492641Z",
-    "ours": 74028,
-    "theirs": 70670,
-    "opp_team": 16658365,
-    "opp_name": "Hoo Woo",
-    "our_seat": 1,
-    "our_score": 889.9759874998132
-   },
-   {
-    "episode_id": 93717505,
-    "create_time": "2026-08-16T19:13:36.655929400Z",
-    "ours": 39620,
-    "theirs": 51373,
-    "opp_team": 16634172,
-    "opp_name": "Mario Cicala",
-    "our_seat": 0,
-    "our_score": 866.2336670316547
-   },
-   {
-    "episode_id": 93716599,
-    "create_time": "2026-08-16T19:09:36.645361600Z",
-    "ours": 94002,
-    "theirs": 98721,
-    "opp_team": 16631353,
-    "opp_name": "Shivam Shinde",
-    "our_seat": 0,
-    "our_score": 893.172214207435
-   },
-   {
-    "episode_id": 93715688,
-    "create_time": "2026-08-16T19:05:36.755116100Z",
-    "ours": 51499,
-    "theirs": 93805,
-    "opp_team": 16627023,
-    "opp_name": "Noah Farr",
-    "our_seat": 1,
-    "our_score": 936.2171767585019
-   },
-   {
-    "episode_id": 93714777,
-    "create_time": "2026-08-16T19:01:36.829921400Z",
-    "ours": 113004,
-    "theirs": 92742,
-    "opp_team": 16658569,
-    "opp_name": "Danu A.",
-    "our_seat": 0,
-    "our_score": 960.0688839434805
-   },
-   {
-    "episode_id": 93713867,
-    "create_time": "2026-08-16T18:57:39.580918500Z",
-    "ours": 112246,
-    "theirs": 80710,
-    "opp_team": 16632426,
-    "opp_name": "Santhana",
-    "our_seat": 1,
-    "our_score": 913.3570524627075
-   },
-   {
-    "episode_id": 93712961,
-    "create_time": "2026-08-16T18:53:36.895355600Z",
-    "ours": 48474,
-    "theirs": 60119,
-    "opp_team": 16655195,
-    "opp_name": "Pirhosseinlou",
-    "our_seat": 0,
-    "our_score": 865.4141679248294
-   },
-   {
-    "episode_id": 93712075,
-    "create_time": "2026-08-16T18:49:38.302631300Z",
-    "ours": 105100,
-    "theirs": 82443,
-    "opp_team": 16712751,
-    "opp_name": "haruo_tensai",
-    "our_seat": 1,
-    "our_score": 930.8835796085872
-   },
-   {
-    "episode_id": 93711177,
-    "create_time": "2026-08-16T18:45:37.734230600Z",
-    "ours": 125142,
-    "theirs": 66946,
-    "opp_team": 16656444,
-    "opp_name": "christopher athans crow",
-    "our_seat": 0,
-    "our_score": 888.5066146741156
-   },
-   {
-    "episode_id": 93710272,
-    "create_time": "2026-08-16T18:41:37.322889800Z",
-    "ours": 109620,
-    "theirs": 66474,
-    "opp_team": 16673923,
-    "opp_name": "Gabriele Giacometti",
-    "our_seat": 0,
-    "our_score": 822.494033954292
-   },
-   {
-    "episode_id": 93709387,
-    "create_time": "2026-08-16T18:37:38.849068800Z",
-    "ours": 105372,
-    "theirs": 50021,
-    "opp_team": 16621499,
-    "opp_name": "Alexandr Utkov",
-    "our_seat": 0,
-    "our_score": 748.303021684107
-   },
-   {
-    "episode_id": 93708470,
-    "create_time": "2026-08-16T18:33:36.809261100Z",
-    "ours": 72098,
-    "theirs": 74778,
-    "opp_team": 16654456,
-    "opp_name": "Tristan Peng",
-    "our_seat": 0,
-    "our_score": 664.9360889417817
-   },
-   {
-    "episode_id": 93707591,
-    "create_time": "2026-08-16T18:29:36.828061500Z",
-    "ours": 130388,
-    "theirs": 102108,
-    "opp_team": 16662213,
-    "opp_name": "Yang Zong-Yu phD",
-    "our_seat": 0,
-    "our_score": 767.9339649571518
-   }
-  ]
- },
- "v7-fert": {
-  "submission_id": 55567649,
-  "episodes": [
-   {
-    "episode_id": 93805565,
-    "create_time": "2026-08-17T03:18:40.344519200Z",
-    "ours": 89486,
-    "theirs": 74853,
-    "opp_team": 16659715,
-    "opp_name": "masb",
-    "our_seat": 1,
-    "our_score": 904.034295102558
-   },
-   {
-    "episode_id": 93805075,
-    "create_time": "2026-08-17T03:14:38.676881400Z",
-    "ours": 102709,
-    "theirs": 106062,
-    "opp_team": 16654743,
-    "opp_name": "Jaume Batlle i Ferrer",
-    "our_seat": 0,
-    "our_score": 889.2467423083119
-   },
-   {
-    "episode_id": 93804578,
-    "create_time": "2026-08-17T03:10:38.654146300Z",
-    "ours": 77750,
-    "theirs": 82114,
-    "opp_team": 16635890,
-    "opp_name": "Poojan",
-    "our_seat": 1,
-    "our_score": 902.0998900760519
-   },
-   {
-    "episode_id": 93804092,
-    "create_time": "2026-08-17T03:06:39.239595400Z",
-    "ours": 67906,
-    "theirs": 65959,
-    "opp_team": 16697893,
-    "opp_name": "YWehbe",
-    "our_seat": 0,
-    "our_score": 912.3479767122428
-   },
-   {
-    "episode_id": 93803598,
-    "create_time": "2026-08-17T03:02:38.833777900Z",
-    "ours": 112425,
-    "theirs": 78906,
-    "opp_team": 16634128,
-    "opp_name": "ZechHuang",
-    "our_seat": 0,
-    "our_score": 898.9327110460292
-   },
-   {
-    "episode_id": 93803113,
-    "create_time": "2026-08-17T02:58:58.083974700Z",
-    "ours": 95164,
-    "theirs": 110753,
-    "opp_team": 16629983,
-    "opp_name": "Amundsen",
-    "our_seat": 1,
-    "our_score": 885.120331343713
-   },
-   {
-    "episode_id": 93802616,
-    "create_time": "2026-08-17T02:54:08.939613400Z",
-    "ours": 94516,
-    "theirs": 98969,
-    "opp_team": 16652984,
-    "opp_name": "hxaxd",
-    "our_seat": 0,
-    "our_score": 892.4104643444075
-   },
-   {
-    "episode_id": 93802129,
-    "create_time": "2026-08-17T02:50:08.594748400Z",
-    "ours": 87108,
-    "theirs": 87033,
-    "opp_team": 16688929,
-    "opp_name": "Kangqiao LIU",
-    "our_seat": 1,
-    "our_score": 908.0411074801397
-   },
-   {
-    "episode_id": 93801630,
-    "create_time": "2026-08-17T02:46:10.842438900Z",
-    "ours": 90428,
-    "theirs": 92751,
-    "opp_team": 16652984,
-    "opp_name": "hxaxd",
-    "our_seat": 0,
-    "our_score": 892.9541665067811
-   },
-   {
-    "episode_id": 93801143,
-    "create_time": "2026-08-17T02:42:08.857854800Z",
-    "ours": 84885,
-    "theirs": 99120,
-    "opp_team": 16637797,
-    "opp_name": "Xiangchen Li",
-    "our_seat": 1,
-    "our_score": 908.7405748295131
-   },
-   {
-    "episode_id": 93800646,
-    "create_time": "2026-08-17T02:38:10.052316Z",
-    "ours": 59025,
-    "theirs": 69952,
-    "opp_team": 16712577,
-    "opp_name": "nattapon nakakong",
-    "our_seat": 0,
-    "our_score": 927.9088350892429
-   },
-   {
-    "episode_id": 93800171,
-    "create_time": "2026-08-17T02:34:08.952333800Z",
-    "ours": 84918,
-    "theirs": 79327,
-    "opp_team": 16668361,
-    "opp_name": "NinhNguyen",
-    "our_seat": 1,
-    "our_score": 946.5498884955988
-   },
-   {
-    "episode_id": 93799690,
-    "create_time": "2026-08-17T02:30:08.727715100Z",
-    "ours": 63005,
-    "theirs": 40282,
-    "opp_team": 16664360,
-    "opp_name": "Rohan L",
-    "our_seat": 0,
-    "our_score": 931.7030186332003
-   },
-   {
-    "episode_id": 93799181,
-    "create_time": "2026-08-17T02:26:09.245452200Z",
-    "ours": 61237,
-    "theirs": 42408,
-    "opp_team": 16673346,
-    "opp_name": "gabrielep09",
-    "our_seat": 0,
-    "our_score": 909.6911923717295
-   },
-   {
-    "episode_id": 93798700,
-    "create_time": "2026-08-17T02:22:10.530791500Z",
-    "ours": 136718,
-    "theirs": 122712,
-    "opp_team": 16674447,
-    "opp_name": "Nathan Thor",
-    "our_seat": 1,
-    "our_score": 887.3537847282016
-   },
-   {
-    "episode_id": 93798205,
-    "create_time": "2026-08-17T02:18:11.413449600Z",
-    "ours": 67328,
-    "theirs": 82382,
-    "opp_team": 16692350,
-    "opp_name": "Emerson Suarez",
-    "our_seat": 1,
-    "our_score": 855.6672378604031
-   },
-   {
-    "episode_id": 93797735,
-    "create_time": "2026-08-17T02:14:09.024946600Z",
-    "ours": 67090,
-    "theirs": 83581,
-    "opp_team": 16656379,
-    "opp_name": "Jay Gautam",
-    "our_seat": 1,
-    "our_score": 882.0642356623397
-   },
-   {
-    "episode_id": 93797251,
-    "create_time": "2026-08-17T02:10:08.727242100Z",
-    "ours": 77048,
-    "theirs": 67783,
-    "opp_team": 16658272,
-    "opp_name": "Yash Katiyar",
-    "our_seat": 1,
-    "our_score": 913.5329423886649
-   },
-   {
-    "episode_id": 93796764,
-    "create_time": "2026-08-17T02:06:08.551471500Z",
-    "ours": 92721,
-    "theirs": 99236,
-    "opp_team": 16665120,
-    "opp_name": "nobody",
-    "our_seat": 1,
-    "our_score": 875.6631458859615
-   },
-   {
-    "episode_id": 93796268,
-    "create_time": "2026-08-17T02:02:08.452750100Z",
-    "ours": 73920,
-    "theirs": 67049,
-    "opp_team": 16709967,
-    "opp_name": "Matsu",
-    "our_seat": 1,
-    "our_score": 931.8515667276779
-   },
-   {
-    "episode_id": 93795778,
-    "create_time": "2026-08-17T01:58:09.551440200Z",
-    "ours": 86740,
-    "theirs": 72762,
-    "opp_team": 16657172,
-    "opp_name": "Honkazu",
-    "our_seat": 0,
-    "our_score": 885.3197076875717
-   },
-   {
-    "episode_id": 93795291,
-    "create_time": "2026-08-17T01:54:07.178440500Z",
-    "ours": 51506,
-    "theirs": 57556,
-    "opp_team": 16655142,
-    "opp_name": "Stanislav Kuznetsov",
-    "our_seat": 1,
-    "our_score": 828.909619104935
-   },
-   {
-    "episode_id": 93794803,
-    "create_time": "2026-08-17T01:50:07.150364300Z",
-    "ours": 83885,
-    "theirs": 69305,
-    "opp_team": 16655744,
-    "opp_name": "Ademola Arigbabuwo",
-    "our_seat": 0,
-    "our_score": 917.8368951464563
-   },
-   {
-    "episode_id": 93794328,
-    "create_time": "2026-08-17T01:46:07.102137100Z",
-    "ours": 71746,
-    "theirs": 34228,
-    "opp_team": 16675457,
-    "opp_name": "Ramana Prabhu Sana",
-    "our_seat": 1,
-    "our_score": 830.8637129902481
-   },
-   {
-    "episode_id": 93793920,
-    "create_time": "2026-08-17T01:42:10.932948700Z",
-    "ours": 56103,
-    "theirs": 79354,
-    "opp_team": 16660385,
-    "opp_name": "Jose Santiago Echevarria",
-    "our_seat": 0,
-    "our_score": 753.5277885519937
-   },
-   {
-    "episode_id": 93793363,
-    "create_time": "2026-08-17T01:38:09.293514200Z",
-    "ours": 89194,
-    "theirs": 54694,
-    "opp_team": 16664134,
-    "opp_name": "Pelayo Fernández",
-    "our_seat": 0,
-    "our_score": 827.1318591534412
-   },
-   {
-    "episode_id": 93792901,
-    "create_time": "2026-08-17T01:34:07.182535600Z",
-    "ours": 116517,
-    "theirs": 52443,
-    "opp_team": 16678644,
-    "opp_name": "Kanik Aggarwal",
-    "our_seat": 0,
-    "our_score": 719.8774896937438
-   }
-  ]
- },
  "v5-pivot": {
   "submission_id": 55340305,
   "episodes": [
+   {
+    "episode_id": 93661754,
+    "create_time": "2026-08-16T15:05:33.319725300Z",
+    "ours": 61182,
+    "theirs": 64792,
+    "seat": 1,
+    "opp_team": 16670527,
+    "opp_name": "Balram Gupta",
+    "our_score": 885.6670670040417
+   },
+   {
+    "episode_id": 93634772,
+    "create_time": "2026-08-16T13:05:33.267516600Z",
+    "ours": 103900,
+    "theirs": 86113,
+    "seat": 1,
+    "opp_team": 16726093,
+    "opp_name": "CocoTeam",
+    "our_score": 889.2863665109719
+   },
+   {
+    "episode_id": 93586642,
+    "create_time": "2026-08-16T09:29:03.503664700Z",
+    "ours": 64634,
+    "theirs": 66654,
+    "seat": 1,
+    "opp_team": 16654791,
+    "opp_name": "Dev Rath",
+    "our_score": 885.3913729867668
+   },
+   {
+    "episode_id": 93575897,
+    "create_time": "2026-08-16T08:41:02.935545600Z",
+    "ours": 69802,
+    "theirs": 61523,
+    "seat": 0,
+    "opp_team": 16725913,
+    "opp_name": "StarStone_233",
+    "our_score": 889.0973994078397
+   },
+   {
+    "episode_id": 93572981,
+    "create_time": "2026-08-16T08:29:02.458438200Z",
+    "ours": 75807,
+    "theirs": 48745,
+    "seat": 0,
+    "opp_team": 16711868,
+    "opp_name": "Mark Cooper",
+    "our_score": 885.8071569935461
+   },
+   {
+    "episode_id": 93539841,
+    "create_time": "2026-08-16T06:01:00.663819500Z",
+    "ours": 35385,
+    "theirs": 74357,
+    "seat": 1,
+    "opp_team": 16625241,
+    "opp_name": "Mutoy Choi",
+    "our_score": 882.3987108022053
+   },
+   {
+    "episode_id": 93527465,
+    "create_time": "2026-08-16T05:04:56.410886800Z",
+    "ours": 88513,
+    "theirs": 74989,
+    "seat": 1,
+    "opp_team": 16663659,
+    "opp_name": "Omer Rehman",
+    "our_score": 886.5069415211342
+   },
+   {
+    "episode_id": 93501787,
+    "create_time": "2026-08-16T03:08:57.345085700Z",
+    "ours": 86189,
+    "theirs": 68970,
+    "seat": 0,
+    "opp_team": 16670214,
+    "opp_name": "Louis @ tradeInsight.ai",
+    "our_score": 883.0458873662852
+   },
+   {
+    "episode_id": 93472173,
+    "create_time": "2026-08-16T00:56:56.042646400Z",
+    "ours": 27664,
+    "theirs": 67160,
+    "seat": 1,
+    "opp_team": 16671738,
+    "opp_name": "Exposed",
+    "our_score": 878.7824671351633
+   },
+   {
+    "episode_id": 93437225,
+    "create_time": "2026-08-15T22:20:54.326479700Z",
+    "ours": 36532,
+    "theirs": 83715,
+    "seat": 1,
+    "opp_team": 16676904,
+    "opp_name": "researchstudio.site",
+    "our_score": 881.7353604135894
+   },
+   {
+    "episode_id": 93420386,
+    "create_time": "2026-08-15T21:04:52.186875100Z",
+    "ours": 111576,
+    "theirs": 138687,
+    "seat": 0,
+    "opp_team": 16663214,
+    "opp_name": "Mathieu W",
+    "our_score": 884.6200538929298
+   },
    {
     "episode_id": 93405630,
     "create_time": "2026-08-15T19:57:03.038693300Z",
@@ -3096,6 +1931,1551 @@
     "opp_team": 16662043,
     "opp_name": "Hengcong Zhu",
     "our_score": 703.4168053233825
+   }
+  ]
+ },
+ "v6-curve": {
+  "submission_id": 55518009,
+  "episodes": [
+   {
+    "episode_id": 93789501,
+    "create_time": "2026-08-17T01:06:07.376207Z",
+    "ours": 43319,
+    "theirs": 82334,
+    "seat": 1,
+    "opp_team": 16698136,
+    "opp_name": "David Estevez",
+    "our_score": 846.3631874967369
+   },
+   {
+    "episode_id": 93785159,
+    "create_time": "2026-08-17T00:30:07.786091100Z",
+    "ours": 56181,
+    "theirs": 94098,
+    "seat": 1,
+    "opp_team": 16632245,
+    "opp_name": "We are Charlie Brown",
+    "our_score": 851.2623210194265
+   },
+   {
+    "episode_id": 93770472,
+    "create_time": "2026-08-16T23:10:10.985764400Z",
+    "ours": 111273,
+    "theirs": 87579,
+    "seat": 1,
+    "opp_team": 16700510,
+    "opp_name": "Gaurav_065",
+    "our_score": 854.8100594357772
+   },
+   {
+    "episode_id": 93722922,
+    "create_time": "2026-08-16T19:37:44.187757400Z",
+    "ours": 34851,
+    "theirs": 51324,
+    "seat": 1,
+    "opp_team": 16641230,
+    "opp_name": "An V1",
+    "our_score": 848.2048446813853
+   },
+   {
+    "episode_id": 93688752,
+    "create_time": "2026-08-16T17:05:37.251419300Z",
+    "ours": 43836,
+    "theirs": 95324,
+    "seat": 0,
+    "opp_team": 16698294,
+    "opp_name": "John Doe",
+    "our_score": 853.7992247115067
+   },
+   {
+    "episode_id": 93668172,
+    "create_time": "2026-08-16T15:33:33.335321100Z",
+    "ours": 115127,
+    "theirs": 104501,
+    "seat": 0,
+    "opp_team": 16661585,
+    "opp_name": "Fully Liquidated",
+    "our_score": 857.9335364961097
+   },
+   {
+    "episode_id": 93663684,
+    "create_time": "2026-08-16T15:13:32.931463300Z",
+    "ours": 59236,
+    "theirs": 88319,
+    "seat": 1,
+    "opp_team": 16703203,
+    "opp_name": "Hamza Shafik ",
+    "our_score": 852.5615629731699
+   },
+   {
+    "episode_id": 93628454,
+    "create_time": "2026-08-16T12:37:35.196765800Z",
+    "ours": 57158,
+    "theirs": 102499,
+    "seat": 1,
+    "opp_team": 16727998,
+    "opp_name": "hidsaito",
+    "our_score": 856.9528024353585
+   },
+   {
+    "episode_id": 93597474,
+    "create_time": "2026-08-16T10:17:05.211284200Z",
+    "ours": 44715,
+    "theirs": 52019,
+    "seat": 0,
+    "opp_team": 16639973,
+    "opp_name": "akky",
+    "our_score": 860.7279283835243
+   },
+   {
+    "episode_id": 93551479,
+    "create_time": "2026-08-16T06:52:57.940007300Z",
+    "ours": 63659,
+    "theirs": 92625,
+    "seat": 1,
+    "opp_team": 16660281,
+    "opp_name": "xiy lin",
+    "our_score": 866.0209112899375
+   },
+   {
+    "episode_id": 93529175,
+    "create_time": "2026-08-16T05:12:56.142442700Z",
+    "ours": 101076,
+    "theirs": 22302,
+    "seat": 1,
+    "opp_team": 16724355,
+    "opp_name": "hansama.qht",
+    "our_score": 870.7681785820528
+   },
+   {
+    "episode_id": 93508056,
+    "create_time": "2026-08-16T03:37:06.941171300Z",
+    "ours": 91041,
+    "theirs": 53113,
+    "seat": 1,
+    "opp_team": 16691938,
+    "opp_name": "PRASHANT SUTHAR11",
+    "our_score": 868.8505815844068
+   },
+   {
+    "episode_id": 93466138,
+    "create_time": "2026-08-16T00:28:55.068812400Z",
+    "ours": 79862,
+    "theirs": 71567,
+    "seat": 1,
+    "opp_team": 16685069,
+    "opp_name": "derek_kuang0213",
+    "our_score": 865.534870174214
+   },
+   {
+    "episode_id": 93449838,
+    "create_time": "2026-08-15T23:16:56.070816500Z",
+    "ours": 78563,
+    "theirs": 83724,
+    "seat": 1,
+    "opp_team": 16656274,
+    "opp_name": "googunmo",
+    "our_score": 859.2335525289157
+   },
+   {
+    "episode_id": 93411772,
+    "create_time": "2026-08-15T20:24:52.044183900Z",
+    "ours": 63589,
+    "theirs": 77166,
+    "seat": 0,
+    "opp_team": 16665816,
+    "opp_name": "Vikas1306",
+    "our_score": 865.6458745224248
+   },
+   {
+    "episode_id": 93383976,
+    "create_time": "2026-08-15T18:20:53.136583500Z",
+    "ours": 107680,
+    "theirs": 116169,
+    "seat": 0,
+    "opp_team": 16714474,
+    "opp_name": "Glenn Dalbey",
+    "our_score": 871.3041153234614
+   },
+   {
+    "episode_id": 93378901,
+    "create_time": "2026-08-15T17:56:55.363920200Z",
+    "ours": 89265,
+    "theirs": 69089,
+    "seat": 1,
+    "opp_team": 16644221,
+    "opp_name": "Guzha Panashe H",
+    "our_score": 877.1321617470757
+   },
+   {
+    "episode_id": 93341373,
+    "create_time": "2026-08-15T15:08:54.931931Z",
+    "ours": 48502,
+    "theirs": 51082,
+    "seat": 0,
+    "opp_team": 16666165,
+    "opp_name": "ChrisLeiteScha",
+    "our_score": 867.8655537728475
+   },
+   {
+    "episode_id": 93306067,
+    "create_time": "2026-08-15T12:32:19.514943700Z",
+    "ours": 79618,
+    "theirs": 123947,
+    "seat": 0,
+    "opp_team": 16723528,
+    "opp_name": "Singaraj B",
+    "our_score": 873.9949774242559
+   },
+   {
+    "episode_id": 93293801,
+    "create_time": "2026-08-15T11:36:21.148384500Z",
+    "ours": 75421,
+    "theirs": 69576,
+    "seat": 1,
+    "opp_team": 16654542,
+    "opp_name": "JayveerSingh6",
+    "our_score": 881.0157422163086
+   },
+   {
+    "episode_id": 93261369,
+    "create_time": "2026-08-15T09:12:20.705970Z",
+    "ours": 68749,
+    "theirs": 98462,
+    "seat": 1,
+    "opp_team": 16694186,
+    "opp_name": "souju00",
+    "our_score": 873.8321717230473
+   },
+   {
+    "episode_id": 93251822,
+    "create_time": "2026-08-15T08:28:20.705512500Z",
+    "ours": 76276,
+    "theirs": 76689,
+    "seat": 0,
+    "opp_team": 16624888,
+    "opp_name": "okome_niigata",
+    "our_score": 880.2417263770006
+   },
+   {
+    "episode_id": 93228522,
+    "create_time": "2026-08-15T06:44:21.634320700Z",
+    "ours": 84898,
+    "theirs": 83925,
+    "seat": 0,
+    "opp_team": 16707453,
+    "opp_name": "Kaan Dınız",
+    "our_score": 891.5883579734749
+   },
+   {
+    "episode_id": 93227637,
+    "create_time": "2026-08-15T06:40:22.038793300Z",
+    "ours": 106783,
+    "theirs": 88248,
+    "seat": 0,
+    "opp_team": 16670453,
+    "opp_name": "141",
+    "our_score": 884.1995349895658
+   },
+   {
+    "episode_id": 93214294,
+    "create_time": "2026-08-15T05:40:22.179658400Z",
+    "ours": 114114,
+    "theirs": 60379,
+    "seat": 0,
+    "opp_team": 16622015,
+    "opp_name": "Ioannis M",
+    "our_score": 876.1985056458226
+   },
+   {
+    "episode_id": 93198314,
+    "create_time": "2026-08-15T04:28:20.479116600Z",
+    "ours": 96425,
+    "theirs": 111291,
+    "seat": 0,
+    "opp_team": 16648215,
+    "opp_name": "Terrence Chuwe",
+    "our_score": 868.0588475046898
+   },
+   {
+    "episode_id": 93194607,
+    "create_time": "2026-08-15T04:12:20.432946200Z",
+    "ours": 64561,
+    "theirs": 83865,
+    "seat": 0,
+    "opp_team": 16623555,
+    "opp_name": "yindujuxi",
+    "our_score": 879.2409109114811
+   },
+   {
+    "episode_id": 93193747,
+    "create_time": "2026-08-15T04:08:20.553602800Z",
+    "ours": 97636,
+    "theirs": 79585,
+    "seat": 0,
+    "opp_team": 16697936,
+    "opp_name": "Sami Cakiral",
+    "our_score": 891.1596174897745
+   },
+   {
+    "episode_id": 93192849,
+    "create_time": "2026-08-15T04:04:20.469499800Z",
+    "ours": 72900,
+    "theirs": 78426,
+    "seat": 0,
+    "opp_team": 16639973,
+    "opp_name": "akky",
+    "our_score": 882.9641365281316
+   },
+   {
+    "episode_id": 93191933,
+    "create_time": "2026-08-15T04:00:20.376609200Z",
+    "ours": 105368,
+    "theirs": 113578,
+    "seat": 1,
+    "opp_team": 16697893,
+    "opp_name": "YWehbe",
+    "our_score": 891.6227057737939
+   },
+   {
+    "episode_id": 93191002,
+    "create_time": "2026-08-15T03:56:21.932010500Z",
+    "ours": 101828,
+    "theirs": 125440,
+    "seat": 1,
+    "opp_team": 16677514,
+    "opp_name": "mayoristaNLP",
+    "our_score": 901.5831776234627
+   },
+   {
+    "episode_id": 93190110,
+    "create_time": "2026-08-15T03:52:20.530719200Z",
+    "ours": 77296,
+    "theirs": 89740,
+    "seat": 0,
+    "opp_team": 16623616,
+    "opp_name": "nasubiman",
+    "our_score": 914.3839572565307
+   },
+   {
+    "episode_id": 93189215,
+    "create_time": "2026-08-15T03:48:20.738911200Z",
+    "ours": 53825,
+    "theirs": 60717,
+    "seat": 0,
+    "opp_team": 16654743,
+    "opp_name": "Jaume Batlle i Ferrer",
+    "our_score": 925.4386381282396
+   },
+   {
+    "episode_id": 93188315,
+    "create_time": "2026-08-15T03:44:20.576451500Z",
+    "ours": 81185,
+    "theirs": 110257,
+    "seat": 1,
+    "opp_team": 16651180,
+    "opp_name": "yangyefd",
+    "our_score": 939.3901152604802
+   },
+   {
+    "episode_id": 93187420,
+    "create_time": "2026-08-15T03:40:20.666531800Z",
+    "ours": 119758,
+    "theirs": 117193,
+    "seat": 0,
+    "opp_team": 16692954,
+    "opp_name": "Adam Nhan",
+    "our_score": 949.06107333991
+   },
+   {
+    "episode_id": 93186526,
+    "create_time": "2026-08-15T03:36:22.754289300Z",
+    "ours": 52166,
+    "theirs": 81615,
+    "seat": 1,
+    "opp_team": 16723967,
+    "opp_name": "dk2lone",
+    "our_score": 937.019598631812
+   },
+   {
+    "episode_id": 93185628,
+    "create_time": "2026-08-15T03:32:20.460975Z",
+    "ours": 63817,
+    "theirs": 60768,
+    "seat": 0,
+    "opp_team": 16695093,
+    "opp_name": "Ryota Murai",
+    "our_score": 945.218655330983
+   },
+   {
+    "episode_id": 93184685,
+    "create_time": "2026-08-15T03:28:20.530350500Z",
+    "ours": 77088,
+    "theirs": 77832,
+    "seat": 0,
+    "opp_team": 16696561,
+    "opp_name": "Ali Ramazanov",
+    "our_score": 935.8108959499651
+   },
+   {
+    "episode_id": 93183793,
+    "create_time": "2026-08-15T03:24:20.666821700Z",
+    "ours": 70767,
+    "theirs": 58173,
+    "seat": 1,
+    "opp_team": 16662375,
+    "opp_name": "Yunusa Hussein Adeiza",
+    "our_score": 952.6881309397695
+   },
+   {
+    "episode_id": 93182892,
+    "create_time": "2026-08-15T03:20:21.769887600Z",
+    "ours": 61256,
+    "theirs": 59598,
+    "seat": 0,
+    "opp_team": 16671659,
+    "opp_name": "Jiang",
+    "our_score": 940.9530182627522
+   },
+   {
+    "episode_id": 93181999,
+    "create_time": "2026-08-15T03:16:23.297273200Z",
+    "ours": 60643,
+    "theirs": 72732,
+    "seat": 0,
+    "opp_team": 16667762,
+    "opp_name": "KucingGanteng",
+    "our_score": 925.4317332960242
+   },
+   {
+    "episode_id": 93181100,
+    "create_time": "2026-08-15T03:12:22.340537900Z",
+    "ours": 92297,
+    "theirs": 81058,
+    "seat": 0,
+    "opp_team": 16665058,
+    "opp_name": "Llin Ding",
+    "our_score": 943.8316493091986
+   },
+   {
+    "episode_id": 93180191,
+    "create_time": "2026-08-15T03:08:22.156286700Z",
+    "ours": 97788,
+    "theirs": 102468,
+    "seat": 0,
+    "opp_team": 16663584,
+    "opp_name": "Deployable LLMs",
+    "our_score": 926.1390112462277
+   },
+   {
+    "episode_id": 93179280,
+    "create_time": "2026-08-15T03:04:21.785201700Z",
+    "ours": 65642,
+    "theirs": 68148,
+    "seat": 0,
+    "opp_team": 16664149,
+    "opp_name": "Bushel Seed",
+    "our_score": 948.1714146960062
+   },
+   {
+    "episode_id": 93179266,
+    "create_time": "2026-08-15T03:04:21.766600500Z",
+    "ours": 36922,
+    "theirs": 27169,
+    "seat": 0,
+    "opp_team": 16659103,
+    "opp_name": "Arin",
+    "our_score": 975.6397703138057
+   },
+   {
+    "episode_id": 93179352,
+    "create_time": "2026-08-15T03:04:21.928152100Z",
+    "ours": 129961,
+    "theirs": 115440,
+    "seat": 0,
+    "opp_team": 16716558,
+    "opp_name": "Evan Tobias",
+    "our_score": 958.0934058739825
+   },
+   {
+    "episode_id": 93178394,
+    "create_time": "2026-08-15T03:00:20.074948700Z",
+    "ours": 58962,
+    "theirs": 56464,
+    "seat": 1,
+    "opp_team": 16687808,
+    "opp_name": "GorillaGhost",
+    "our_score": 933.645126939322
+   },
+   {
+    "episode_id": 93177659,
+    "create_time": "2026-08-15T02:56:27.963449500Z",
+    "ours": 118345,
+    "theirs": 119614,
+    "seat": 1,
+    "opp_team": 16663614,
+    "opp_name": "Nevska",
+    "our_score": 911.9822245104755
+   },
+   {
+    "episode_id": 93177485,
+    "create_time": "2026-08-15T02:56:27.565418800Z",
+    "ours": 54177,
+    "theirs": 75553,
+    "seat": 0,
+    "opp_team": 16707639,
+    "opp_name": "Fujinawa",
+    "our_score": 946.7223324229197
+   },
+   {
+    "episode_id": 93176594,
+    "create_time": "2026-08-15T02:52:20.445874900Z",
+    "ours": 56591,
+    "theirs": 51792,
+    "seat": 0,
+    "opp_team": 16632536,
+    "opp_name": "Aleksander Sachuk",
+    "our_score": 981.5193042571266
+   },
+   {
+    "episode_id": 93175699,
+    "create_time": "2026-08-15T02:48:20.588813100Z",
+    "ours": 84445,
+    "theirs": 92249,
+    "seat": 1,
+    "opp_team": 16639719,
+    "opp_name": "JASONSLIMWONG",
+    "our_score": 937.8051176468533
+   },
+   {
+    "episode_id": 93174810,
+    "create_time": "2026-08-15T02:44:20.736470800Z",
+    "ours": 67935,
+    "theirs": 104899,
+    "seat": 0,
+    "opp_team": 16655712,
+    "opp_name": "Smart Manoj",
+    "our_score": 992.1208258513219
+   },
+   {
+    "episode_id": 93173900,
+    "create_time": "2026-08-15T02:40:20.200273600Z",
+    "ours": 121371,
+    "theirs": 120801,
+    "seat": 0,
+    "opp_team": 16659749,
+    "opp_name": "Kavsik YVS",
+    "our_score": 1028.527823020683
+   },
+   {
+    "episode_id": 93172966,
+    "create_time": "2026-08-15T02:36:20.927505300Z",
+    "ours": 96610,
+    "theirs": 79450,
+    "seat": 0,
+    "opp_team": 16670420,
+    "opp_name": "Mihir Argulkar",
+    "our_score": 976.4558550743257
+   },
+   {
+    "episode_id": 93172056,
+    "create_time": "2026-08-15T02:32:19.917047700Z",
+    "ours": 65403,
+    "theirs": 58143,
+    "seat": 1,
+    "opp_team": 16677774,
+    "opp_name": "Abdulatif Mahgoub",
+    "our_score": 919.9245297790378
+   },
+   {
+    "episode_id": 93171160,
+    "create_time": "2026-08-15T02:28:19.943293500Z",
+    "ours": 69237,
+    "theirs": 31340,
+    "seat": 0,
+    "opp_team": 16667874,
+    "opp_name": "Vidushiii",
+    "our_score": 836.6754351097145
+   },
+   {
+    "episode_id": 93171325,
+    "create_time": "2026-08-15T02:28:20.229200100Z",
+    "ours": 51579,
+    "theirs": 53158,
+    "seat": 1,
+    "opp_team": 16623540,
+    "opp_name": "TheDuck",
+    "our_score": 708.2951590756647
+   },
+   {
+    "episode_id": 93170265,
+    "create_time": "2026-08-15T02:24:20.264889500Z",
+    "ours": 51981,
+    "theirs": 17776,
+    "seat": 0,
+    "opp_team": 16663963,
+    "opp_name": "M0h4m3d-Byte",
+    "our_score": 807.0441391100092
+   },
+   {
+    "episode_id": 93169385,
+    "create_time": "2026-08-15T02:20:19.829305Z",
+    "ours": 89113,
+    "theirs": 20335,
+    "seat": 1,
+    "opp_team": 16621367,
+    "opp_name": "Numari",
+    "our_score": 701.036777036325
+   }
+  ]
+ },
+ "v6-curve-r2": {
+  "submission_id": 55560444,
+  "episodes": [
+   {
+    "episode_id": 93965284,
+    "create_time": "2026-08-17T16:30:49.008404900Z",
+    "ours": 92622,
+    "theirs": 112007,
+    "seat": 0,
+    "opp_team": 16659920,
+    "opp_name": "vkhydras",
+    "our_score": 836.7594728731023
+   },
+   {
+    "episode_id": 93959114,
+    "create_time": "2026-08-17T16:02:42.836484800Z",
+    "ours": 104956,
+    "theirs": 155191,
+    "seat": 0,
+    "opp_team": 16674831,
+    "opp_name": "nk for work",
+    "our_score": 841.3582541577281
+   },
+   {
+    "episode_id": 93941710,
+    "create_time": "2026-08-17T14:42:44.357302700Z",
+    "ours": 76668,
+    "theirs": 89885,
+    "seat": 1,
+    "opp_team": 16709800,
+    "opp_name": "nubx",
+    "our_score": 846.6889061248548
+   },
+   {
+    "episode_id": 93934752,
+    "create_time": "2026-08-17T14:10:42.831534100Z",
+    "ours": 115641,
+    "theirs": 89677,
+    "seat": 1,
+    "opp_team": 16656501,
+    "opp_name": "Thái Phạm Công",
+    "our_score": 851.6045113613146
+   },
+   {
+    "episode_id": 93917979,
+    "create_time": "2026-08-17T12:54:41.654484700Z",
+    "ours": 72244,
+    "theirs": 56727,
+    "seat": 1,
+    "opp_team": 16634128,
+    "opp_name": "ZechHuang",
+    "our_score": 845.507196396912
+   },
+   {
+    "episode_id": 93898497,
+    "create_time": "2026-08-17T11:26:40.451291800Z",
+    "ours": 72675,
+    "theirs": 77448,
+    "seat": 1,
+    "opp_team": 16668361,
+    "opp_name": "NinhNguyen",
+    "our_score": 840.420445551073
+   },
+   {
+    "episode_id": 93886915,
+    "create_time": "2026-08-17T10:34:41.196974800Z",
+    "ours": 112615,
+    "theirs": 124378,
+    "seat": 0,
+    "opp_team": 16669089,
+    "opp_name": "YujieXing10",
+    "our_score": 846.0712945493192
+   },
+   {
+    "episode_id": 93885171,
+    "create_time": "2026-08-17T10:26:41.234128600Z",
+    "ours": 47467,
+    "theirs": 83049,
+    "seat": 1,
+    "opp_team": 16639520,
+    "opp_name": "Cary Jin",
+    "our_score": 850.2087135558386
+   },
+   {
+    "episode_id": 93864866,
+    "create_time": "2026-08-17T08:54:41.091480800Z",
+    "ours": 76040,
+    "theirs": 127281,
+    "seat": 1,
+    "opp_team": 16701685,
+    "opp_name": "shawloong",
+    "our_score": 855.1958718442469
+   },
+   {
+    "episode_id": 93860815,
+    "create_time": "2026-08-17T08:34:40.932734200Z",
+    "ours": 73384,
+    "theirs": 106887,
+    "seat": 0,
+    "opp_team": 16661670,
+    "opp_name": "sansm1",
+    "our_score": 861.1679156884396
+   },
+   {
+    "episode_id": 93823799,
+    "create_time": "2026-08-17T05:46:40.680012100Z",
+    "ours": 75069,
+    "theirs": 69277,
+    "seat": 1,
+    "opp_team": 16631421,
+    "opp_name": "cg",
+    "our_score": 868.2065899492046
+   },
+   {
+    "episode_id": 93804110,
+    "create_time": "2026-08-17T03:06:39.259138100Z",
+    "ours": 77501,
+    "theirs": 52871,
+    "seat": 1,
+    "opp_team": 16699140,
+    "opp_name": "St.Valentine",
+    "our_score": 860.7921884352508
+   },
+   {
+    "episode_id": 93795032,
+    "create_time": "2026-08-17T01:50:07.536657700Z",
+    "ours": 109035,
+    "theirs": 115515,
+    "seat": 1,
+    "opp_team": 16669466,
+    "opp_name": "vuppuluri sriramsubhash",
+    "our_score": 854.7836820998359
+   },
+   {
+    "episode_id": 93775818,
+    "create_time": "2026-08-16T23:34:10.375910600Z",
+    "ours": 54552,
+    "theirs": 72572,
+    "seat": 1,
+    "opp_team": 16656941,
+    "opp_name": "Winter Lamb",
+    "our_score": 861.3345406356187
+   },
+   {
+    "episode_id": 93763189,
+    "create_time": "2026-08-16T22:38:09.041061900Z",
+    "ours": 81389,
+    "theirs": 92297,
+    "seat": 1,
+    "opp_team": 16623886,
+    "opp_name": "onepunch999",
+    "our_score": 867.1064890676823
+   },
+   {
+    "episode_id": 93756710,
+    "create_time": "2026-08-16T22:10:06.997139300Z",
+    "ours": 58337,
+    "theirs": 48968,
+    "seat": 0,
+    "opp_team": 16729564,
+    "opp_name": "Eirik Tveiten",
+    "our_score": 876.1404319568402
+   },
+   {
+    "episode_id": 93746851,
+    "create_time": "2026-08-16T21:26:06.788794600Z",
+    "ours": 22446,
+    "theirs": 62362,
+    "seat": 0,
+    "opp_team": 16622349,
+    "opp_name": "Mengfei Li",
+    "our_score": 869.1797504216677
+   },
+   {
+    "episode_id": 93745389,
+    "create_time": "2026-08-16T21:18:09.057253900Z",
+    "ours": 63340,
+    "theirs": 67061,
+    "seat": 1,
+    "opp_team": 16637340,
+    "opp_name": "the_vinci_coder",
+    "our_score": 877.1822092574207
+   },
+   {
+    "episode_id": 93736360,
+    "create_time": "2026-08-16T20:37:38.880050500Z",
+    "ours": 71734,
+    "theirs": 82140,
+    "seat": 1,
+    "opp_team": 16640877,
+    "opp_name": "Yorix.um",
+    "our_score": 884.6323516866431
+   },
+   {
+    "episode_id": 93735465,
+    "create_time": "2026-08-16T20:33:36.892237600Z",
+    "ours": 77981,
+    "theirs": 81499,
+    "seat": 1,
+    "opp_team": 16632224,
+    "opp_name": "yamakawanin",
+    "our_score": 891.213493312222
+   },
+   {
+    "episode_id": 93734566,
+    "create_time": "2026-08-16T20:29:37.133249800Z",
+    "ours": 62266,
+    "theirs": 68843,
+    "seat": 1,
+    "opp_team": 16659715,
+    "opp_name": "masb",
+    "our_score": 900.4065609451284
+   },
+   {
+    "episode_id": 93733674,
+    "create_time": "2026-08-16T20:25:37.367883900Z",
+    "ours": 58494,
+    "theirs": 48453,
+    "seat": 0,
+    "opp_team": 16667959,
+    "opp_name": "Cadence",
+    "our_score": 908.9711180527019
+   },
+   {
+    "episode_id": 93732778,
+    "create_time": "2026-08-16T20:21:37.695656500Z",
+    "ours": 67988,
+    "theirs": 58025,
+    "seat": 0,
+    "opp_team": 16663361,
+    "opp_name": "protoLabs.studio",
+    "our_score": 901.691677331821
+   },
+   {
+    "episode_id": 93731894,
+    "create_time": "2026-08-16T20:17:43.890963100Z",
+    "ours": 135245,
+    "theirs": 109160,
+    "seat": 1,
+    "opp_team": 16657172,
+    "opp_name": "Honkazu",
+    "our_score": 892.3968351030779
+   },
+   {
+    "episode_id": 93730995,
+    "create_time": "2026-08-16T20:13:38.250227800Z",
+    "ours": 81280,
+    "theirs": 83169,
+    "seat": 0,
+    "opp_team": 16666452,
+    "opp_name": "victor souza",
+    "our_score": 884.4444740445063
+   },
+   {
+    "episode_id": 93730074,
+    "create_time": "2026-08-16T20:09:37.192694900Z",
+    "ours": 86803,
+    "theirs": 96165,
+    "seat": 0,
+    "opp_team": 16630760,
+    "opp_name": "dkzmn",
+    "our_score": 896.8779097146177
+   },
+   {
+    "episode_id": 93729193,
+    "create_time": "2026-08-16T20:05:37.444027100Z",
+    "ours": 83606,
+    "theirs": 73399,
+    "seat": 0,
+    "opp_team": 16705242,
+    "opp_name": "Chonghao Peng",
+    "our_score": 910.2294005989924
+   },
+   {
+    "episode_id": 93728296,
+    "create_time": "2026-08-16T20:01:37.434018700Z",
+    "ours": 110564,
+    "theirs": 85177,
+    "seat": 0,
+    "opp_team": 16668021,
+    "opp_name": "bali rasem",
+    "our_score": 900.0359161802533
+   },
+   {
+    "episode_id": 93727398,
+    "create_time": "2026-08-16T19:57:39.478988100Z",
+    "ours": 101411,
+    "theirs": 90091,
+    "seat": 0,
+    "opp_team": 16710389,
+    "opp_name": "GuerillaMoon",
+    "our_score": 887.146073278747
+   },
+   {
+    "episode_id": 93726509,
+    "create_time": "2026-08-16T19:53:37.243700Z",
+    "ours": 124706,
+    "theirs": 109451,
+    "seat": 1,
+    "opp_team": 16653222,
+    "opp_name": "StevenYuan7788",
+    "our_score": 873.5125217409404
+   },
+   {
+    "episode_id": 93725620,
+    "create_time": "2026-08-16T19:49:37.326406200Z",
+    "ours": 79984,
+    "theirs": 64369,
+    "seat": 1,
+    "opp_team": 16666900,
+    "opp_name": "sooflee",
+    "our_score": 859.7743258742537
+   },
+   {
+    "episode_id": 93724721,
+    "create_time": "2026-08-16T19:45:37.348448200Z",
+    "ours": 147643,
+    "theirs": 124397,
+    "seat": 1,
+    "opp_team": 16636454,
+    "opp_name": "epigene",
+    "our_score": 847.4108621326391
+   },
+   {
+    "episode_id": 93723845,
+    "create_time": "2026-08-16T19:41:37.348608200Z",
+    "ours": 78965,
+    "theirs": 58086,
+    "seat": 1,
+    "opp_team": 16627906,
+    "opp_name": "Tergel Munkhbat",
+    "our_score": 831.6185959684142
+   },
+   {
+    "episode_id": 93722909,
+    "create_time": "2026-08-16T19:37:44.173899300Z",
+    "ours": 50234,
+    "theirs": 102815,
+    "seat": 1,
+    "opp_team": 16632493,
+    "opp_name": "oni chan arigato",
+    "our_score": 813.1169905359787
+   },
+   {
+    "episode_id": 93722009,
+    "create_time": "2026-08-16T19:33:37.288854Z",
+    "ours": 94623,
+    "theirs": 113964,
+    "seat": 1,
+    "opp_team": 16666165,
+    "opp_name": "ChrisLeiteScha",
+    "our_score": 826.6186254711725
+   },
+   {
+    "episode_id": 93721115,
+    "create_time": "2026-08-16T19:29:37.333184300Z",
+    "ours": 87927,
+    "theirs": 110023,
+    "seat": 1,
+    "opp_team": 16668923,
+    "opp_name": "duy tran",
+    "our_score": 840.2670016905229
+   },
+   {
+    "episode_id": 93720212,
+    "create_time": "2026-08-16T19:25:37.977045800Z",
+    "ours": 66918,
+    "theirs": 98101,
+    "seat": 0,
+    "opp_team": 16663969,
+    "opp_name": "Aarush Kute",
+    "our_score": 856.6090918313963
+   },
+   {
+    "episode_id": 93719311,
+    "create_time": "2026-08-16T19:21:37.271422100Z",
+    "ours": 80570,
+    "theirs": 109616,
+    "seat": 1,
+    "opp_team": 16670424,
+    "opp_name": "Josep Audenis",
+    "our_score": 872.4665727727103
+   },
+   {
+    "episode_id": 93718419,
+    "create_time": "2026-08-16T19:17:40.492641Z",
+    "ours": 74028,
+    "theirs": 70670,
+    "seat": 1,
+    "opp_team": 16658365,
+    "opp_name": "Hoo Woo",
+    "our_score": 889.9759874998132
+   },
+   {
+    "episode_id": 93717505,
+    "create_time": "2026-08-16T19:13:36.655929400Z",
+    "ours": 39620,
+    "theirs": 51373,
+    "seat": 0,
+    "opp_team": 16634172,
+    "opp_name": "Mario Cicala",
+    "our_score": 866.2336670316547
+   },
+   {
+    "episode_id": 93716599,
+    "create_time": "2026-08-16T19:09:36.645361600Z",
+    "ours": 94002,
+    "theirs": 98721,
+    "seat": 0,
+    "opp_team": 16631353,
+    "opp_name": "Shivam Shinde",
+    "our_score": 893.172214207435
+   },
+   {
+    "episode_id": 93715688,
+    "create_time": "2026-08-16T19:05:36.755116100Z",
+    "ours": 51499,
+    "theirs": 93805,
+    "seat": 1,
+    "opp_team": 16627023,
+    "opp_name": "Noah Farr",
+    "our_score": 936.2171767585019
+   },
+   {
+    "episode_id": 93714777,
+    "create_time": "2026-08-16T19:01:36.829921400Z",
+    "ours": 113004,
+    "theirs": 92742,
+    "seat": 0,
+    "opp_team": 16658569,
+    "opp_name": "Danu A.",
+    "our_score": 960.0688839434805
+   },
+   {
+    "episode_id": 93713867,
+    "create_time": "2026-08-16T18:57:39.580918500Z",
+    "ours": 112246,
+    "theirs": 80710,
+    "seat": 1,
+    "opp_team": 16632426,
+    "opp_name": "Santhana",
+    "our_score": 913.3570524627075
+   },
+   {
+    "episode_id": 93712961,
+    "create_time": "2026-08-16T18:53:36.895355600Z",
+    "ours": 48474,
+    "theirs": 60119,
+    "seat": 0,
+    "opp_team": 16655195,
+    "opp_name": "Pirhosseinlou",
+    "our_score": 865.4141679248294
+   },
+   {
+    "episode_id": 93712075,
+    "create_time": "2026-08-16T18:49:38.302631300Z",
+    "ours": 105100,
+    "theirs": 82443,
+    "seat": 1,
+    "opp_team": 16712751,
+    "opp_name": "haruo_tensai",
+    "our_score": 930.8835796085872
+   },
+   {
+    "episode_id": 93711177,
+    "create_time": "2026-08-16T18:45:37.734230600Z",
+    "ours": 125142,
+    "theirs": 66946,
+    "seat": 0,
+    "opp_team": 16656444,
+    "opp_name": "christopher athans crow",
+    "our_score": 888.5066146741156
+   },
+   {
+    "episode_id": 93710272,
+    "create_time": "2026-08-16T18:41:37.322889800Z",
+    "ours": 109620,
+    "theirs": 66474,
+    "seat": 0,
+    "opp_team": 16673923,
+    "opp_name": "Gabriele Giacometti",
+    "our_score": 822.494033954292
+   },
+   {
+    "episode_id": 93709387,
+    "create_time": "2026-08-16T18:37:38.849068800Z",
+    "ours": 105372,
+    "theirs": 50021,
+    "seat": 0,
+    "opp_team": 16621499,
+    "opp_name": "Alexandr Utkov",
+    "our_score": 748.303021684107
+   },
+   {
+    "episode_id": 93708470,
+    "create_time": "2026-08-16T18:33:36.809261100Z",
+    "ours": 72098,
+    "theirs": 74778,
+    "seat": 0,
+    "opp_team": 16654456,
+    "opp_name": "Tristan Peng",
+    "our_score": 664.9360889417817
+   },
+   {
+    "episode_id": 93707591,
+    "create_time": "2026-08-16T18:29:36.828061500Z",
+    "ours": 130388,
+    "theirs": 102108,
+    "seat": 0,
+    "opp_team": 16662213,
+    "opp_name": "Yang Zong-Yu phD",
+    "our_score": 767.9339649571518
+   }
+  ]
+ },
+ "v7-fert": {
+  "submission_id": 55567649,
+  "episodes": [
+   {
+    "episode_id": 93971660,
+    "create_time": "2026-08-17T16:58:47.046125Z",
+    "ours": 83136,
+    "theirs": 76070,
+    "seat": 1,
+    "opp_team": 16729165,
+    "opp_name": "コーラ",
+    "our_score": 940.3976345849369
+   },
+   {
+    "episode_id": 93966333,
+    "create_time": "2026-08-17T16:34:44.347573600Z",
+    "ours": 86514,
+    "theirs": 94803,
+    "seat": 0,
+    "opp_team": 16729165,
+    "opp_name": "コーラ",
+    "our_score": 933.9355196901016
+   },
+   {
+    "episode_id": 93959398,
+    "create_time": "2026-08-17T16:02:43.377135300Z",
+    "ours": 69150,
+    "theirs": 92970,
+    "seat": 0,
+    "opp_team": 16622940,
+    "opp_name": "Enrico Ambrosio",
+    "our_score": 942.5677591950425
+   },
+   {
+    "episode_id": 93923891,
+    "create_time": "2026-08-17T13:22:45.001957500Z",
+    "ours": 40164,
+    "theirs": 69092,
+    "seat": 1,
+    "opp_team": 16668788,
+    "opp_name": "ConnieCodes",
+    "our_score": 949.4959048252744
+   },
+   {
+    "episode_id": 93895905,
+    "create_time": "2026-08-17T11:14:40.161565200Z",
+    "ours": 126115,
+    "theirs": 90965,
+    "seat": 1,
+    "opp_team": 16695822,
+    "opp_name": "Ahmad Elawady",
+    "our_score": 955.7293985960525
+   },
+   {
+    "episode_id": 93867795,
+    "create_time": "2026-08-17T09:06:42.162327100Z",
+    "ours": 87140,
+    "theirs": 114816,
+    "seat": 1,
+    "opp_team": 16623298,
+    "opp_name": "Mikhail_Komkin",
+    "our_score": 948.5342514563455
+   },
+   {
+    "episode_id": 93844086,
+    "create_time": "2026-08-17T07:18:41.349738500Z",
+    "ours": 85702,
+    "theirs": 81451,
+    "seat": 1,
+    "opp_team": 16688868,
+    "opp_name": "AlbanMaurel7",
+    "our_score": 955.0793048300466
+   },
+   {
+    "episode_id": 93824729,
+    "create_time": "2026-08-17T05:50:40.939016600Z",
+    "ours": 61161,
+    "theirs": 59014,
+    "seat": 1,
+    "opp_team": 16661685,
+    "opp_name": "Lê Ngọc Lâm",
+    "our_score": 946.825362021338
+   },
+   {
+    "episode_id": 93815270,
+    "create_time": "2026-08-17T04:38:40.729105900Z",
+    "ours": 86832,
+    "theirs": 81799,
+    "seat": 0,
+    "opp_team": 16670715,
+    "opp_name": "i3",
+    "our_score": 938.5386555770682
+   },
+   {
+    "episode_id": 93808953,
+    "create_time": "2026-08-17T03:46:38.634775500Z",
+    "ours": 56127,
+    "theirs": 56672,
+    "seat": 1,
+    "opp_team": 16636454,
+    "opp_name": "epigene",
+    "our_score": 928.0150811066329
+   },
+   {
+    "episode_id": 93808525,
+    "create_time": "2026-08-17T03:42:39.374587100Z",
+    "ours": 66873,
+    "theirs": 66869,
+    "seat": 1,
+    "opp_team": 16654743,
+    "opp_name": "Jaume Batlle i Ferrer",
+    "our_score": 940.6619942305492
+   },
+   {
+    "episode_id": 93807985,
+    "create_time": "2026-08-17T03:38:41.030179600Z",
+    "ours": 61726,
+    "theirs": 59608,
+    "seat": 0,
+    "opp_team": 16666391,
+    "opp_name": "Harshpreet Singh",
+    "our_score": 932.1126822369354
+   },
+   {
+    "episode_id": 93807497,
+    "create_time": "2026-08-17T03:34:38.954652500Z",
+    "ours": 93727,
+    "theirs": 87555,
+    "seat": 0,
+    "opp_team": 16668998,
+    "opp_name": "WarRusher",
+    "our_score": 922.9462004936993
+   },
+   {
+    "episode_id": 93807013,
+    "create_time": "2026-08-17T03:30:38.584716200Z",
+    "ours": 98529,
+    "theirs": 85069,
+    "seat": 0,
+    "opp_team": 16665301,
+    "opp_name": "EricYang03",
+    "our_score": 912.1564285346915
+   },
+   {
+    "episode_id": 93806527,
+    "create_time": "2026-08-17T03:26:38.703804100Z",
+    "ours": 50507,
+    "theirs": 52307,
+    "seat": 1,
+    "opp_team": 16639719,
+    "opp_name": "JASONSLIMWONG",
+    "our_score": 902.0913715650048
+   },
+   {
+    "episode_id": 93806048,
+    "create_time": "2026-08-17T03:22:38.954909100Z",
+    "ours": 122910,
+    "theirs": 98701,
+    "seat": 0,
+    "opp_team": 16679295,
+    "opp_name": "Mk26",
+    "our_score": 913.2157459954688
+   },
+   {
+    "episode_id": 93805565,
+    "create_time": "2026-08-17T03:18:40.344519200Z",
+    "ours": 89486,
+    "theirs": 74853,
+    "seat": 1,
+    "opp_team": 16659715,
+    "opp_name": "masb",
+    "our_score": 904.034295102558
+   },
+   {
+    "episode_id": 93805075,
+    "create_time": "2026-08-17T03:14:38.676881400Z",
+    "ours": 102709,
+    "theirs": 106062,
+    "seat": 0,
+    "opp_team": 16654743,
+    "opp_name": "Jaume Batlle i Ferrer",
+    "our_score": 889.2467423083119
+   },
+   {
+    "episode_id": 93804578,
+    "create_time": "2026-08-17T03:10:38.654146300Z",
+    "ours": 77750,
+    "theirs": 82114,
+    "seat": 1,
+    "opp_team": 16635890,
+    "opp_name": "Poojan",
+    "our_score": 902.0998900760519
+   },
+   {
+    "episode_id": 93804092,
+    "create_time": "2026-08-17T03:06:39.239595400Z",
+    "ours": 67906,
+    "theirs": 65959,
+    "seat": 0,
+    "opp_team": 16697893,
+    "opp_name": "YWehbe",
+    "our_score": 912.3479767122428
+   },
+   {
+    "episode_id": 93803598,
+    "create_time": "2026-08-17T03:02:38.833777900Z",
+    "ours": 112425,
+    "theirs": 78906,
+    "seat": 0,
+    "opp_team": 16634128,
+    "opp_name": "ZechHuang",
+    "our_score": 898.9327110460292
+   },
+   {
+    "episode_id": 93803113,
+    "create_time": "2026-08-17T02:58:58.083974700Z",
+    "ours": 95164,
+    "theirs": 110753,
+    "seat": 1,
+    "opp_team": 16629983,
+    "opp_name": "Amundsen",
+    "our_score": 885.120331343713
+   },
+   {
+    "episode_id": 93802616,
+    "create_time": "2026-08-17T02:54:08.939613400Z",
+    "ours": 94516,
+    "theirs": 98969,
+    "seat": 0,
+    "opp_team": 16652984,
+    "opp_name": "hxaxd",
+    "our_score": 892.4104643444075
+   },
+   {
+    "episode_id": 93802129,
+    "create_time": "2026-08-17T02:50:08.594748400Z",
+    "ours": 87108,
+    "theirs": 87033,
+    "seat": 1,
+    "opp_team": 16688929,
+    "opp_name": "Kangqiao LIU",
+    "our_score": 908.0411074801397
+   },
+   {
+    "episode_id": 93801630,
+    "create_time": "2026-08-17T02:46:10.842438900Z",
+    "ours": 90428,
+    "theirs": 92751,
+    "seat": 0,
+    "opp_team": 16652984,
+    "opp_name": "hxaxd",
+    "our_score": 892.9541665067811
+   },
+   {
+    "episode_id": 93801143,
+    "create_time": "2026-08-17T02:42:08.857854800Z",
+    "ours": 84885,
+    "theirs": 99120,
+    "seat": 1,
+    "opp_team": 16637797,
+    "opp_name": "Xiangchen Li",
+    "our_score": 908.7405748295131
+   },
+   {
+    "episode_id": 93800646,
+    "create_time": "2026-08-17T02:38:10.052316Z",
+    "ours": 59025,
+    "theirs": 69952,
+    "seat": 0,
+    "opp_team": 16712577,
+    "opp_name": "nattapon nakakong",
+    "our_score": 927.9088350892429
+   },
+   {
+    "episode_id": 93800171,
+    "create_time": "2026-08-17T02:34:08.952333800Z",
+    "ours": 84918,
+    "theirs": 79327,
+    "seat": 1,
+    "opp_team": 16668361,
+    "opp_name": "NinhNguyen",
+    "our_score": 946.5498884955988
+   },
+   {
+    "episode_id": 93799690,
+    "create_time": "2026-08-17T02:30:08.727715100Z",
+    "ours": 63005,
+    "theirs": 40282,
+    "seat": 0,
+    "opp_team": 16664360,
+    "opp_name": "Rohan L",
+    "our_score": 931.7030186332003
+   },
+   {
+    "episode_id": 93799181,
+    "create_time": "2026-08-17T02:26:09.245452200Z",
+    "ours": 61237,
+    "theirs": 42408,
+    "seat": 0,
+    "opp_team": 16673346,
+    "opp_name": "gabrielep09",
+    "our_score": 909.6911923717295
+   },
+   {
+    "episode_id": 93798700,
+    "create_time": "2026-08-17T02:22:10.530791500Z",
+    "ours": 136718,
+    "theirs": 122712,
+    "seat": 1,
+    "opp_team": 16674447,
+    "opp_name": "Nathan Thor",
+    "our_score": 887.3537847282016
+   },
+   {
+    "episode_id": 93798205,
+    "create_time": "2026-08-17T02:18:11.413449600Z",
+    "ours": 67328,
+    "theirs": 82382,
+    "seat": 1,
+    "opp_team": 16692350,
+    "opp_name": "Emerson Suarez",
+    "our_score": 855.6672378604031
+   },
+   {
+    "episode_id": 93797735,
+    "create_time": "2026-08-17T02:14:09.024946600Z",
+    "ours": 67090,
+    "theirs": 83581,
+    "seat": 1,
+    "opp_team": 16656379,
+    "opp_name": "Jay Gautam",
+    "our_score": 882.0642356623397
+   },
+   {
+    "episode_id": 93797251,
+    "create_time": "2026-08-17T02:10:08.727242100Z",
+    "ours": 77048,
+    "theirs": 67783,
+    "seat": 1,
+    "opp_team": 16658272,
+    "opp_name": "Yash Katiyar",
+    "our_score": 913.5329423886649
+   },
+   {
+    "episode_id": 93796764,
+    "create_time": "2026-08-17T02:06:08.551471500Z",
+    "ours": 92721,
+    "theirs": 99236,
+    "seat": 1,
+    "opp_team": 16665120,
+    "opp_name": "nobody",
+    "our_score": 875.6631458859615
+   },
+   {
+    "episode_id": 93796268,
+    "create_time": "2026-08-17T02:02:08.452750100Z",
+    "ours": 73920,
+    "theirs": 67049,
+    "seat": 1,
+    "opp_team": 16709967,
+    "opp_name": "Matsu",
+    "our_score": 931.8515667276779
+   },
+   {
+    "episode_id": 93795778,
+    "create_time": "2026-08-17T01:58:09.551440200Z",
+    "ours": 86740,
+    "theirs": 72762,
+    "seat": 0,
+    "opp_team": 16657172,
+    "opp_name": "Honkazu",
+    "our_score": 885.3197076875717
+   },
+   {
+    "episode_id": 93795291,
+    "create_time": "2026-08-17T01:54:07.178440500Z",
+    "ours": 51506,
+    "theirs": 57556,
+    "seat": 1,
+    "opp_team": 16655142,
+    "opp_name": "Stanislav Kuznetsov",
+    "our_score": 828.909619104935
+   },
+   {
+    "episode_id": 93794803,
+    "create_time": "2026-08-17T01:50:07.150364300Z",
+    "ours": 83885,
+    "theirs": 69305,
+    "seat": 0,
+    "opp_team": 16655744,
+    "opp_name": "Ademola Arigbabuwo",
+    "our_score": 917.8368951464563
+   },
+   {
+    "episode_id": 93794328,
+    "create_time": "2026-08-17T01:46:07.102137100Z",
+    "ours": 71746,
+    "theirs": 34228,
+    "seat": 1,
+    "opp_team": 16675457,
+    "opp_name": "Ramana Prabhu Sana",
+    "our_score": 830.8637129902481
+   },
+   {
+    "episode_id": 93793920,
+    "create_time": "2026-08-17T01:42:10.932948700Z",
+    "ours": 56103,
+    "theirs": 79354,
+    "seat": 0,
+    "opp_team": 16660385,
+    "opp_name": "Jose Santiago Echevarria",
+    "our_score": 753.5277885519937
+   },
+   {
+    "episode_id": 93793363,
+    "create_time": "2026-08-17T01:38:09.293514200Z",
+    "ours": 89194,
+    "theirs": 54694,
+    "seat": 0,
+    "opp_team": 16664134,
+    "opp_name": "Pelayo Fernández",
+    "our_score": 827.1318591534412
+   },
+   {
+    "episode_id": 93792901,
+    "create_time": "2026-08-17T01:34:07.182535600Z",
+    "ours": 116517,
+    "theirs": 52443,
+    "seat": 0,
+    "opp_team": 16678644,
+    "opp_name": "Kanik Aggarwal",
+    "our_score": 719.8774896937438
    }
   ]
  }
