@@ -774,3 +774,62 @@ on the same 224 games.
 **And it is the fourth time today that copying an opponent's observable choice
 has failed:** their 6 sheep is right for *their* build. `CLAUDE.md`: an
 opponent's behaviour is evidence about their optimum, not ours.
+
+## Harvest-date price decay, and the exhaustion of the panel (2026-08-17)
+
+**The mispricing is real and stands.** `build_plant_plan` prices every crop off
+the curve as it stands TODAY, but crops reach the market days later. Measured
+over 45 of our 1.32.7 ladder games -- realised sale price against the median
+price during the day 8-15 planting window:
+
+| crop | days to harvest | price at planting | realised | ratio |
+|---|---|---|---|---|
+| MELON | 12 | 184 | 146 | **0.79** |
+| STRAWBERRY | 10 | 188 | 173 | 0.92 |
+| WHEAT | 4 | 40 | 53 | **1.35** |
+| CARROT | 3 | 44 | 62 | **1.42** |
+
+Perfectly ordered by duration. Long crops realise *below* the price the planner
+used; short crops realise *above* it -- a ~70% relative mispricing between melon
+and wheat that is systematic across every game.
+
+**The blunt fix is neutral.** `HARVEST_DECAY`, a per-day discount on marginal
+value:
+
+| | seeds 600-619 | seeds 800-819 | pooled |
+|---|---|---|---|
+| control | 263/280 | 278/280 | **541/560** |
+| 0.02 | 267/280 | 275/280 | **542/560** |
+
+**+1 game in 560.** Larger values collapse -- 0.05 -> 58%, 0.10 -> 29% -- because
+discounted scores fall under `MIN_PLANT_SCORE` and planting shuts down. The lever
+is entangled with the gate.
+
+Why the fix does not capture the finding: a uniform per-day discount penalises
+long crops but does not *reward* short ones, and wheat/carrot appreciate 35-42%.
+The correct form prices each crop against the curve projected to **its own
+harvest day**. Untested.
+
+### The panel is exhausted as an instrument
+
+Control read **278/280 (99.3%)** on seeds 800-819. Across today's runs it has
+read 90.8%, 93.9%, 94.6%, 95.4% and 99.3% depending only on the seed set. Two
+consequences:
+
+1. **There is almost no headroom left.** A change that genuinely improves us has
+   nowhere to show it, so every recent candidate reads as a wash.
+2. **Seed variance (~8pp) dwarfs any real effect (~1pp).** Anything under ~5pp on
+   one seed set is noise, and today three separate candidates flipped sign
+   between disjoint seed sets: `SELL_ANCHOR` (+2/120 then -1/250), `v7-fert`
+   (-3/224 then +4/280), `HARVEST_DECAY` (+4/280 then -3/280).
+
+**Meanwhile our real ladder win rate is 45.8%.** The panel says 99%, the ladder
+says 46%. The panel agents run a competitor's *build* on OUR machinery, so they
+inherit our execution -- and the ladder analysis showed mid-field and elite
+opponents are identical on build and differ only in conversion efficiency, which
+is exactly what reconstruction cannot copy.
+
+**Do not tune against the panel any further.** It cannot distinguish a 1-point
+change, and the gap that matters is not in the build it reproduces. The next
+useful measurement is on the ladder itself, or against an opponent model built
+from execution rather than build parameters.
