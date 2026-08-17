@@ -203,14 +203,25 @@ RIVAL_SUPPLY_SHARE = 0.0  # the build is fixed, so do not also adapt it
                 "        _out = []\n"
                 "        for _crop, _n in _want:\n"
                 "            for _ in range(_n):\n"
-                "                if len(_out) >= n_tiles:\n"
-                "                    break\n"
                 "                _out.append((_crop, P_PLANT + 10))\n"
                 "        _CACHE[key] = _out\n"
                 "        return _out\n"
                 "    _CACHE[key] = []\n"
                 "    return []\n\n" + old_plan)
     src = src.replace(old_plan, new_plan, 1)
+
+    # The scripted schedule is the whole point of a panel agent: it must
+    # reproduce the competitor's build, not be re-clamped by OUR labour model.
+    # Measured 2026-08-17: with the clamp in place panel agents plateaued at
+    # 31-40 tiles against the 56-59 the real opponents reach -- so the panel
+    # inherited our own ceiling and could no longer measure us against it.
+    old_gate = ('    plan = build_plant_plan(obs, farm, shed, board_size, allowance, farm["money"],\n'
+                '                            burn, extra_reserve) if allowance > 0 else []')
+    assert old_gate in src, "plant call site not found"
+    src = src.replace(old_gate,
+                      '    plan = build_plant_plan(obs, farm, shed, board_size,\n'
+                      '                            max(allowance, plantable_count), farm["money"],\n'
+                      '                            burn, extra_reserve)', 1)
 
     src = src.replace('AGENT_VERSION = "v5-pivot"',
                       f'AGENT_VERSION = "panel:{slug(name)}"', 1)

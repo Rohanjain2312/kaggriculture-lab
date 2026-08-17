@@ -833,3 +833,58 @@ is exactly what reconstruction cannot copy.
 change, and the gap that matters is not in the build it reproduces. The next
 useful measurement is on the ladder itself, or against an opponent model built
 from execution rather than build parameters.
+
+## Trying to fix the panel: two defects, one of them structural (2026-08-17)
+
+The panel had stopped resolving anything (control 278/280 on one seed set). Two
+causes found; one is fixable and one is not.
+
+**Defect 1 -- the scripted plan was re-clamped by OUR labour model.** `panel.py`
+capped the scripted planting at `n_tiles` (our `allowance = spare//2 -
+plants_alive`) and only ran it `if allowance > 0`. So a panel agent copying a
+56-tile opponent was throttled to our ~40-tile ceiling: it inherited the exact
+weakness it exists to measure. Unclamped, and the call site no longer gated.
+
+Effect was small: `panel_rival` peak 40 -> 43, `panel_ueddy` 31 -> 34, against the
+**56-59** real opponents reach. And **weeds appeared** (21 and 9, from 0) -- the
+extra tiles die, because our watering machinery cannot sustain them.
+
+**Defect 2 -- the reconstruction sees about half the planting.** `plantings_by_day`
+infers plantings from day-over-day *increases* in the crop census, which cannot
+see a tile harvested and resown. Elite players churn heavily. Over 80 elite
+seasons:
+
+| | |
+|---|---|
+| actual `PLANT` actions (exact) | **187** |
+| what census-diff reconstructs | **99** |
+| share of their planting the panel replays | **52.9%** |
+
+Fixable in principle -- `unit_ops` carries exact `PLANT:<crop>` counts -- but see
+below for why it would not help much.
+
+### The structural ceiling: a panel agent cannot be stronger than our machinery
+
+Panel agents are a competitor's *build* running on **our** routing, watering,
+selling and fertilizer code. Our per-plant labour cost is 1.87 actions/plant-day
+against the elite's 1.34. So when the script asks for 56 tiles, our machinery
+waters 43 of them and weeds the rest.
+
+**You cannot construct an opponent stronger than yourself out of your own
+execution.** Feeding the script more plantings (defect 2) would produce more
+weeds, not a harder opponent. The ladder analysis already showed mid-field and
+elite opponents are identical on *build* and differ only in *conversion
+efficiency* -- precisely the part reconstruction cannot copy.
+
+That is why the panel reads 99% while our real ladder win rate is **45.8%**.
+
+**Operating conclusion.** Treat the panel as a **guard** ("did I break it?"),
+never as a decision metric -- the same status absolute-money-vs-`pass` already
+has. It can still detect a regression, which is worth keeping. It cannot confirm
+an improvement, and three candidates today flipped sign across disjoint seed sets
+while it insisted they were within a point of each other.
+
+**A real improvement now has to be confirmed on the ladder.** That is 5
+submissions a day against a local harness that runs hundreds of games in minutes,
+which inverts the usual cadence: local runs become a filter for *breakage*, and
+the ladder becomes the only place a win is demonstrated.

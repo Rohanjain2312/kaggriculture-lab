@@ -46,7 +46,7 @@ import os
 import sys
 import traceback
 
-AGENT_VERSION = "v6-curve"   # keep in sync with docs/SUBMISSIONS.md
+AGENT_VERSION = "v7-fert"   # keep in sync with docs/SUBMISSIONS.md
 
 DEBUG = os.environ.get("KAGGRICULTURE_DEBUG") == "1"
 
@@ -274,7 +274,7 @@ def price_from(params, item, inv):
     return max(1, int(round(price)))
 
 
-def detect_market_params(market):
+def detect_market_params(market, current=None):
     """Pick the parameter table that reproduces the prices this episode shows.
 
     The environment does not announce which curve set is live, and getting it
@@ -294,15 +294,23 @@ def detect_market_params(market):
         return supplied                      # explicit config beats inference
     prices = market.get("prices") or {}
     inventory = market.get("inventory") or {}
-    best, best_hits = MARKET_PARAMS, -1
+    hits = []
     for table in (MARKET_PARAMS, MARKET_PARAMS_HINGE):
-        hits = 0
-        for item, observed in prices.items():
-            if item in table and item in inventory:
-                hits += int(price_from(table, item, inventory[item]) == observed)
-        if hits > best_hits:
-            best, best_hits = table, hits
-    return best
+        hits.append(sum(1 for item, observed in prices.items()
+                        if item in table and item in inventory
+                        and price_from(table, item, inventory[item]) == observed))
+    if hits[1] > hits[0]:
+        return MARKET_PARAMS_HINGE
+    if hits[0] > hits[1]:
+        return MARKET_PARAMS
+    # A tie means the two curve sets are genuinely indistinguishable at this
+    # inventory, which is the NORMAL state early on: every deficit is small and
+    # `hinge` has not yet diverged from `linear`/`log`. Snapping back to a
+    # default on every ambiguous turn made the verdict flap -- measured over 45
+    # ladder games, 8.0% of day-snapshots read OLD and 78% of games changed
+    # table mid-game. Hold the last decisive verdict instead; fall back to the
+    # pre-#1399 set only when there has never been one.
+    return current if current is not None else MARKET_PARAMS
 
 
 def market_price(item, inv):
@@ -559,8 +567,6 @@ def build_plant_plan(obs, farm, shed, board_size, n_tiles, money, burn, extra_re
         _out = []
         for _crop, _n in _want:
             for _ in range(_n):
-                if len(_out) >= n_tiles:
-                    break
                 _out.append((_crop, P_PLANT + 10))
         _CACHE[key] = _out
         return _out
@@ -732,6 +738,17 @@ def fertilize_gain(tile, day):
         return min(gain, room)
 
     window_start = (c["max_yield_day"] + 1) // 2
+    # If daily watering alone already reaches the cap before we would harvest,
+    # fertilizer can add nothing: it doubles a watered day's bonus, but the yield
+    # is capped and HARVEST is illegal before first_yield_day, so an earlier cap
+    # buys no time either. Melon is the only crop where this bites -- it has 7
+    # bonus days (ages 6-12) to fill 5 units, so it saturates on its own. The
+    # docstring above has always said so; the code did not, and the cost was
+    # real: ~25 units of sellable fertilizer diverted onto melon over days 4-8
+    # (~$2,400 at the day-4-8 price), plus the same phantom demand withholding
+    # stock from sale through `keep["FERTILIZER"]`.
+    if 1 + (c["max_yield_day"] - window_start + 1) >= c["max_yield"]:
+        return 0
     gain = 0
     for d in range(day, day + 3):
         age = d - tile["planted_day"]
@@ -1283,8 +1300,9 @@ def play(obs):
     # one missed day turns a plant into a weed and the tile is dead for good.
     spare = workforce * ACTIONS_PER_UNIT - ANIMAL_ACTIONS * n_animals
     allowance = max(0, min(spare // 2 - plants_alive, plantable_count))
-    plan = build_plant_plan(obs, farm, shed, board_size, allowance, farm["money"],
-                            burn, extra_reserve) if allowance > 0 else []
+    plan = build_plant_plan(obs, farm, shed, board_size,
+                            max(allowance, plantable_count), farm["money"],
+                            burn, extra_reserve)
 
     fert_want = fertilizer_demand(farm, obs["day"], obs["market"]["prices"])
 
@@ -1339,7 +1357,12 @@ def agent(obs, config=None):
         except Exception:
             pass
         try:
-            _ACTIVE_PARAMS[0] = detect_market_params(obs.get("market") or {})
+            # A fresh episode must not inherit the previous one's verdict; the
+            # module persists across games in a bench run.
+            if not obs.get("day") and not obs.get("hour"):
+                _ACTIVE_PARAMS[0] = MARKET_PARAMS
+            _ACTIVE_PARAMS[0] = detect_market_params(obs.get("market") or {},
+                                                     _ACTIVE_PARAMS[0])
         except Exception:
             _ACTIVE_PARAMS[0] = MARKET_PARAMS     # never let detection break a turn
         return play(obs)
