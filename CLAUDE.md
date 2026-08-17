@@ -36,6 +36,7 @@ Concretely:
 | `digest.py` | reduce raw replays (~32 MB each) to ~27 KB digests in `docs/analysis/digests/`; **raw replays are pruned after digesting, the digest is what stays** |
 | `analyze.py` | replay post-mortem: no-op audit, wasted motion, market split, fertilizer audit, planting schedule, action mix, opponent reconstruction |
 | `tools/margin.py` | **head-to-head post-mortem — what separates winner from loser, paired within-game.** `--focus TEAM` when one agent dominates the corpus. Marks order-derived features `~` (intent, not volume) |
+| `tools/ladder.py` | **the decision instrument — real ladder win rate and margin distribution.** `--fetch` refreshes from `ListEpisodes` (reward *is* final money); the band table converts "$Xk of swing" into "+Y points of win rate" |
 | `docs/REPLAY_ANALYSIS_CHECKLIST.md` | checklist to work through per analysis — **append new checks to it** |
 | `docs/IMPROVEMENT_BACKLOG.md` | candidate changes with evidence + what was already refuted |
 | `docs/SUBMISSIONS.md` | one row per submission; snapshot `main.py` to `agents/` when shipping |
@@ -101,6 +102,13 @@ LOCKED tiles, and `shedCapacity` blocking `BUY_PRODUCT`/`BUY_ANIMAL`.
 **Optimise win rate, not mean money.** Scoring is win/loss only, so a $1 win
 equals a $50k win. Absolute money vs `pass` is a *guard* ("did I break it?"), not
 the decision metric. See `docs/ROADMAP.md`.
+
+**The opponent panel is a guard too, not a decision metric.** It reads 98-99%
+while the ladder reads 45-55%, because panel agents run a competitor's *build* on
+**our** routing — they inherit our own ceiling, so they cannot be stronger than
+us. Reconstruction also sees only 52.9% of their planting. Local runs now filter
+for *breakage*; `tools/ladder.py` is where a win is demonstrated. That inverts the
+cadence — 5 submissions a day instead of hundreds of local games in minutes.
 
 **Measure it; don't reason about it.** Every load-bearing number here was
 measured with a throwaway agent or a replay audit. Paper reasoning has been wrong
