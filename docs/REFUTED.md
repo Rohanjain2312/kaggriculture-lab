@@ -1021,3 +1021,69 @@ quarters (46.7 / 42.2 / 44.4 / 46.7), so the ladder itself is sound — it is th
 v6-curve's first 27 (53.6%) almost exactly, and its opponents' mean money is
 still climbing ($57.9k -> $89.1k). Do not read a submission's win rate before
 ~100 games, and never compare two submissions at different game counts.
+
+---
+
+## 2026-08-17 — "we win from behind" is false; we start behind, and one constant does it
+
+Across v7-fert's 43 real ladder games our cash is **behind at day 20 in games we
+win** (−$10,061) and in games we lose (−$13,571), so the build looked like a
+comeback engine. It is not.
+
+**Our own play does not distinguish wins from losses.** Correlation of each
+side's cash on day D with the final margin:
+
+| day | our cash | p | their cash | p |
+|---|---|---|---|---|
+| 14 | +0.021 | 0.89 | **−0.303** | 0.042 |
+| 18 | −0.131 | 0.40 | **−0.406** | 0.0045 |
+| 20 | +0.116 | 0.45 | **−0.417** | 0.0033 |
+
+Our curve is near-identical in both (day 18: $11.0k winning, $11.6k losing). We
+run the same back-loaded build every game; what varies is the opponent.
+
+**The margin is an action differential.** Ours − theirs correlates **+0.534
+(p=0.0001)**, the strongest signal in the corpus. Decomposed:
+
+| | ours (W) | ours (L) | theirs (W) | theirs (L) |
+|---|---|---|---|---|
+| total actions | 6,331 | 5,966 | 6,035 | **6,700** |
+| hand-days | 308 | 306 | 278 | 297 |
+| actions per hand-day | 20.58 | 19.43 | 21.93 | **22.54** |
+
+Our hand-days correlate **+0.010 (p=0.95)** — we hire the same every game, pinned
+by the model. Theirs correlate −0.366. And we *out-hire* them while
+under-converting. Note our **productive** actions already exceed theirs (2,306 vs
+2,261 in losses); their surplus is moves and logistics. They do not execute
+better — they fill turns we leave empty.
+
+**The empty turns are all in week one.** Measured by counting PASS per unit-turn:
+
+| day | 0 | 2 | 4 | 6 | 8 | 10 | 18 | 22+ |
+|---|---|---|---|---|---|---|---|---|
+| idle % | 38 | 62 | 58 | 55 | 45 | 20 | 2 | 0 |
+
+**49% of unit-turns on days 0-9 are PASS**, against 8% for days 10-29.
+
+**The cause is `LIVESTOCK_RESERVE = 900`.** Instrumenting every refusal, days 1-8
+reject *every* crop on cash: the floor is `CASH_FLOOR + LIVESTOCK_RESERVE + burn *
+RUNWAY_DAYS` ≈ $1,206-1,322 while we hold $269-1,242. The labour allowance is
+10-11 and the tile census shows **10-11 EMPTY tiles held through day 7** (against
+opponents' 2-6). Not land, not labour, not the score gate — one constant.
+
+**This is already-refuted ground, and the retry gate still holds.** The
+fractional-reserve fix (2026-08-06) and `FAST_CASH_DAYS` / `MIN_WORKING_TILES`
+(later) all failed the same way: unblocking the cash plants more than the crew can
+water, peak weeds 3 → 24, and a tile lost to one missed watering is dead for good.
+**Do not sweep the reserve again.**
+
+**What is new is the measurement the retry gate asked for.** That gate requires
+actions-per-plant-per-day to be *derived*, not swept. It is now measured:
+`ACTIONS_PER_UNIT = 12` models a unit as delivering 12 useful actions a day; the
+real figure is **19.4-20.6 for us and 22.5 for the opponent**, so the labour model
+is ~40% pessimistic — while the `spare // 2` allowance is simultaneously too loose
+at the point where cash stops binding. Both constants are wrong in *opposite*
+directions, which is why sweeping either alone has always failed.
+
+**Next step: re-derive `ACTIONS_PER_UNIT` and the `// 2` against these measured
+numbers, verify weeds stay flat on days 2-27, and only then revisit the reserve.**
